@@ -19,13 +19,11 @@ Podstawowe funkcjonalności:
 
 3. Grywalne poziomy z questami do odblokowania kolejnych etapów.
 
-4. System handlu: pojawianie się kaczek, z którymi można wymieniać zasoby na walutę.
+4. Pojawianie się gęsi, z którymi można handlować.
 
-5. Sklep/menu do kupowania nasion.
+5. Upływ czasu (cykl dnia i nocy).
 
-6. Upływ czasu (cykl dnia i nocy).
-
-7. Ekwipunek dla gracza gdzie każdego zasobu może mieć maksymalnie 99.
+6. Ekwipunek dla gracza gdzie każdego zasobu może mieć maksymalnie 99.
 
 
 
