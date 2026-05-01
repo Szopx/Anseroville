@@ -5,7 +5,7 @@ Naszym projektem będzie "Anseroville" – gra 2D typu farming simulator.
 
 Nasza gra będzie opierała się na przechodzeniu kolejnych poziomów. Będzie ich ok. 5-7, a na każdym z nich gracz będzie miał do wykonania konkretnego questa, żeby pójść dalej. Będą to zadania typu „zbierz 6 jabłek i 3 marchewki” albo „dokonaj 3 transakcji”. Kolejne poziomy będzie można odblokować tylko po ukończeniu poprzednich. Jeśli gracz przejdzie wszystkie, gra skończy się wygraną. 
 
-Rozgrywka to głównie będzie polegała ma zajmowaniu się uprawami. Będzie można sadzić nasiona (na przykład marchewki, pszenicę, ziemniaki), by potem poczekać aż urosną i je zebrać. 
+Rozgrywka będzie głównie polegała ma zajmowaniu się uprawami. Będzie można sadzić nasiona (na przykład marchewki, pszenicę, ziemniaki), by potem poczekać aż urosną i je zebrać. 
 
 W naszej grze transakcje będą polegać na pojawiających się raz na jakiś czas na farmie kaczkach którym gracz może sprzedać część swoich zbiorów. Za zarobione pieniądze gracz będzie mógł kupować nowe nasiona lub ulepszenia (np. nawóz który sprawi że uprawy będą szybciej rosnąć)
 
