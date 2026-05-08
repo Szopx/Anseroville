@@ -1,5 +1,8 @@
 package io.github.anseroville.model;
 
+import io.github.anseroville.model.Tiles.InteractableTile;
+import io.github.anseroville.model.Tiles.GroundTile;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +35,7 @@ public class GameState {
             int column = place[1];
 
             GridPosition gridPosition = new GridPosition(column, row);
-            tiles.put(gridPosition,new InteractableTile(gridPosition));
+            tiles.put(gridPosition,new GroundTile(gridPosition));
         }
 
         return tiles;
@@ -44,5 +47,9 @@ public class GameState {
 
     public Map<GridPosition, InteractableTile> getInteractableTiles() {
         return interactableTiles;
+    }
+
+    public void ModifyTile(GridPosition position, InteractableTile interactableTile) {
+        interactableTiles.put(position, interactableTile);
     }
 }

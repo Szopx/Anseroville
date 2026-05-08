@@ -1,21 +1,19 @@
-package io.github.anseroville.model;
+package io.github.anseroville.model.Tiles;
 
-public class InteractableTile {
+import io.github.anseroville.model.GridPosition;
+
+public abstract class InteractableTile {
     private final GridPosition gridPosition;
 
     private boolean selected;
 
-
     public InteractableTile(GridPosition gridPosition) {
         this.gridPosition = gridPosition;
-
     }
 
     public GridPosition getGridPosition() {
         return gridPosition;
     }
-
-
 
     public boolean isSelected() {
         return selected;
