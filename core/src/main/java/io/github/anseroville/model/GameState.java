@@ -1,21 +1,25 @@
 package io.github.anseroville.model;
 
-import io.github.anseroville.model.Tiles.InteractableTile;
 import io.github.anseroville.model.Tiles.GroundTile;
+import io.github.anseroville.model.Tiles.InteractableTile;
+import io.github.anseroville.model.inventory.Inventory;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 public class GameState {
-    private static final int TILE_WIDTH = 75; //? zmienić żeby w rendertiles nie było fixed
-    private static final int TILE_HEIGHT = 73;//?
+    private static final int TILE_WIDTH = 75;
+    private static final int TILE_HEIGHT = 73;
 
     private final Player player;
     private final Map<GridPosition, InteractableTile> interactableTiles;
+    private final Inventory inventory;
 
     public GameState() {
         this.player = new Player(100, 100);
         this.interactableTiles = createInteractableTiles();
+        this.inventory = new Inventory();
     }
 
     private Map<GridPosition, InteractableTile> createInteractableTiles() {
@@ -26,7 +30,7 @@ public class GameState {
                 {3, 0}, {3, 1}, {3, 2}, {3, 3}, {3, 4}, {3, 5}, {3, 6},
                 {4, 0}, {4, 1}, {4, 2}, {4, 3}, {4, 4}, {4, 5}, {4, 6},
                 {6, 1}, {6, 2}, {6, 4}, {6, 5}, {6, 6}
-        }; //wywalić do innego pliku
+        };
 
         Map<GridPosition, InteractableTile> tiles = new HashMap<>();
 
@@ -35,7 +39,7 @@ public class GameState {
             int column = place[1];
 
             GridPosition gridPosition = new GridPosition(column, row);
-            tiles.put(gridPosition,new GroundTile(gridPosition));
+            tiles.put(gridPosition, new GroundTile(gridPosition));
         }
 
         return tiles;
@@ -49,7 +53,15 @@ public class GameState {
         return interactableTiles;
     }
 
-    public void ModifyTile(GridPosition position, InteractableTile interactableTile) {
+    public InteractableTile getTile(GridPosition position) {
+        return interactableTiles.get(position);
+    }
+
+    public void modifyTile(GridPosition position, InteractableTile interactableTile) {
         interactableTiles.put(position, interactableTile);
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 }
