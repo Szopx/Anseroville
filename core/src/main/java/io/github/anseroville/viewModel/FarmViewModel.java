@@ -3,10 +3,14 @@ package io.github.anseroville.viewModel;
 import io.github.anseroville.model.Direction;
 import io.github.anseroville.model.GameState;
 import io.github.anseroville.model.GridPosition;
-import io.github.anseroville.model.InteractableTile;
+import io.github.anseroville.model.Tiles.InteractableTile;
 import io.github.anseroville.model.Player;
+import io.github.anseroville.model.inventory.Hand;
+import io.github.anseroville.model.inventory.Inventory;
+import io.github.anseroville.model.inventory.ItemType;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
@@ -84,5 +88,18 @@ public class FarmViewModel {
         }
 
         return tileViewStates;
+    }
+
+    public InventoryViewState getInventoryViewState(){
+        Inventory inventory = gameState.getInventory();
+        Hand hand = gameState.getHand();
+
+        Map<ItemType, Integer> stateMap = new EnumMap<>(ItemType.class);
+
+        for (ItemType type : ItemType.values()) {
+            stateMap.put(type, inventory.getAmount(type));
+        }
+
+        return new InventoryViewState(stateMap,hand.getType(),hand.getAmount());
     }
 }
