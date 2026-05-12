@@ -3,6 +3,9 @@ package io.github.anseroville.viewModel;
 import io.github.anseroville.model.Direction;
 import io.github.anseroville.model.GameState;
 import io.github.anseroville.model.GridPosition;
+import io.github.anseroville.model.Tiles.GroundTile;
+import io.github.anseroville.model.Tiles.GrowingGroundTile;
+import io.github.anseroville.model.Tiles.GrowingState;
 import io.github.anseroville.model.Tiles.InteractableTile;
 import io.github.anseroville.model.Player;
 import io.github.anseroville.model.inventory.Hand;
@@ -16,7 +19,7 @@ import java.util.Map;
 
 public class FarmViewModel {
     private static final int TILE_WIDTH = 75;
-    private static final int TILE_HEIGHT = 73;
+    private static final int TILE_HEIGHT = 75;
     private static final int PLAYER_REACH = 50;
 
     private final GameState gameState;
@@ -25,7 +28,6 @@ public class FarmViewModel {
     public FarmViewModel(GameState gameState) {
         this.gameState = gameState;
     }
-
     public void movePlayer(Direction direction) {
         gameState.getPlayer().move(direction);
         updateSelectedTile();
@@ -34,6 +36,18 @@ public class FarmViewModel {
     public void teleportPlayer() {
         gameState.getPlayer().teleportToStart();
         updateSelectedTile();
+    }
+    public void posadz_marchewki() {
+        if (selectedTile == null) {
+            return;
+        }
+        else if (selectedTile instanceof GrowingGroundTile) {
+            GrowingGroundTile growingTile = (GrowingGroundTile) selectedTile;
+            if (growingTile.getGrowingState() != GrowingState.ZERO) {
+                return;
+            }
+            System.out.println("UJ - Roślina już tu jest");
+        }
     }
 
     private void updateSelectedTile() {
@@ -83,7 +97,7 @@ public class FarmViewModel {
             InteractableTile tile = entry.getValue();
 
             tileViewStates.add(new TileViewState(
-                    tile.getGridPosition().getX(),tile.getGridPosition().getY(),tile.isSelected())
+                    tile.getGridPosition().getX(),tile.getGridPosition().getY(),tile.isSelected(), tile.getGrowingState())
             );
         }
 

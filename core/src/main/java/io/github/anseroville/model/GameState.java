@@ -1,18 +1,17 @@
 package io.github.anseroville.model;
 
 import io.github.anseroville.model.Tiles.GroundTile;
+import io.github.anseroville.model.Tiles.GrowingGroundTile;
 import io.github.anseroville.model.Tiles.InteractableTile;
 import io.github.anseroville.model.inventory.Hand;
 import io.github.anseroville.model.inventory.Inventory;
 import io.github.anseroville.model.inventory.ItemType;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 public class GameState {
-    private static final int TILE_WIDTH = 75;
-    private static final int TILE_HEIGHT = 73;
+    private static final int TILE_SIZE = 75;
 
     private final Player player;
     private final Map<GridPosition, InteractableTile> interactableTiles;
@@ -28,13 +27,13 @@ public class GameState {
 
     private Map<GridPosition, InteractableTile> createInteractableTiles() {
         int[][] interactablePlaces = {
-                {0, 0}, {0, 1}, {0, 2}, {0, 3}, {0, 4}, {0, 12}, {0, 13}, {0, 14},
-                {1, 0}, {1, 1}, {1, 2}, {1, 3}, {1, 4},
-                {2, 0}, {2, 1}, {2, 2}, {2, 3}, {2, 4},
-                {3, 0}, {3, 1}, {3, 2}, {3, 3}, {3, 4}, {3, 5}, {3, 6},
-                {4, 0}, {4, 1}, {4, 2}, {4, 3}, {4, 4}, {4, 5}, {4, 6},
-                {6, 1}, {6, 2}, {6, 4}, {6, 5}, {6, 6}
+
+                {2, 2}, {2, 3}, {2, 4}, {2, 5}, {2, 6},{2, 7},
+                {3, 2}, {3, 3}, {3, 4}, {3, 5}, {3, 6},{3, 7},
+                {4, 2}, {4, 3}, {4, 4}, {4, 5}, {4, 6},{4, 7},
+                {5, 2}, {5, 3}, {5, 4}, {5, 5}, {5, 6},{5, 7}
         };
+        //jak coś to trzeba zrobić interactable places do drzewek i transakcji jak coś todo
 
         Map<GridPosition, InteractableTile> tiles = new HashMap<>();
 
@@ -43,7 +42,7 @@ public class GameState {
             int column = place[1];
 
             GridPosition gridPosition = new GridPosition(column, row);
-            tiles.put(gridPosition, new GroundTile(gridPosition));
+            tiles.put(gridPosition, new GrowingGroundTile(gridPosition));
         }
 
         return tiles;

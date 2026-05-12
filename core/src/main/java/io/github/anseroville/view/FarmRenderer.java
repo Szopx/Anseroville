@@ -10,19 +10,23 @@ import io.github.anseroville.viewModel.PlayerViewState;
 import io.github.anseroville.viewModel.TileViewState;
 
 public class FarmRenderer {
-    private static final int TILE_SIZE = 65; //integrate tilesizes
+    private static final int TILE_SIZE = 75; //integrate tilesizes
     private static final int PLAYER_SIZE = 20;
 
     private final FarmViewModel viewModel;
     private final SpriteBatch batch;
     private final ShapeRenderer shapeRenderer;
     private final Texture backgroundTexture;
+    private final Texture pole;
+    private final Texture pole_zaznaczone;
 
     public FarmRenderer(FarmViewModel viewModel) {
         this.viewModel = viewModel;
         this.batch = new SpriteBatch();
         this.shapeRenderer = new ShapeRenderer();
         this.backgroundTexture = new Texture("tlo.png");
+        this.pole = new Texture("pole.png");
+        this.pole_zaznaczone = new Texture("pole_zaznaczone.png");
     }
 
     public void render() {
@@ -39,16 +43,14 @@ public class FarmRenderer {
     }
 
     private void renderTiles() {
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        batch.begin();
 
         for (TileViewState tile : viewModel.getTileViewStates()) {
             if (tile.isSelected()) {
-                shapeRenderer.setColor(Color.RED);
+                batch.draw(pole_zaznaczone, tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
             } else {
                 batch.draw(pole, tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
             }
-
-            shapeRenderer.rect(tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
         }
         batch.end();
     }

@@ -32,5 +32,8 @@ public class FarmInputController {
         if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
             viewModel.teleportPlayer();
         }
+        if (Gdx.input.isKeyPressed(Input.Keys.H)) {
+            viewModel.posadz_marchewki();
+        }
     }
 }

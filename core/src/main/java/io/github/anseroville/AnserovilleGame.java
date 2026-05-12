@@ -3,6 +3,7 @@ package io.github.anseroville;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.anseroville.model.GameState;
+import io.github.anseroville.model.inventory.ItemType;
 import io.github.anseroville.view.FarmInputController;
 import io.github.anseroville.view.FarmRenderer;
 import io.github.anseroville.view.HandRenderer;

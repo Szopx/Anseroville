@@ -1,5 +1,7 @@
 package io.github.anseroville.model;
 
+import io.github.anseroville.model.Tiles.InteractableTile;
+
 public class Player {
     private static final int DEFAULT_SPEED = 2;
 
@@ -7,6 +9,7 @@ public class Player {
     private int y;
     private int speed;
     private Direction direction;
+    private InteractableTile selectedTile;
 
     public Player(int x, int y) {
         this.x = x;
@@ -43,4 +46,5 @@ public class Player {
     public Direction getDirection() {
         return direction;
     }
+
 }

@@ -15,7 +15,7 @@ public class InventoryViewState {
         this.heldItemAmount=heldItemAmount;
     }
 
-    //czy tu powinno sumowac sie z tym co jest w hand?
+    //czy tu powinno sumowac sie z tym co jest w hand? tak todo
     public int getAmount(ItemType itemType) {
         return items.getOrDefault(itemType, 0);
     }
