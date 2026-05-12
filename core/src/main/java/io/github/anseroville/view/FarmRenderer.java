@@ -1,5 +1,6 @@
 package io.github.anseroville.view;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -33,7 +34,7 @@ public class FarmRenderer {
 
     private void renderBackground() {
         batch.begin();
-        batch.draw(backgroundTexture, -60, -40);
+        batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         batch.end();
     }
 
@@ -44,13 +45,12 @@ public class FarmRenderer {
             if (tile.isSelected()) {
                 shapeRenderer.setColor(Color.RED);
             } else {
-                shapeRenderer.setColor(Color.WHITE);
+                batch.draw(pole, tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
             }
 
             shapeRenderer.rect(tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
         }
-
-        shapeRenderer.end();
+        batch.end();
     }
 
     private void renderPlayer() {
@@ -66,5 +66,7 @@ public class FarmRenderer {
         batch.dispose();
         shapeRenderer.dispose();
         backgroundTexture.dispose();
+        pole.dispose();
+        pole_zaznaczone.dispose();
     }
 }
