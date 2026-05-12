@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import io.github.anseroville.model.Tiles.GrowingState;
 import io.github.anseroville.viewModel.FarmViewModel;
 import io.github.anseroville.viewModel.PlayerViewState;
 import io.github.anseroville.viewModel.TileViewState;
@@ -19,6 +20,7 @@ public class FarmRenderer {
     private final Texture backgroundTexture;
     private final Texture pole;
     private final Texture pole_zaznaczone;
+    private final Texture[] marchewki;
 
     public FarmRenderer(FarmViewModel viewModel) {
         this.viewModel = viewModel;
@@ -27,6 +29,10 @@ public class FarmRenderer {
         this.backgroundTexture = new Texture("tlo.png");
         this.pole = new Texture("pole.png");
         this.pole_zaznaczone = new Texture("pole_zaznaczone.png");
+        this.marchewki = new Texture[3];
+        this.marchewki[0] = new Texture("marchewki_0.png");
+        this.marchewki[1] = new Texture("marchewki_1.png");
+        this.marchewki[2] = new Texture("marchewki_3.png");
     }
 
     public void render() {
@@ -51,6 +57,12 @@ public class FarmRenderer {
             } else {
                 batch.draw(pole, tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
             }
+            if (tile.getGrowingState()== GrowingState.SMALL)
+            {batch.draw(marchewki[0], tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);}
+            else if(tile.getGrowingState()== GrowingState.MEDIUM)
+            {batch.draw(marchewki[1], tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);}
+            else if(tile.getGrowingState()==GrowingState.LARGE)
+            {batch.draw(marchewki[2], tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);}
         }
         batch.end();
     }

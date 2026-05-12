@@ -1,5 +1,6 @@
 package io.github.anseroville.model;
 
+import io.github.anseroville.model.Tiles.EmptyGroundTile;
 import io.github.anseroville.model.Tiles.GroundTile;
 import io.github.anseroville.model.Tiles.GrowingGroundTile;
 import io.github.anseroville.model.Tiles.InteractableTile;
@@ -42,7 +43,7 @@ public class GameState {
             int column = place[1];
 
             GridPosition gridPosition = new GridPosition(column, row);
-            tiles.put(gridPosition, new GrowingGroundTile(gridPosition));
+            tiles.put(gridPosition, new EmptyGroundTile(gridPosition));
         }
 
         return tiles;
@@ -108,4 +109,28 @@ public class GameState {
             return inventory.add(type, amount);
         }
     }
+    //todo ogarnijcie sobie i poprawcie
+    public void posadzMarchewki(InteractableTile selectedTile) {
+        if (selectedTile == null) {
+            return;
+        }
+        else if (selectedTile instanceof EmptyGroundTile) {
+            System.out.println("posadz marchewki");
+            EmptyGroundTile emptyGroundTile = (EmptyGroundTile) selectedTile;
+            GrowingGroundTile growingTile = new GrowingGroundTile(emptyGroundTile);
+            interactableTiles.remove(growingTile.getGridPosition());
+            interactableTiles.put(growingTile.getGridPosition(), growingTile);
+            growingTile.update((float)0.1);
+
+        }
+        else if (selectedTile instanceof GrowingGroundTile) {
+            GrowingGroundTile growingTile = (GrowingGroundTile) selectedTile;
+            //if (growingTile.getGrowingState() != GrowingState.ZERO) {
+            //    return;
+            //}
+            growingTile.update((float)0.1);
+        }
+    }
+
+
 }

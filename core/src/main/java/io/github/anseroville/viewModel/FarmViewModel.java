@@ -3,10 +3,7 @@ package io.github.anseroville.viewModel;
 import io.github.anseroville.model.Direction;
 import io.github.anseroville.model.GameState;
 import io.github.anseroville.model.GridPosition;
-import io.github.anseroville.model.Tiles.GroundTile;
-import io.github.anseroville.model.Tiles.GrowingGroundTile;
-import io.github.anseroville.model.Tiles.GrowingState;
-import io.github.anseroville.model.Tiles.InteractableTile;
+import io.github.anseroville.model.Tiles.*;
 import io.github.anseroville.model.Player;
 import io.github.anseroville.model.inventory.Hand;
 import io.github.anseroville.model.inventory.Inventory;
@@ -38,16 +35,8 @@ public class FarmViewModel {
         updateSelectedTile();
     }
     public void posadz_marchewki() {
-        if (selectedTile == null) {
-            return;
-        }
-        else if (selectedTile instanceof GrowingGroundTile) {
-            GrowingGroundTile growingTile = (GrowingGroundTile) selectedTile;
-            if (growingTile.getGrowingState() != GrowingState.ZERO) {
-                return;
-            }
-            System.out.println("UJ - Roślina już tu jest");
-        }
+        gameState.posadzMarchewki(selectedTile);
+        updateSelectedTile();
     }
 
     private void updateSelectedTile() {
