@@ -131,14 +131,12 @@ public class GameState {
             growingTile.update((float)0.1);
 
         }
-        else if (selectedTile instanceof GrowingGroundTile) {
-            GrowingGroundTile growingTile = (GrowingGroundTile) selectedTile;
-            //if (growingTile.getGrowingState() != GrowingState.ZERO) {
-            //    return;
-            //}
-            growingTile.update((float)0.1);
-        }
+//        else if (selectedTile instanceof GrowingGroundTile) {
+//            GrowingGroundTile growingTile = (GrowingGroundTile) selectedTile;
+//            //if (growingTile.getGrowingState() != GrowingState.ZERO) {
+//            //    return;
+//            //}
+//            growingTile.update((float)0.1);
+//        }
     }
-
-
 }
