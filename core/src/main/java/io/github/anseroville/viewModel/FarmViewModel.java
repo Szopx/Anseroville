@@ -1,10 +1,7 @@
 package io.github.anseroville.viewModel;
 
-import io.github.anseroville.model.Direction;
-import io.github.anseroville.model.GameState;
-import io.github.anseroville.model.GridPosition;
+import io.github.anseroville.model.*;
 import io.github.anseroville.model.Tiles.*;
-import io.github.anseroville.model.Player;
 import io.github.anseroville.model.inventory.Hand;
 import io.github.anseroville.model.inventory.Inventory;
 import io.github.anseroville.model.inventory.ItemType;
@@ -21,10 +18,13 @@ public class FarmViewModel {
 
     private final GameState gameState;
     private InteractableTile selectedTile;
+    private final Collector collector;
 
-    public FarmViewModel(GameState gameState) {
+    public FarmViewModel(GameState gameState, Collector collector) {
         this.gameState = gameState;
+        this.collector = collector;
     }
+
     public void movePlayer(Direction direction) {
         gameState.getPlayer().move(direction);
         updateSelectedTile();
@@ -34,8 +34,9 @@ public class FarmViewModel {
         gameState.getPlayer().teleportToStart();
         updateSelectedTile();
     }
-    public void posadz_marchewki() {
-        gameState.posadzMarchewki(selectedTile);
+
+    public void plant() {
+        gameState.plant(selectedTile);
         updateSelectedTile();
     }
 
@@ -104,5 +105,15 @@ public class FarmViewModel {
         }
 
         return new InventoryViewState(stateMap,hand.getType(),hand.getAmount());
+    }
+
+    public void update(float delta) {
+        gameState.update(delta);
+    }
+
+    public void collect() {
+        if(!collector.collect(selectedTile)) {
+            System.out.println("nie udało się zebrać warzywa");
+        }
     }
 }

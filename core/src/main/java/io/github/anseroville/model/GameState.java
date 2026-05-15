@@ -109,8 +109,16 @@ public class GameState {
             return inventory.add(type, amount);
         }
     }
+
+    public void update(float delta) {
+        for (Object tile : interactableTiles.values()) {
+            if (tile instanceof GrowingGroundTile growingTile) {
+                growingTile.update(delta);
+            }
+        }
+    }
     //todo ogarnijcie sobie i poprawcie
-    public void posadzMarchewki(InteractableTile selectedTile) {
+    public void plant(InteractableTile selectedTile) {
         if (selectedTile == null) {
             return;
         }

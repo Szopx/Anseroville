@@ -18,6 +18,8 @@ public enum GrowingState {
     }
 
     public float getTimeToNextState() {
+        if(this.ordinal() == 0)
+            return 0;
         return 3; //todo
     }
 }
