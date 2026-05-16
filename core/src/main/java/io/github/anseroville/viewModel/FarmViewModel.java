@@ -115,5 +115,6 @@ public class FarmViewModel {
         if(!collector.collect(selectedTile)) {
             System.out.println("nie udało się zebrać warzywa");
         }
+        else System.out.println("zebrano warzywo");
     }
 }

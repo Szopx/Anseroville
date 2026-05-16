@@ -2,6 +2,11 @@ package io.github.anseroville.model.inventory;
 
 public enum ItemType {
     CARROT,
+    CARROT_SEED,
+    CORN,
+    CORN_SEED,
     WHEAT,
-    POTATO
+    WHEAT_SEED,
+    POTATO,
+    POTATO_SEED
 }

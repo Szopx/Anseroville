@@ -16,10 +16,4 @@ public enum GrowingState {
     public boolean canBeCollected() {
         return this.ordinal() == GrowingState.values().length - 1;
     }
-
-    public float getTimeToNextState() {
-        if(this.ordinal() == 0)
-            return 0;
-        return 3; //todo
-    }
 }

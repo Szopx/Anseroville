@@ -5,7 +5,7 @@ import io.github.anseroville.model.GridPosition;
 import static io.github.anseroville.model.Tiles.GrowingState.ZERO;
 
 public class GrowingGroundTile extends GroundTile {
-    private GrowingState growingState = ZERO;
+    protected GrowingState growingState = ZERO;
     private float timeFromLastGrowth = 0f;
 
     public GrowingGroundTile(EmptyGroundTile emptyGroundTile) {
@@ -24,10 +24,17 @@ public class GrowingGroundTile extends GroundTile {
 
         timeFromLastGrowth += delta;
 
-        if (timeFromLastGrowth >= growingState.getTimeToNextState()) {
+        if (timeFromLastGrowth >= this.getDuration()) {
             grow();
             timeFromLastGrowth = 0f;
         }
+    }
+
+    protected int getDuration(){
+        if (growingState.ordinal() == 0){
+            return 0;
+        }
+        return 3;
     }
 
     private void grow() {
