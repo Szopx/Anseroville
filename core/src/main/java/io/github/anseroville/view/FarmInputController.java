@@ -29,15 +29,15 @@ public class FarmInputController {
             viewModel.movePlayer(Direction.RIGHT);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
             viewModel.teleportPlayer();
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.H)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.H)) {
             viewModel.plant();
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.C)) {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.C)) {
             viewModel.collect();
         }
     }
