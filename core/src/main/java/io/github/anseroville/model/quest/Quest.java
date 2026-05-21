@@ -3,7 +3,6 @@ package io.github.anseroville.model.quest;
 import io.github.anseroville.model.inventory.Inventory;
 import io.github.anseroville.model.inventory.ItemType;
 
-import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 

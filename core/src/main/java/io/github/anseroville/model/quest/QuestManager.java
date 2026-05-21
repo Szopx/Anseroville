@@ -66,6 +66,7 @@ public class QuestManager {
 
     public boolean completeActiveQuest() {
         Quest activeQuest = getActiveQuest();
+        System.out.println("INDEKS: " + activeQuestIndex);
 
         if (activeQuest == null || !activeQuest.canComplete(inventory)) {
             return false;

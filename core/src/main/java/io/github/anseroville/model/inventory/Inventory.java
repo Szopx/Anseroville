@@ -4,7 +4,7 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public class Inventory {
-    private static final int MAX_AMOUNT_PER_ITEM = 99;
+    private static final int MAX_AMOUNT_PER_ITEM = 64;
 
     private final Map<ItemType, Integer> items = new EnumMap<>(ItemType.class);
 
