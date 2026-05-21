@@ -7,7 +7,6 @@ import io.github.anseroville.model.GameState;
 import io.github.anseroville.model.Wallet;
 import io.github.anseroville.model.inventory.Inventory;
 import io.github.anseroville.model.inventory.ItemType;
-import io.github.anseroville.model.quest.Quest;
 import io.github.anseroville.model.quest.QuestManager;
 import io.github.anseroville.view.FarmInputController;
 import io.github.anseroville.view.FarmRenderer;
@@ -31,7 +30,7 @@ public class AnserovilleGame extends ApplicationAdapter {
         Wallet wallet = new Wallet();
         QuestManager questManager = new QuestManager(wallet, gameState.getInventory());
 
-        farmViewModel = new FarmViewModel(gameState, collector, questManager);
+        farmViewModel = new FarmViewModel(gameState, collector, questManager, wallet);
         inventoryViewState=new InventoryViewState(new HashMap<ItemType, Integer>(), ItemType.CARROT, 1);
         farmRenderer = new FarmRenderer(farmViewModel);
         handRenderer = new HandRenderer(inventoryViewState);

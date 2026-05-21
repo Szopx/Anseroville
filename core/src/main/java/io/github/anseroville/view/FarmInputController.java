@@ -29,7 +29,7 @@ public class FarmInputController {
             viewModel.movePlayer(Direction.RIGHT);
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
             viewModel.teleportPlayer();
         }
 
@@ -42,11 +42,11 @@ public class FarmInputController {
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-            viewModel.completeQuest();
+            viewModel.completeActiveQuest(); //todo: trzeba jeszcze sprawdzic chyba gdzie sie stoi
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.M)) {
-            viewModel.completeMainQuest();
+            viewModel.completeMaineQuest(); //todo: trzeba jeszcze sprawdzic chyba gdzie sie stoi
         }
     }
 }

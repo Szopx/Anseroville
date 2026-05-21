@@ -1,10 +1,12 @@
 package io.github.anseroville.viewModel;
 
+
 import io.github.anseroville.model.*;
 import io.github.anseroville.model.Tiles.*;
 import io.github.anseroville.model.inventory.Hand;
 import io.github.anseroville.model.inventory.Inventory;
 import io.github.anseroville.model.inventory.ItemType;
+import io.github.anseroville.model.quest.Quest;
 import io.github.anseroville.model.quest.QuestManager;
 
 import java.util.ArrayList;
@@ -21,11 +23,13 @@ public class FarmViewModel {
     private InteractableTile selectedTile;
     private final Collector collector;
     private final QuestManager questManager;
+    private final Wallet wallet;
 
-    public FarmViewModel(GameState gameState, Collector collector, QuestManager questManager) {
+    public FarmViewModel(GameState gameState, Collector collector, QuestManager questManager, Wallet wallet) {
         this.gameState = gameState;
         this.collector = collector;
         this.questManager = questManager;
+        this.wallet = wallet;
     }
 
     public void movePlayer(Direction direction) {
@@ -117,21 +121,36 @@ public class FarmViewModel {
     public void collect() {
         if(!collector.collect(selectedTile)) {
             System.out.println("nie udało się zebrać warzywa");
+        } else {
+            System.out.println("udało się zebrać warzywa");
         }
-        else System.out.println("zebrano warzywo");
     }
 
-    public void completeQuest() {
-        if(questManager.completeActiveQuest())
-            System.out.println("quest git");
-        else System.out.println("quest lipa");
+    public void completeActiveQuest() {
+        boolean completed = questManager.completeActiveQuest();
+
+        if (!completed) {
+            System.out.println("nie udało się zrobic questa");
+        } else {
+            System.out.println("udało się zrobic questa");
+        }
     }
 
-    public void completeMainQuest() {
-        if(questManager.completeMainQuest())
-            System.out.println("main quest git");
-        else System.out.println("main quest lipa");
+    public void completeMaineQuest() {
+        boolean completed = questManager.completeMainQuest();
+
+        if (!completed) {
+            System.out.println("nie udało się zrobic main questa");
+        } else {
+            System.out.println("udało się zrobic main questa");
+        }
     }
 
+    public int getMoney() {
+        return wallet.getMoney();
+    }
 
+    public Quest getActiveQuest() {
+        return questManager.getActiveQuest();
+    }
 }
