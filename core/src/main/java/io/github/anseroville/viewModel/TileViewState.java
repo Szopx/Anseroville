@@ -6,7 +6,7 @@ public class TileViewState {
     private final int x;
     private final int y;
     private final boolean selected;
-    private GrowingState growingState;
+    private final GrowingState growingState;
 
     public TileViewState(int x, int y, boolean selected, GrowingState growingstate) {
         this.x = x*75;

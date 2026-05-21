@@ -5,6 +5,7 @@ import io.github.anseroville.model.Tiles.*;
 import io.github.anseroville.model.inventory.Hand;
 import io.github.anseroville.model.inventory.Inventory;
 import io.github.anseroville.model.inventory.ItemType;
+import io.github.anseroville.model.quest.QuestManager;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -19,10 +20,12 @@ public class FarmViewModel {
     private final GameState gameState;
     private InteractableTile selectedTile;
     private final Collector collector;
+    private final QuestManager questManager;
 
-    public FarmViewModel(GameState gameState, Collector collector) {
+    public FarmViewModel(GameState gameState, Collector collector, QuestManager questManager) {
         this.gameState = gameState;
         this.collector = collector;
+        this.questManager = questManager;
     }
 
     public void movePlayer(Direction direction) {
@@ -117,4 +120,18 @@ public class FarmViewModel {
         }
         else System.out.println("zebrano warzywo");
     }
+
+    public void completeQuest() {
+        if(questManager.completeActiveQuest())
+            System.out.println("quest git");
+        else System.out.println("quest lipa");
+    }
+
+    public void completeMainQuest() {
+        if(questManager.completeMainQuest())
+            System.out.println("main quest git");
+        else System.out.println("main quest lipa");
+    }
+
+
 }

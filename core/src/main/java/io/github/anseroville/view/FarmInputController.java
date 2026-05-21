@@ -40,5 +40,13 @@ public class FarmInputController {
         if(Gdx.input.isKeyJustPressed(Input.Keys.C)) {
             viewModel.collect();
         }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+            viewModel.completeQuest();
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.M)) {
+            viewModel.completeMainQuest();
+        }
     }
 }

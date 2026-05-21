@@ -4,7 +4,11 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.anseroville.model.Collector;
 import io.github.anseroville.model.GameState;
+import io.github.anseroville.model.Wallet;
+import io.github.anseroville.model.inventory.Inventory;
 import io.github.anseroville.model.inventory.ItemType;
+import io.github.anseroville.model.quest.Quest;
+import io.github.anseroville.model.quest.QuestManager;
 import io.github.anseroville.view.FarmInputController;
 import io.github.anseroville.view.FarmRenderer;
 import io.github.anseroville.view.HandRenderer;
@@ -24,8 +28,10 @@ public class AnserovilleGame extends ApplicationAdapter {
     public void create() {
         GameState gameState = new GameState();
         Collector collector = new Collector(gameState);
+        Wallet wallet = new Wallet();
+        QuestManager questManager = new QuestManager(wallet, gameState.getInventory());
 
-        farmViewModel = new FarmViewModel(gameState, collector);
+        farmViewModel = new FarmViewModel(gameState, collector, questManager);
         inventoryViewState=new InventoryViewState(new HashMap<ItemType, Integer>(), ItemType.CARROT, 1);
         farmRenderer = new FarmRenderer(farmViewModel);
         handRenderer = new HandRenderer(inventoryViewState);
