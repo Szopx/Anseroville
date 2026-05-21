@@ -43,10 +43,12 @@ public class FarmInputController {
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             viewModel.completeActiveQuest(); //todo: trzeba jeszcze sprawdzic chyba gdzie sie stoi
+            // na przyszlosc nie musi tu byc osobny klawisz jak bedzie zalezalo od selected tile
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.M)) {
-            viewModel.completeMaineQuest(); //todo: trzeba jeszcze sprawdzic chyba gdzie sie stoi
+            viewModel.completeMainQuest(); //todo: trzeba jeszcze sprawdzic chyba gdzie sie stoi
+            //tak jak w completeActiveQuest();
         }
     }
 }

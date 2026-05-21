@@ -136,7 +136,7 @@ public class FarmViewModel {
         }
     }
 
-    public void completeMaineQuest() {
+    public void completeMainQuest() {
         boolean completed = questManager.completeMainQuest();
 
         if (!completed) {

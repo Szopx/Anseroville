@@ -1,8 +1,6 @@
 package io.github.anseroville.model;
 
-import io.github.anseroville.model.Tiles.EmptyGroundTile;
-import io.github.anseroville.model.Tiles.GrowingGroundTile;
-import io.github.anseroville.model.Tiles.InteractableTile;
+import io.github.anseroville.model.Tiles.*;
 import io.github.anseroville.model.inventory.ItemType;
 
 public class Collector {
@@ -21,7 +19,17 @@ public class Collector {
             return false;
         }
 
-        boolean addedToInventory = gameState.getInventory().add(ItemType.CARROT, 1);
+        boolean addedToInventory = false;
+
+        if(tile instanceof GrowingCarrotTile) {
+            addedToInventory = gameState.getInventory().add(ItemType.CARROT, 1);
+        } else if (tile instanceof GrowingCornTile) {
+            addedToInventory = gameState.getInventory().add(ItemType.CORN, 1);
+        } else if(tile instanceof GrowingWheatTile) {
+            addedToInventory = gameState.getInventory().add(ItemType.WHEAT, 1);
+        } else if(tile instanceof GrowingPotatoTile) {
+            addedToInventory = gameState.getInventory().add(ItemType.POTATO, 1);
+        }
 
         if (!addedToInventory) {
             return false;

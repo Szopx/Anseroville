@@ -1,9 +1,6 @@
 package io.github.anseroville.model;
 
-import io.github.anseroville.model.Tiles.EmptyGroundTile;
-import io.github.anseroville.model.Tiles.GroundTile;
-import io.github.anseroville.model.Tiles.GrowingGroundTile;
-import io.github.anseroville.model.Tiles.InteractableTile;
+import io.github.anseroville.model.Tiles.*;
 import io.github.anseroville.model.inventory.Hand;
 import io.github.anseroville.model.inventory.Inventory;
 import io.github.anseroville.model.inventory.ItemType;
@@ -23,7 +20,10 @@ public class GameState {
         this.player = new Player(100, 100);
         this.interactableTiles = createInteractableTiles();
         this.inventory = new Inventory();
-        this.hand = new Hand();
+        this.hand = new Hand(inventory);
+        //do testow::
+        inventory.add(ItemType.CARROT_SEED,64);
+        hand.set(ItemType.CARROT_SEED);
     }
 
     private Map<GridPosition, InteractableTile> createInteractableTiles() {
@@ -71,15 +71,9 @@ public class GameState {
 
     public Hand getHand() { return hand; }
 
-    //na razie zakladam, ze trzymamy dany typ przedmiotu albo w inventory, albo w hand
-    //jak przenosimy z jednego miejsca do drugiego to przenosimy calosc
-    //jesli trzymamy juz dany typ itemu w hand i go podniesiemy to dodajemy do hand
-    //w przeciwnym wypadku niezaleznie od tego czy hand jest zajety dajemy item do inventory
-
     public void toggleHand(ItemType clickedType) {
         if (!hand.isEmpty()) {
             ItemType typeInHand = hand.getType();
-            inventory.add(typeInHand, hand.getAmount());
             hand.clear();
 
             if (typeInHand == clickedType) return;
@@ -87,26 +81,7 @@ public class GameState {
 
         int amountInInventory = inventory.getAmount(clickedType);
         if (amountInInventory > 0) {
-            inventory.remove(clickedType, amountInInventory);
-            hand.set(clickedType, amountInInventory);
-        }
-    }
-
-    //todo
-    // zlaczyc tą koncepcje z collectorem
-    public boolean pickUpItem(ItemType type, int amount) {
-        int inHand = hand.getAmountOf(type);
-        int inInventory = inventory.getAmount(type);
-
-        if (inHand + inInventory + amount > 99) {
-            return false;
-        }
-
-        if (inHand > 0) {
-            hand.set(type, inHand + amount);
-            return true;
-        } else {
-            return inventory.add(type, amount);
+            hand.set(clickedType);
         }
     }
 
@@ -117,26 +92,46 @@ public class GameState {
             }
         }
     }
-    //todo ogarnijcie sobie i poprawcie
-    public void plant(InteractableTile selectedTile) {
-        if (selectedTile == null) {
-            return;
-        }
-        else if (selectedTile instanceof EmptyGroundTile) {
-            System.out.println("posadz marchewki");
-            EmptyGroundTile emptyGroundTile = (EmptyGroundTile) selectedTile;
-            GrowingGroundTile growingTile = new GrowingGroundTile(emptyGroundTile);
-            interactableTiles.remove(growingTile.getGridPosition());
-            interactableTiles.put(growingTile.getGridPosition(), growingTile);
-            growingTile.update((float)0.1);
 
+    public void plant(InteractableTile selectedTile) {
+        if (selectedTile != null && selectedTile instanceof EmptyGroundTile) {
+            EmptyGroundTile emptyGroundTile = (EmptyGroundTile) selectedTile;
+
+            if (hand.getType() != null && hand.getAmount()>0) {
+                if (hand.getType() == ItemType.CARROT_SEED) {
+                    System.out.println("posadz marchewki");
+                    GrowingCarrotTile carrotTile = new GrowingCarrotTile(emptyGroundTile);
+                    interactableTiles.remove(emptyGroundTile.getGridPosition());
+                    interactableTiles.put(carrotTile.getGridPosition(), carrotTile);
+                    carrotTile.update((float)0.1);
+                    inventory.remove(ItemType.CARROT_SEED,1);
+                }
+                else if (hand.getType() == ItemType.POTATO_SEED) {
+                    System.out.println("posadz ziemniaki");
+                    GrowingPotatoTile potatoTile = new GrowingPotatoTile(emptyGroundTile);
+                    interactableTiles.remove(emptyGroundTile.getGridPosition());
+                    interactableTiles.put(potatoTile.getGridPosition(), potatoTile);
+                    potatoTile.update((float)0.1);
+                    inventory.remove(ItemType.POTATO_SEED,1);
+                }
+                else if (hand.getType() == ItemType.CORN_SEED) {
+                    System.out.println("posadz kukurydze");
+                    GrowingCornTile cornTile = new GrowingCornTile(emptyGroundTile);
+                    interactableTiles.remove(emptyGroundTile.getGridPosition());
+                    interactableTiles.put(cornTile.getGridPosition(), cornTile);
+                    cornTile.update((float)0.1);
+                    inventory.remove(ItemType.CORN_SEED,1);
+                }
+                else if (hand.getType() == ItemType.WHEAT_SEED) {
+                    System.out.println("posadz pszenice");
+                    GrowingWheatTile wheatTile = new GrowingWheatTile(emptyGroundTile);
+                    interactableTiles.remove(emptyGroundTile.getGridPosition());
+                    interactableTiles.put(wheatTile.getGridPosition(), wheatTile);
+                    wheatTile.update((float)0.1);
+                    inventory.remove(ItemType.WHEAT_SEED,1);
+                }
+            }
         }
-//        else if (selectedTile instanceof GrowingGroundTile) {
-//            GrowingGroundTile growingTile = (GrowingGroundTile) selectedTile;
-//            //if (growingTile.getGrowingState() != GrowingState.ZERO) {
-//            //    return;
-//            //}
-//            growingTile.update((float)0.1);
-//        }
+        System.out.println("nie udalo sie posadzic");
     }
 }
