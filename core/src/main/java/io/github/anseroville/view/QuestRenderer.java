@@ -24,6 +24,10 @@ public class QuestRenderer {
     }
 
     public void render(Quest activeQuest, boolean isInventoryOpen){
+        if (activeQuest == null)
+        {
+            return; //todo dodac komentarz jak sie skoncza questy
+        }
         if(isInventoryOpen){
             return;
         }
