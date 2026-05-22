@@ -1,5 +1,7 @@
 package io.github.anseroville.model.inventory;
 
+import io.github.anseroville.enums.ItemType;
+
 import java.util.EnumMap;
 import java.util.Map;
 

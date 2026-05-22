@@ -3,7 +3,7 @@ package io.github.anseroville.model;
 import io.github.anseroville.model.Tiles.*;
 import io.github.anseroville.model.inventory.Hand;
 import io.github.anseroville.model.inventory.Inventory;
-import io.github.anseroville.model.inventory.ItemType;
+import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.model.time.DayNightCycle;
 
 import java.util.*;

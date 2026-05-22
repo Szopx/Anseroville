@@ -6,14 +6,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import io.github.anseroville.model.Tiles.GrowingState;
-import io.github.anseroville.model.inventory.ItemType;
+import io.github.anseroville.enums.GrowingState;
 import io.github.anseroville.viewModel.FarmViewModel;
-import io.github.anseroville.viewModel.InventoryViewState;
 import io.github.anseroville.viewModel.PlayerViewState;
 import io.github.anseroville.viewModel.TileViewState;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import io.github.anseroville.viewModel.NightViewState;
 

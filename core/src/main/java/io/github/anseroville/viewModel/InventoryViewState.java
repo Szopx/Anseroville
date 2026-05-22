@@ -1,6 +1,6 @@
 package io.github.anseroville.viewModel;
 
-import io.github.anseroville.model.inventory.ItemType;
+import io.github.anseroville.enums.ItemType;
 
 import java.util.Map;
 

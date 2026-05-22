@@ -1,4 +1,4 @@
-package io.github.anseroville.model.Tiles;
+package io.github.anseroville.enums;
 
 public enum GrowingState {
     ZERO,

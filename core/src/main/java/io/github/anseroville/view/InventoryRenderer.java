@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import io.github.anseroville.model.inventory.ItemType;
+import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.viewModel.InventoryViewState;
 
 public class InventoryRenderer {

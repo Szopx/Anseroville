@@ -1,4 +1,4 @@
-package io.github.anseroville.model.inventory;
+package io.github.anseroville.enums;
 
 public enum ItemType {
     CARROT,

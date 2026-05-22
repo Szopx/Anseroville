@@ -1,7 +1,7 @@
 package io.github.anseroville.model;
 
 import io.github.anseroville.model.Tiles.*;
-import io.github.anseroville.model.inventory.ItemType;
+import io.github.anseroville.enums.ItemType;
 
 public class Collector {
     private final GameState gameState;

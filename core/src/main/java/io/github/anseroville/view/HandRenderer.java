@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import io.github.anseroville.viewModel.InventoryViewState;
-import io.github.anseroville.model.inventory.ItemType;
+import io.github.anseroville.enums.ItemType;
 
 public class HandRenderer {
     private static final int TILE_SIZE = 75;

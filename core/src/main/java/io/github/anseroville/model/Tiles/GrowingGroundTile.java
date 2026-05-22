@@ -1,8 +1,9 @@
 package io.github.anseroville.model.Tiles;
 
+import io.github.anseroville.enums.GrowingState;
 import io.github.anseroville.model.GridPosition;
 
-import static io.github.anseroville.model.Tiles.GrowingState.ZERO;
+import static io.github.anseroville.enums.GrowingState.ZERO;
 
 public class GrowingGroundTile extends GroundTile {
     protected GrowingState growingState = ZERO;

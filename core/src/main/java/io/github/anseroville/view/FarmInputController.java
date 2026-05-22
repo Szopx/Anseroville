@@ -2,8 +2,8 @@ package io.github.anseroville.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import io.github.anseroville.model.Direction;
-import io.github.anseroville.model.inventory.ItemType;
+import io.github.anseroville.enums.Direction;
+import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.viewModel.FarmViewModel;
 
 public class FarmInputController {

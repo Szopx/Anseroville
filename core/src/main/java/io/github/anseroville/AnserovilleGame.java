@@ -4,9 +4,9 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.anseroville.model.Collector;
 import io.github.anseroville.model.GameState;
+import io.github.anseroville.model.Shop.ShopManager;
 import io.github.anseroville.model.Wallet;
-import io.github.anseroville.model.inventory.Inventory;
-import io.github.anseroville.model.inventory.ItemType;
+import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.model.quest.QuestManager;
 import io.github.anseroville.view.*;
 import io.github.anseroville.viewModel.FarmViewModel;
@@ -29,13 +29,14 @@ public class AnserovilleGame extends ApplicationAdapter {
         Collector collector = new Collector(gameState);
         Wallet wallet = new Wallet();
         QuestManager questManager = new QuestManager(wallet, gameState.getInventory());
+        ShopManager shopManager = new ShopManager(wallet, gameState.getInventory());
 
-        farmViewModel = new FarmViewModel(gameState, collector, questManager, wallet);
+        farmViewModel = new FarmViewModel(gameState, collector, questManager, wallet, shopManager);
         inventoryViewState=new InventoryViewState(new HashMap<ItemType, Integer>(), ItemType.CARROT, 1);
         farmRenderer = new FarmRenderer(farmViewModel);
         handRenderer = new HandRenderer();
         inventoryRenderer = new InventoryRenderer();
-        questRenderer = new QuestRenderer();
+        questRenderer = new QuestRenderer(farmViewModel);
         farmInputController = new FarmInputController(farmViewModel);
     }
 
@@ -50,7 +51,7 @@ public class AnserovilleGame extends ApplicationAdapter {
 
         farmRenderer.render();
         handRenderer.render(farmViewModel.getInventoryViewState(), farmViewModel.isInventoryOpen());
-        questRenderer.render(farmViewModel.getActiveQuest(), farmViewModel.isInventoryOpen());
+        questRenderer.render(farmViewModel.isInventoryOpen());
         if(farmViewModel.isInventoryOpen()){
             inventoryRenderer.render(farmViewModel.getInventoryViewState());
         }

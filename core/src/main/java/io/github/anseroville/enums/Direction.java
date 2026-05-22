@@ -1,4 +1,4 @@
-package io.github.anseroville.model;
+package io.github.anseroville.enums;
 
 public enum Direction {
     UP,

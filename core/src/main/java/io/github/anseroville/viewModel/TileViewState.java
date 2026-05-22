@@ -1,6 +1,6 @@
 package io.github.anseroville.viewModel;
 
-import io.github.anseroville.model.Tiles.GrowingState;
+import io.github.anseroville.enums.GrowingState;
 
 public class TileViewState {
     private final int x;

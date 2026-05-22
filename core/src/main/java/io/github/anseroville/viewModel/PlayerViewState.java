@@ -1,6 +1,6 @@
 package io.github.anseroville.viewModel;
 
-import io.github.anseroville.model.Direction;
+import io.github.anseroville.enums.Direction;
 
 public class PlayerViewState {
     private final int x;

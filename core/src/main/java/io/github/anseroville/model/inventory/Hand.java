@@ -1,5 +1,7 @@
 package io.github.anseroville.model.inventory;
 
+import io.github.anseroville.enums.ItemType;
+
 public class Hand {
     private ItemType type;
     private Inventory inventory;

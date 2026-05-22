@@ -1,18 +1,18 @@
 package io.github.anseroville.viewModel;
 
 
+import io.github.anseroville.enums.Direction;
 import io.github.anseroville.model.*;
+import io.github.anseroville.model.Shop.Shop;
+import io.github.anseroville.model.Shop.ShopManager;
 import io.github.anseroville.model.Tiles.*;
 import io.github.anseroville.model.inventory.Hand;
 import io.github.anseroville.model.inventory.Inventory;
-import io.github.anseroville.model.inventory.ItemType;
+import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.model.quest.Quest;
 import io.github.anseroville.model.quest.QuestManager;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class FarmViewModel {
     private static final int TILE_WIDTH = 75;
@@ -25,12 +25,14 @@ public class FarmViewModel {
     private final QuestManager questManager;
     private final Wallet wallet;
     private boolean isInventoryOpen = false;
+    private ShopManager shopManager;
 
-    public FarmViewModel(GameState gameState, Collector collector, QuestManager questManager, Wallet wallet) {
+    public FarmViewModel(GameState gameState, Collector collector, QuestManager questManager, Wallet wallet, ShopManager shopManager) {
         this.gameState = gameState;
         this.collector = collector;
         this.questManager = questManager;
         this.wallet = wallet;
+        this.shopManager = shopManager;
     }
 
     public void movePlayer(Direction direction) {
@@ -102,6 +104,11 @@ public class FarmViewModel {
         return tileViewStates;
     }
 
+    public ShopViewState getShopViewState() {
+        Shop shop = shopManager.getCurrentShop();
+        return new ShopViewState(shop.getBuyPrices(), shop.getSellPrices());
+    }
+
     public InventoryViewState getInventoryViewState(){
         Inventory inventory = gameState.getInventory();
         Hand hand = gameState.getHand();
@@ -153,6 +160,16 @@ public class FarmViewModel {
 
     public Quest getActiveQuest() {
         return questManager.getActiveQuest();
+    }
+
+    public Map<ItemType, Integer> getActiveQuestRequirements() {
+        if (questManager.getActiveQuest() != null)
+            return Collections.unmodifiableMap(questManager.getActiveQuest().getRequiredItems());
+        return Collections.emptyMap();
+    }
+
+    public boolean isActiveQuestAvailable() {
+        return getActiveQuest() == null;
     }
 
     public void toggleInventory() {

@@ -1,6 +1,6 @@
 package io.github.anseroville.model;
 
-import io.github.anseroville.model.Tiles.InteractableTile;
+import io.github.anseroville.enums.Direction;
 
 public class Player {
     private static final int DEFAULT_SPEED = 2;
