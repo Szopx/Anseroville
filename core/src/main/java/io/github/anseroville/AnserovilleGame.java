@@ -8,9 +8,7 @@ import io.github.anseroville.model.Wallet;
 import io.github.anseroville.model.inventory.Inventory;
 import io.github.anseroville.model.inventory.ItemType;
 import io.github.anseroville.model.quest.QuestManager;
-import io.github.anseroville.view.FarmInputController;
-import io.github.anseroville.view.FarmRenderer;
-import io.github.anseroville.view.HandRenderer;
+import io.github.anseroville.view.*;
 import io.github.anseroville.viewModel.FarmViewModel;
 import io.github.anseroville.viewModel.InventoryViewState;
 import java.util.HashMap;
@@ -21,6 +19,8 @@ public class AnserovilleGame extends ApplicationAdapter {
     private InventoryViewState inventoryViewState;
     private FarmRenderer farmRenderer;
     private HandRenderer handRenderer;
+    private QuestRenderer questRenderer;
+    private InventoryRenderer inventoryRenderer;
     private FarmInputController farmInputController;
 
     @Override
@@ -33,7 +33,9 @@ public class AnserovilleGame extends ApplicationAdapter {
         farmViewModel = new FarmViewModel(gameState, collector, questManager, wallet);
         inventoryViewState=new InventoryViewState(new HashMap<ItemType, Integer>(), ItemType.CARROT, 1);
         farmRenderer = new FarmRenderer(farmViewModel);
-        handRenderer = new HandRenderer(inventoryViewState);
+        handRenderer = new HandRenderer();
+        inventoryRenderer = new InventoryRenderer();
+        questRenderer = new QuestRenderer();
         farmInputController = new FarmInputController(farmViewModel);
     }
 
@@ -47,12 +49,18 @@ public class AnserovilleGame extends ApplicationAdapter {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
 
         farmRenderer.render();
-        handRenderer.render();
+        handRenderer.render(farmViewModel.getInventoryViewState(), farmViewModel.isInventoryOpen());
+        questRenderer.render(farmViewModel.getActiveQuest(), farmViewModel.isInventoryOpen());
+        if(farmViewModel.isInventoryOpen()){
+            inventoryRenderer.render(farmViewModel.getInventoryViewState());
+        }
     }
 
     @Override
     public void dispose() {
         farmRenderer.dispose();
         handRenderer.dispose();
+        inventoryRenderer.dispose();
+        questRenderer.dispose();
     }
 }

@@ -3,10 +3,13 @@ package io.github.anseroville.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import io.github.anseroville.model.Tiles.GrowingState;
+import io.github.anseroville.model.inventory.ItemType;
 import io.github.anseroville.viewModel.FarmViewModel;
+import io.github.anseroville.viewModel.InventoryViewState;
 import io.github.anseroville.viewModel.PlayerViewState;
 import io.github.anseroville.viewModel.TileViewState;
 
@@ -39,7 +42,6 @@ public class FarmRenderer {
         renderBackground();
         renderTiles();
         renderPlayer();
-
     }
 
     private void renderBackground() {

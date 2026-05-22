@@ -54,4 +54,8 @@ public class Quest {
     public int getRewardMoney() {
         return rewardMoney;
     }
+
+    public Map<ItemType, Integer> getRequiredItems(){
+        return requiredItems;
+    }
 }

@@ -13,6 +13,14 @@ public class FarmInputController {
     }
 
     public void handleInput() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
+            viewModel.toggleInventory();
+        }
+
+        if (viewModel.isInventoryOpen()) {
+            return;
+        }
+
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             viewModel.movePlayer(Direction.UP);
         }

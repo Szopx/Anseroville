@@ -24,6 +24,7 @@ public class FarmViewModel {
     private final Collector collector;
     private final QuestManager questManager;
     private final Wallet wallet;
+    private boolean isInventoryOpen = false;
 
     public FarmViewModel(GameState gameState, Collector collector, QuestManager questManager, Wallet wallet) {
         this.gameState = gameState;
@@ -152,5 +153,13 @@ public class FarmViewModel {
 
     public Quest getActiveQuest() {
         return questManager.getActiveQuest();
+    }
+
+    public void toggleInventory() {
+        isInventoryOpen = !isInventoryOpen;
+    }
+
+    public boolean isInventoryOpen() {
+        return isInventoryOpen;
     }
 }
