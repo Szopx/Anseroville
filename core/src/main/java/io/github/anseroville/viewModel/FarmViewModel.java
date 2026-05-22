@@ -162,4 +162,16 @@ public class FarmViewModel {
     public boolean isInventoryOpen() {
         return isInventoryOpen;
     }
+
+    public NightViewState getNightViewState() {
+        return new NightViewState(gameState.isNight(), gameState.hasTorch(), gameState.getNightRemainingTime());
+    }
+
+    public boolean isNightWithoutTorch() {
+        return gameState.isNightWithoutTorch();
+    }
+
+    public void addItemToInventory(ItemType itemType, int amount) {
+        gameState.getInventory().add(itemType, amount);
+    }
 }

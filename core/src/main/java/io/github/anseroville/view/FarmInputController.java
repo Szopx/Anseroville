@@ -3,6 +3,7 @@ package io.github.anseroville.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import io.github.anseroville.model.Direction;
+import io.github.anseroville.model.inventory.ItemType;
 import io.github.anseroville.viewModel.FarmViewModel;
 
 public class FarmInputController {
@@ -13,6 +14,10 @@ public class FarmInputController {
     }
 
     public void handleInput() {
+        if (viewModel.isNightWithoutTorch()) {
+            return;
+        }
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
             viewModel.toggleInventory();
         }
@@ -57,6 +62,16 @@ public class FarmInputController {
         if(Gdx.input.isKeyJustPressed(Input.Keys.M)) {
             viewModel.completeMainQuest(); //todo: trzeba jeszcze sprawdzic chyba gdzie sie stoi
             //tak jak w completeActiveQuest();
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.T)) { //todo: oba tymczasowo
+            viewModel.addItemToInventory(ItemType.TORCH, 1);
+            System.out.println("Dodano pochodnie");
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.Y)) {// todo: oba tymczasowo
+            viewModel.addItemToInventory(ItemType.SHIELD, 1);
+            System.out.println("Dodano tarcze");
         }
     }
 }

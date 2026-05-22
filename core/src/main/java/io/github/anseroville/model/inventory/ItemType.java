@@ -8,5 +8,8 @@ public enum ItemType {
     WHEAT,
     WHEAT_SEED,
     POTATO,
-    POTATO_SEED
+    POTATO_SEED,
+
+    TORCH,
+    SHIELD
 }

@@ -12,6 +12,10 @@ import io.github.anseroville.viewModel.FarmViewModel;
 import io.github.anseroville.viewModel.InventoryViewState;
 import io.github.anseroville.viewModel.PlayerViewState;
 import io.github.anseroville.viewModel.TileViewState;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import io.github.anseroville.viewModel.NightViewState;
 
 public class FarmRenderer {
     private static final int TILE_SIZE = 75; //integrate tilesizes
@@ -25,6 +29,10 @@ public class FarmRenderer {
     private final Texture pole_zaznaczone;
     private final Texture[] marchewki;
 
+    private final Texture darknessTexture;
+    private final BitmapFont font;
+    private final GlyphLayout glyphLayout;
+
     public FarmRenderer(FarmViewModel viewModel) {
         this.viewModel = viewModel;
         this.batch = new SpriteBatch();
@@ -36,12 +44,24 @@ public class FarmRenderer {
         this.marchewki[0] = new Texture("marchewki_0.png");
         this.marchewki[1] = new Texture("marchewki_1.png");
         this.marchewki[2] = new Texture("marchewki_3.png");
+
+        Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
+        pixmap.setColor(Color.WHITE);
+        pixmap.fill();
+
+        this.darknessTexture = new Texture(pixmap);
+        pixmap.dispose();
+
+        this.font = new BitmapFont();
+        this.font.getData().setScale(2f);
+        this.glyphLayout = new GlyphLayout();
     }
 
     public void render() {
         renderBackground();
         renderTiles();
         renderPlayer();
+        renderNightOverlay();
     }
 
     private void renderBackground() {
@@ -78,11 +98,82 @@ public class FarmRenderer {
         shapeRenderer.end();
     }
 
+    private void renderNightOverlay() {
+        NightViewState nightViewState = viewModel.getNightViewState();
+
+        if (!nightViewState.isNight()) {
+            return;
+        }
+
+        if (nightViewState.hasTorch()) {
+            renderTorchNightOverlay();
+        } else {
+            renderFullNightOverlay(nightViewState);
+        }
+    }
+
+    private void renderFullNightOverlay(NightViewState nightViewState) {
+        int screenWidth = Gdx.graphics.getWidth();
+        int screenHeight = Gdx.graphics.getHeight();
+
+        batch.begin();
+
+        batch.setColor(0f, 0f, 0f, 1f);
+        batch.draw(darknessTexture, 0, 0, screenWidth, screenHeight);
+
+        batch.setColor(Color.WHITE);
+
+        String mainText = "Jest noc. Nie kupiles lampy!";
+        glyphLayout.setText(font, mainText);
+
+        float mainTextX = (screenWidth - glyphLayout.width) / 2f;
+        float mainTextY = screenHeight / 2f + 40f;
+
+        font.draw(batch, glyphLayout, mainTextX, mainTextY);
+
+        String timerText = "Poczekaj " + (int) Math.ceil(nightViewState.getRemainingTime()) + " s";
+        glyphLayout.setText(font, timerText);
+
+        float timerTextX = (screenWidth - glyphLayout.width) / 2f;
+        float timerTextY = screenHeight / 2f - 10f;
+
+        font.draw(batch, glyphLayout, timerTextX, timerTextY);
+
+        batch.setColor(Color.WHITE);
+        batch.end();
+    }
+
+    private void renderTorchNightOverlay() {
+        int screenWidth = Gdx.graphics.getWidth();
+        int screenHeight = Gdx.graphics.getHeight();
+
+        int edgeSize = 120;
+
+        batch.begin();
+
+        batch.setColor(0f, 0f, 0f, 0.8f);
+
+        batch.draw(darknessTexture, 0, 0, screenWidth, edgeSize);
+        batch.draw(darknessTexture, 0, screenHeight - edgeSize, screenWidth, edgeSize);
+        batch.draw(darknessTexture, 0, 0, edgeSize, screenHeight);
+        batch.draw(darknessTexture, screenWidth - edgeSize, 0, edgeSize, screenHeight);
+
+        batch.setColor(Color.WHITE);
+        batch.end();
+    }
+
     public void dispose() {
         batch.dispose();
         shapeRenderer.dispose();
         backgroundTexture.dispose();
         pole.dispose();
         pole_zaznaczone.dispose();
+
+        darknessTexture.dispose();
+        font.dispose();
+
+        for (Texture texture : marchewki) {
+            texture.dispose();
+        }
     }
 }

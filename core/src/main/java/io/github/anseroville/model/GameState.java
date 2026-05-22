@@ -4,17 +4,25 @@ import io.github.anseroville.model.Tiles.*;
 import io.github.anseroville.model.inventory.Hand;
 import io.github.anseroville.model.inventory.Inventory;
 import io.github.anseroville.model.inventory.ItemType;
+import io.github.anseroville.model.time.DayNightCycle;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class GameState {
     private static final int TILE_SIZE = 75;
+
+    private static final float DAY_DURATION = 30f;
+    private static final float NIGHT_DURATION = 10f;
+    private static final int NIGHT_DESTROY_CHANCE = 5;
 
     private final Player player;
     private final Map<GridPosition, InteractableTile> interactableTiles;
     private final Inventory inventory;
     private final Hand hand;
+    private final DayNightCycle dayNightCycle;
+    private final Random random;
+    private boolean nightEffectApplied = false;
+    private boolean isTorchThisNight = false;
 
     public GameState() {
         this.player = new Player(100, 100);
@@ -24,6 +32,8 @@ public class GameState {
         //do testow::
         inventory.add(ItemType.CARROT_SEED,64);
         hand.set(ItemType.CARROT_SEED);
+        this.dayNightCycle = new DayNightCycle(DAY_DURATION, NIGHT_DURATION);
+        this.random = new Random();
     }
 
     private Map<GridPosition, InteractableTile> createInteractableTiles() {
@@ -85,14 +95,7 @@ public class GameState {
         }
     }
 
-    public void update(float delta) {
-        for (Object tile : interactableTiles.values()) {
-            if (tile instanceof GrowingGroundTile growingTile) {
-                growingTile.update(delta);
-            }
-        }
-    }
-
+    //todo ogarnijcie sobie i poprawcie
     public void plant(InteractableTile selectedTile) {
         if (selectedTile != null && selectedTile instanceof EmptyGroundTile) {
             EmptyGroundTile emptyGroundTile = (EmptyGroundTile) selectedTile;
@@ -133,5 +136,95 @@ public class GameState {
             }
         }
         System.out.println("nie udalo sie posadzic");
+    }
+
+    /// /////////
+
+    public void update(float delta) {
+        updateGrowingTiles(delta);
+
+        dayNightCycle.update(delta);
+
+        if (dayNightCycle.isNight()) {
+            if (!nightEffectApplied) {
+                handleNightStart();
+                nightEffectApplied = true;
+            }
+        } else {
+            nightEffectApplied = false;
+            isTorchThisNight = false;
+        }
+    }
+
+    private void updateGrowingTiles(float delta) {
+        for (InteractableTile tile : interactableTiles.values()) {
+            if (tile instanceof GrowingGroundTile growingTile) {
+                growingTile.update(delta);
+            }
+        }
+    }
+
+    private void handleNightStart() {
+        isTorchThisNight = inventory.remove(ItemType.TORCH, 1);
+
+        if (isTorchThisNight) {
+            System.out.println("Pochodnia zostala zuzyta na te noc.");
+        }
+
+        if (inventory.has(ItemType.SHIELD, 1)) {
+            System.out.println("Masz tarcze - uprawy sa bezpieczne.");
+            inventory.remove(ItemType.SHIELD, 1);
+            return;
+        }
+
+        removeRandomCrops();
+    }
+
+    private void removeRandomCrops() {
+        List<GridPosition> positionsToClear = new ArrayList<>();
+
+        for (Map.Entry<GridPosition, InteractableTile> entry : interactableTiles.entrySet()) {
+            InteractableTile tile = entry.getValue();
+
+            if (tile instanceof GrowingGroundTile && random.nextInt(NIGHT_DESTROY_CHANCE) == 0) {
+                positionsToClear.add(entry.getKey());
+            }
+        }
+
+        for (GridPosition position : positionsToClear) {
+            InteractableTile oldTile = interactableTiles.get(position);
+
+            if (oldTile instanceof GrowingGroundTile growingGroundTile) {
+                EmptyGroundTile emptyGroundTile = new EmptyGroundTile(growingGroundTile);
+
+                if (oldTile.isSelected()) {
+                    emptyGroundTile.select();
+                }
+
+                interactableTiles.put(position, emptyGroundTile);
+            }
+        }
+
+        System.out.println("Noc zniszczyla uprawy: " + positionsToClear.size());
+    }
+
+    public boolean isNight() {
+        return dayNightCycle.isNight();
+    }
+
+    public boolean hasTorch() {
+        return isTorchThisNight;
+    }
+
+    public boolean isNightWithoutTorch() {
+        return isNight() && !hasTorch();
+    }
+
+    public float getNightRemainingTime() {
+        if (!isNight()) {
+            return 0f;
+        }
+
+        return dayNightCycle.getRemainingTime();
     }
 }
