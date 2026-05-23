@@ -2,47 +2,24 @@ package io.github.anseroville.model.quest;
 
 import io.github.anseroville.model.Wallet;
 import io.github.anseroville.model.inventory.Inventory;
-import io.github.anseroville.enums.ItemType;
 
 import java.util.ArrayList;
-import java.util.EnumMap;
 import java.util.List;
-import java.util.Map;
 
 public class QuestManager {
+
     private final List<Quest> quests;
-    private int activeQuestIndex;
     private final Wallet wallet;
     private final Inventory inventory;
-    private Quest mainQuest;
+    private final Quest mainQuest;
+    private int activeQuestIndex;
 
     public QuestManager(Wallet wallet, Inventory inventory) {
-        this.quests = createQuests();
-        this.activeQuestIndex = 0;
         this.wallet = wallet;
         this.inventory = inventory;
-    }
-
-    private List<Quest> createQuests() {
-        //todo: dalem jakies przykladowe questy zeby sprawdzic czy dziala
-        List<Quest> createdQuests = new ArrayList<>();
-
-        Map<ItemType, Integer> firstQuestRequirements = new EnumMap<>(ItemType.class);
-        firstQuestRequirements.put(ItemType.CARROT, 3);
-
-        createdQuests.add(new Quest(firstQuestRequirements, 10));
-
-        Map<ItemType, Integer> secondQuestRequirements = new EnumMap<>(ItemType.class);
-        secondQuestRequirements.put(ItemType.CARROT, 6);
-
-        createdQuests.add(new Quest(secondQuestRequirements, 25));
-
-        Map<ItemType, Integer> mainQuestRequirements = new EnumMap<>(ItemType.class);
-        secondQuestRequirements.put(ItemType.CARROT, 6);
-
-        mainQuest = new Quest(mainQuestRequirements, 100);
-
-        return createdQuests;
+        this.quests = QuestData.createLevelQuests();
+        this.mainQuest = QuestData.createMainQuest();
+        this.activeQuestIndex = 0;
     }
 
     public Quest getActiveQuest() {
@@ -53,20 +30,32 @@ public class QuestManager {
         return quests.get(activeQuestIndex);
     }
 
-    public boolean completeMainQuest() {
-        if (mainQuest == null || !mainQuest.canComplete(inventory)) {
-            return false;
-        }
+    public Quest getMainQuest() {
+        return mainQuest;
+    }
 
-        mainQuest.complete(inventory);
-        wallet.add(mainQuest.getRewardMoney());
+    public int getActiveQuestIndex() {
+        return activeQuestIndex;
+    }
 
-        return true;
+    public int getActiveLevelNumber() {
+        return activeQuestIndex + 1;
+    }
+
+    public int getQuestsCount() {
+        return quests.size();
+    }
+
+    public List<Quest> getQuests() {
+        return new ArrayList<>(quests);
+    }
+
+    public boolean hasCompletedAllLevelQuests() {
+        return activeQuestIndex >= quests.size();
     }
 
     public boolean completeActiveQuest() {
         Quest activeQuest = getActiveQuest();
-        System.out.println("INDEKS: " + activeQuestIndex);
 
         if (activeQuest == null || !activeQuest.canComplete(inventory)) {
             return false;
@@ -75,7 +64,20 @@ public class QuestManager {
         activeQuest.complete(inventory);
         wallet.add(activeQuest.getRewardMoney());
         activeQuestIndex++;
+        return true;
+    }
 
+    public boolean completeMainQuest() {
+        if (!hasCompletedAllLevelQuests()) {
+            return false;
+        }
+
+        if (mainQuest == null || !mainQuest.canComplete(inventory)) {
+            return false;
+        }
+
+        mainQuest.complete(inventory);
+        wallet.add(mainQuest.getRewardMoney());
         return true;
     }
 }
