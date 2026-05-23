@@ -45,7 +45,6 @@ public class GameState {
         GameData.addStartingInventory(inventory);
 
         this.hand = new Hand(inventory);
-        selectFirstAvailableSeed();
 
         this.wallet = new Wallet();
         this.wallet.add(GameData.STARTING_MONEY);
@@ -53,12 +52,6 @@ public class GameState {
         this.questManager = new QuestManager(wallet, inventory);
         this.shopManager = new ShopManager(wallet, inventory);
 
-        //do testow::
-        inventory.add(ItemType.CARROT_SEED,64);
-        hand.set(ItemType.CARROT_SEED);
-        inventory.add(ItemType.WHEAT_SEED,64);
-        inventory.add(ItemType.POTATO_SEED,64);
-        inventory.add(ItemType.CORN_SEED,64);
         this.dayNightCycle = new DayNightCycle(DAY_DURATION, NIGHT_DURATION);
         this.random = new Random();
         this.interactableTiles = GameData.createInteractableTiles();
@@ -101,9 +94,6 @@ public class GameState {
     }
 
     public void toggleHand(ItemType clickedType) {
-        if (clickedType == null) {
-            return;
-        }
 
         if (!hand.isEmpty()) {
             ItemType typeInHand = hand.getType();
@@ -178,55 +168,6 @@ public class GameState {
         }
     }
 
-//    public void plant(InteractableTile selectedTile) {
-//        if (!(selectedTile instanceof EmptyGroundTile)) {
-//            System.out.println("nie udalo sie posadzic");
-//            return;
-//        }
-//
-//        EmptyGroundTile emptyGroundTile = (EmptyGroundTile) selectedTile;
-//        ItemType seedType = getSeedFromHand();
-//
-//        if (seedType == null) {
-//            System.out.println("nie udalo sie posadzic - brak nasion w rece");
-//            return;
-//        }
-//
-//        InteractableTile newTile = createGrowingTile(seedType, emptyGroundTile);
-//
-//        if (newTile == null) {
-//            System.out.println("nie udalo sie posadzic - wybrany item nie jest nasionem");
-//            return;
-//        }
-//
-//        boolean removedSeed = inventory.remove(seedType, 1);
-//
-//        if (!removedSeed) {
-//            hand.clear();
-//            System.out.println("nie udalo sie posadzic - nie ma tego nasiona w inventory");
-//            return;
-//        }
-//
-//        if (emptyGroundTile.isSelected()) {
-//            newTile.select();
-//        }
-//
-//        interactableTiles.put(newTile.getGridPosition(), newTile);
-//
-//        if (newTile instanceof GrowingGroundTile) {
-//            GrowingGroundTile growingTile = (GrowingGroundTile) newTile;
-//            growingTile.update(0.1f);
-//        }
-//
-//        if (inventory.getAmount(seedType) == 0) {
-//            hand.clear();
-//        } else {
-//            hand.set(seedType);
-//        }
-//
-//        System.out.println("posadzono: " + seedType);
-//    }
-
     private void updateGrowingTiles(float delta) {
         for (InteractableTile tile : interactableTiles.values()) {
             if (tile instanceof GrowingGroundTile) {
@@ -279,72 +220,6 @@ public class GameState {
         }
 
         System.out.println("Noc zniszczyla uprawy: " + positionsToClear.size());
-    }
-
-    private ItemType getSeedFromHand() {
-        ItemType typeInHand = hand.getType();
-
-        if (!isSeed(typeInHand)) {
-            return null;
-        }
-
-        if (inventory.getAmount(typeInHand) <= 0) {
-            hand.clear();
-            return null;
-        }
-
-        return typeInHand;
-    }
-
-    private void selectFirstAvailableSeed() {
-        if (inventory.getAmount(ItemType.CARROT_SEED) > 0) {
-            hand.set(ItemType.CARROT_SEED);
-            return;
-        }
-
-        if (inventory.getAmount(ItemType.WHEAT_SEED) > 0) {
-            hand.set(ItemType.WHEAT_SEED);
-            return;
-        }
-
-        if (inventory.getAmount(ItemType.POTATO_SEED) > 0) {
-            hand.set(ItemType.POTATO_SEED);
-            return;
-        }
-
-        if (inventory.getAmount(ItemType.CORN_SEED) > 0) {
-            hand.set(ItemType.CORN_SEED);
-            return;
-        }
-
-        hand.clear();
-    }
-
-    private boolean isSeed(ItemType type) {
-        return type == ItemType.CARROT_SEED
-                || type == ItemType.WHEAT_SEED
-                || type == ItemType.POTATO_SEED
-                || type == ItemType.CORN_SEED;
-    }
-
-    private InteractableTile createGrowingTile(ItemType seedType, EmptyGroundTile emptyGroundTile) {
-        if (seedType == ItemType.CARROT_SEED) {
-            return new GrowingCarrotTile(emptyGroundTile);
-        }
-
-        if (seedType == ItemType.POTATO_SEED) {
-            return new GrowingPotatoTile(emptyGroundTile);
-        }
-
-        if (seedType == ItemType.CORN_SEED) {
-            return new GrowingCornTile(emptyGroundTile);
-        }
-
-        if (seedType == ItemType.WHEAT_SEED) {
-            return new GrowingWheatTile(emptyGroundTile);
-        }
-
-        return null;
     }
 
     public boolean isNight() {
