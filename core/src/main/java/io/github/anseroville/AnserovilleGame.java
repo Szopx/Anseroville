@@ -16,11 +16,11 @@ import com.badlogic.gdx.Gdx;
 
 public class AnserovilleGame extends ApplicationAdapter {
     private FarmViewModel farmViewModel;
-    private InventoryViewState inventoryViewState;
     private FarmRenderer farmRenderer;
     private HandRenderer handRenderer;
     private QuestRenderer questRenderer;
     private InventoryRenderer inventoryRenderer;
+    private StatusBarRenderer statusBarRenderer;
     private FarmInputController farmInputController;
 
     @Override
@@ -32,12 +32,13 @@ public class AnserovilleGame extends ApplicationAdapter {
         ShopManager shopManager = new ShopManager(wallet, gameState.getInventory());
 
         farmViewModel = new FarmViewModel(gameState, collector, questManager, wallet, shopManager);
-        inventoryViewState=new InventoryViewState(new HashMap<ItemType, Integer>(), ItemType.CARROT, 1);
         farmRenderer = new FarmRenderer(farmViewModel);
         handRenderer = new HandRenderer();
         inventoryRenderer = new InventoryRenderer();
         questRenderer = new QuestRenderer(farmViewModel);
         farmInputController = new FarmInputController(farmViewModel);
+        statusBarRenderer = new StatusBarRenderer(farmViewModel);
+
     }
 
     @Override
@@ -50,20 +51,21 @@ public class AnserovilleGame extends ApplicationAdapter {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
 
         farmRenderer.render();
-        handRenderer.render(farmViewModel.getInventoryViewState(), farmViewModel.isInventoryOpen());
-        questRenderer.render(farmViewModel.isInventoryOpen());
+        questRenderer.render();
         if(farmViewModel.isInventoryOpen()){
             inventoryRenderer.render(farmViewModel.getInventoryViewState());
         }
         if(farmViewModel.isNightWithoutTorch()){
             farmRenderer.render();
         } //nieoptymalne, chodzi o to że musi być wakaźnik czy jest noc w trakcie otwatrego inventory albo żeby inventory nie liczyło czasu bo noc odbiera ruszanie sie todo do poprawy
+        statusBarRenderer.render(); //zakladam ze to moze byc caly czas widoczne, correct me if i'm wrong
+        handRenderer.render(farmViewModel.getInventoryViewState(), farmViewModel.isInventoryOpen());
     }
 
     @Override
     public void dispose() {
         farmRenderer.dispose();
-
+        statusBarRenderer.dispose();
         inventoryRenderer.dispose();
         questRenderer.dispose();
         handRenderer.dispose();

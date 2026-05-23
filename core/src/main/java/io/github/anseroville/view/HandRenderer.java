@@ -1,5 +1,6 @@
 package io.github.anseroville.view;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -37,8 +38,10 @@ public class HandRenderer {
     public void render(InventoryViewState state, boolean isInventoryOpen){
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setColor(Color.BLACK);
-        shapeRenderer.rect(0.9f, 0.9f, TILE_SIZE, TILE_SIZE);
+        shapeRenderer.setColor(Color.WHITE);
+        float height= Gdx.graphics.getHeight()-TILE_SIZE-2.5f;
+        float width=Gdx.graphics.getWidth()-80;
+        shapeRenderer.rect(width, height, TILE_SIZE, TILE_SIZE);
         shapeRenderer.end();
 
         if (state.hasItemInHand()) {
@@ -46,7 +49,7 @@ public class HandRenderer {
 
             if (texture != null) {
                 batch.begin();
-                batch.draw(texture, 1, 1, TILE_SIZE, TILE_SIZE);
+                batch.draw(texture, width, height, TILE_SIZE, TILE_SIZE);
                 batch.end();
             }
         }

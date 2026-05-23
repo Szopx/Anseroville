@@ -169,10 +169,13 @@ public class FarmViewModel {
         return questManager.getActiveQuest();
     }
 
-    public Map<ItemType, Integer> getActiveQuestRequirements() {
-        if (questManager.getActiveQuest() != null)
-            return Collections.unmodifiableMap(questManager.getActiveQuest().getRequiredItems());
-        return Collections.emptyMap();
+    public QuestViewState getQuestViewState() {
+        Quest activeQuest = questManager.getActiveQuest();
+        if (activeQuest==null) {
+            return new QuestViewState(false, Collections.emptyMap());
+        } else {
+            return new QuestViewState(true, Collections.unmodifiableMap(activeQuest.getRequiredItems()));
+        }
     }
 
     public boolean isActiveQuestAvailable() {
