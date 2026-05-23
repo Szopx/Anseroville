@@ -2,12 +2,12 @@ package io.github.anseroville.enums;
 
 public enum ItemType {
     CARROT,
-    CARROT_SEED,
     CORN,
-    CORN_SEED,
     WHEAT,
-    WHEAT_SEED,
     POTATO,
+    CARROT_SEED,
+    CORN_SEED,
+    WHEAT_SEED,
     POTATO_SEED,
 
     TORCH,

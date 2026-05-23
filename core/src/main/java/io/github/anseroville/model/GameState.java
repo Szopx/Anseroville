@@ -53,6 +53,12 @@ public class GameState {
         this.questManager = new QuestManager(wallet, inventory);
         this.shopManager = new ShopManager(wallet, inventory);
 
+        //do testow::
+        inventory.add(ItemType.CARROT_SEED,64);
+        hand.set(ItemType.CARROT_SEED);
+        inventory.add(ItemType.WHEAT_SEED,64);
+        inventory.add(ItemType.POTATO_SEED,64);
+        inventory.add(ItemType.CORN_SEED,64);
         this.dayNightCycle = new DayNightCycle(DAY_DURATION, NIGHT_DURATION);
         this.random = new Random();
         this.interactableTiles = GameData.createInteractableTiles();
@@ -108,13 +114,53 @@ public class GameState {
             }
         }
 
-        if (inventory.getAmount(clickedType) > 0) {
+        int amountInInventory = inventory.getAmount(clickedType);
+        if (amountInInventory > 0) {
             hand.set(clickedType);
         }
     }
 
-    public boolean pickUpItem(ItemType type, int amount) {
-        return inventory.add(type, amount);
+    //todo ogarnijcie sobie i poprawcie
+    public void plant(InteractableTile selectedTile) {
+        if (selectedTile != null && selectedTile instanceof EmptyGroundTile) {
+            EmptyGroundTile emptyGroundTile = (EmptyGroundTile) selectedTile;
+
+            if (hand.getType() != null && hand.getAmount()>0) {
+                if (hand.getType() == ItemType.CARROT_SEED) {
+                    System.out.println("posadz marchewki");
+                    GrowingCarrotTile carrotTile = new GrowingCarrotTile(emptyGroundTile);
+                    interactableTiles.remove(emptyGroundTile.getGridPosition());
+                    interactableTiles.put(carrotTile.getGridPosition(), carrotTile);
+                    carrotTile.update((float)0.1);
+                    inventory.remove(ItemType.CARROT_SEED,1);
+                }
+                else if (hand.getType() == ItemType.POTATO_SEED) {
+                    System.out.println("posadz ziemniaki");
+                    GrowingPotatoTile potatoTile = new GrowingPotatoTile(emptyGroundTile);
+                    interactableTiles.remove(emptyGroundTile.getGridPosition());
+                    interactableTiles.put(potatoTile.getGridPosition(), potatoTile);
+                    potatoTile.update((float)0.1);
+                    inventory.remove(ItemType.POTATO_SEED,1);
+                }
+                else if (hand.getType() == ItemType.CORN_SEED) {
+                    System.out.println("posadz kukurydze");
+                    GrowingCornTile cornTile = new GrowingCornTile(emptyGroundTile);
+                    interactableTiles.remove(emptyGroundTile.getGridPosition());
+                    interactableTiles.put(cornTile.getGridPosition(), cornTile);
+                    cornTile.update((float)0.1);
+                    inventory.remove(ItemType.CORN_SEED,1);
+                }
+                else if (hand.getType() == ItemType.WHEAT_SEED) {
+                    System.out.println("posadz pszenice");
+                    GrowingWheatTile wheatTile = new GrowingWheatTile(emptyGroundTile);
+                    interactableTiles.remove(emptyGroundTile.getGridPosition());
+                    interactableTiles.put(wheatTile.getGridPosition(), wheatTile);
+                    wheatTile.update((float)0.1);
+                    inventory.remove(ItemType.WHEAT_SEED,1);
+                }
+            }
+        }
+        System.out.println("nie udalo sie posadzic");
     }
 
     public void update(float delta) {
@@ -132,54 +178,54 @@ public class GameState {
         }
     }
 
-    public void plant(InteractableTile selectedTile) {
-        if (!(selectedTile instanceof EmptyGroundTile)) {
-            System.out.println("nie udalo sie posadzic");
-            return;
-        }
-
-        EmptyGroundTile emptyGroundTile = (EmptyGroundTile) selectedTile;
-        ItemType seedType = getSeedFromHand();
-
-        if (seedType == null) {
-            System.out.println("nie udalo sie posadzic - brak nasion w rece");
-            return;
-        }
-
-        InteractableTile newTile = createGrowingTile(seedType, emptyGroundTile);
-
-        if (newTile == null) {
-            System.out.println("nie udalo sie posadzic - wybrany item nie jest nasionem");
-            return;
-        }
-
-        boolean removedSeed = inventory.remove(seedType, 1);
-
-        if (!removedSeed) {
-            hand.clear();
-            System.out.println("nie udalo sie posadzic - nie ma tego nasiona w inventory");
-            return;
-        }
-
-        if (emptyGroundTile.isSelected()) {
-            newTile.select();
-        }
-
-        interactableTiles.put(newTile.getGridPosition(), newTile);
-
-        if (newTile instanceof GrowingGroundTile) {
-            GrowingGroundTile growingTile = (GrowingGroundTile) newTile;
-            growingTile.update(0.1f);
-        }
-
-        if (inventory.getAmount(seedType) == 0) {
-            hand.clear();
-        } else {
-            hand.set(seedType);
-        }
-
-        System.out.println("posadzono: " + seedType);
-    }
+//    public void plant(InteractableTile selectedTile) {
+//        if (!(selectedTile instanceof EmptyGroundTile)) {
+//            System.out.println("nie udalo sie posadzic");
+//            return;
+//        }
+//
+//        EmptyGroundTile emptyGroundTile = (EmptyGroundTile) selectedTile;
+//        ItemType seedType = getSeedFromHand();
+//
+//        if (seedType == null) {
+//            System.out.println("nie udalo sie posadzic - brak nasion w rece");
+//            return;
+//        }
+//
+//        InteractableTile newTile = createGrowingTile(seedType, emptyGroundTile);
+//
+//        if (newTile == null) {
+//            System.out.println("nie udalo sie posadzic - wybrany item nie jest nasionem");
+//            return;
+//        }
+//
+//        boolean removedSeed = inventory.remove(seedType, 1);
+//
+//        if (!removedSeed) {
+//            hand.clear();
+//            System.out.println("nie udalo sie posadzic - nie ma tego nasiona w inventory");
+//            return;
+//        }
+//
+//        if (emptyGroundTile.isSelected()) {
+//            newTile.select();
+//        }
+//
+//        interactableTiles.put(newTile.getGridPosition(), newTile);
+//
+//        if (newTile instanceof GrowingGroundTile) {
+//            GrowingGroundTile growingTile = (GrowingGroundTile) newTile;
+//            growingTile.update(0.1f);
+//        }
+//
+//        if (inventory.getAmount(seedType) == 0) {
+//            hand.clear();
+//        } else {
+//            hand.set(seedType);
+//        }
+//
+//        System.out.println("posadzono: " + seedType);
+//    }
 
     private void updateGrowingTiles(float delta) {
         for (InteractableTile tile : interactableTiles.values()) {

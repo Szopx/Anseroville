@@ -55,13 +55,17 @@ public class AnserovilleGame extends ApplicationAdapter {
         if(farmViewModel.isInventoryOpen()){
             inventoryRenderer.render(farmViewModel.getInventoryViewState());
         }
+        if(farmViewModel.isNightWithoutTorch()){
+            farmRenderer.render();
+        } //nieoptymalne, chodzi o to że musi być wakaźnik czy jest noc w trakcie otwatrego inventory albo żeby inventory nie liczyło czasu bo noc odbiera ruszanie sie todo do poprawy
     }
 
     @Override
     public void dispose() {
         farmRenderer.dispose();
-        handRenderer.dispose();
+
         inventoryRenderer.dispose();
         questRenderer.dispose();
+        handRenderer.dispose();
     }
 }

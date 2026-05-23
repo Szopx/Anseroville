@@ -1,5 +1,6 @@
 package io.github.anseroville.model.Tiles;
 
+import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.model.GridPosition;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -24,5 +25,10 @@ public class GrowingWheatTile extends GrowingGroundTile{
             case 3 -> 0;
             default -> throw new IllegalStateException("Unexpected value: " + growingState.ordinal());
         };
+    }
+
+    @Override
+    public ItemType getPlantType(){
+        return ItemType.WHEAT;
     }
 }

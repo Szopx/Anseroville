@@ -1,6 +1,7 @@
 package io.github.anseroville.model.Tiles;
 
 import io.github.anseroville.enums.GrowingState;
+import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.model.GridPosition;
 
 import static io.github.anseroville.enums.GrowingState.ZERO;
@@ -49,4 +50,6 @@ public class GrowingGroundTile extends GroundTile {
     public GrowingState getGrowingState() {
         return growingState;
     }
+
+    public ItemType getPlantType(){return null;}
 }
