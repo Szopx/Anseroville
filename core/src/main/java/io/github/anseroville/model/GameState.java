@@ -32,6 +32,9 @@ public class GameState {
         //do testow::
         inventory.add(ItemType.CARROT_SEED,64);
         hand.set(ItemType.CARROT_SEED);
+        inventory.add(ItemType.WHEAT_SEED,64);
+        inventory.add(ItemType.POTATO_SEED,64);
+        inventory.add(ItemType.CORN_SEED,64);
         this.dayNightCycle = new DayNightCycle(DAY_DURATION, NIGHT_DURATION);
         this.random = new Random();
     }

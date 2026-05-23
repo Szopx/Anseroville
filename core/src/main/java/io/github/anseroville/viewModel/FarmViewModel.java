@@ -96,9 +96,16 @@ public class FarmViewModel {
         for (Map.Entry<GridPosition, InteractableTile> entry : gameState.getInteractableTiles().entrySet()) {
             InteractableTile tile = entry.getValue();
 
+            ItemType plantType = null;
+            if (tile instanceof GrowingGroundTile){
+                plantType = ((GrowingGroundTile) tile).getPlantType();
+            }
+
+
+
             tileViewStates.add(new TileViewState(
-                    tile.getGridPosition().getX(),tile.getGridPosition().getY(),tile.isSelected(), tile.getGrowingState())
-            );
+            tile.getGridPosition().getX(),tile.getGridPosition().getY()
+           ,tile.isSelected(), tile.getGrowingState(), plantType));
         }
 
         return tileViewStates;
@@ -173,6 +180,7 @@ public class FarmViewModel {
     }
 
     public void toggleInventory() {
+
         isInventoryOpen = !isInventoryOpen;
     }
 
@@ -191,4 +199,9 @@ public class FarmViewModel {
     public void addItemToInventory(ItemType itemType, int amount) {
         gameState.getInventory().add(itemType, amount);
     }
+
+    public void selectItemFromInventory(ItemType itemType) {
+        gameState.toggleHand(itemType);
+    }
+
 }

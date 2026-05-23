@@ -23,6 +23,9 @@ public class FarmInputController {
         }
 
         if (viewModel.isInventoryOpen()) {
+            if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+                handleInventoryClick(Gdx.input.getX(), Gdx.input.getY());
+            }
             return;
         }
 
@@ -72,6 +75,31 @@ public class FarmInputController {
         if (Gdx.input.isKeyJustPressed(Input.Keys.Y)) {// todo: oba tymczasowo
             viewModel.addItemToInventory(ItemType.SHIELD, 1);
             System.out.println("Dodano tarcze");
+        }
+
+    }
+    private void handleInventoryClick(int screenX, int screenY) {
+        int renderY = Gdx.graphics.getHeight() - screenY;
+
+        float startX = Gdx.graphics.getWidth() * 0.12f;
+        float startY = Gdx.graphics.getHeight() * 0.73f;
+        float offsetX = 160f;
+        float offsetY = 165f;
+        int columns = 4;
+        int ICON_SIZE = 100;
+
+        int index = 0;
+        for (ItemType itemType : ItemType.values()) {
+                int col = index % columns;
+                int row = index / columns;
+                float drawX = startX + (col * offsetX);
+                float drawY = startY - (row * offsetY);
+                if (screenX >= drawX && screenX <= drawX + ICON_SIZE &&
+                        renderY >= drawY && renderY <= drawY + ICON_SIZE) {
+                    viewModel.selectItemFromInventory(itemType);
+                    break;
+                }
+                index++;
         }
     }
 }
