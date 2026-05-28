@@ -2,6 +2,7 @@ package io.github.anseroville.viewModel;
 
 
 import io.github.anseroville.enums.Direction;
+import io.github.anseroville.enums.GrowingState;
 import io.github.anseroville.model.*;
 import io.github.anseroville.model.Shop.Shop;
 import io.github.anseroville.model.Shop.ShopManager;
@@ -99,15 +100,17 @@ public class FarmViewModel {
             InteractableTile tile = entry.getValue();
 
             ItemType plantType = null;
+            GrowingState growingState = null;
             if (tile instanceof GrowingGroundTile){
                 plantType = ((GrowingGroundTile) tile).getPlantType();
+                growingState = ((GrowingGroundTile) tile).getGrowingState();
             }
 
 
 
             tileViewStates.add(new TileViewState(
             tile.getGridPosition().getX(),tile.getGridPosition().getY()
-           ,tile.isSelected(), tile.getGrowingState(), plantType));
+           ,tile.isSelected(), growingState, plantType));
         }
 
         return tileViewStates;
