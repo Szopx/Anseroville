@@ -8,3 +8,12 @@
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+
+.gradle/
+build/
+**/build/
+
+*.class
+*.jar
+
+.DS_Store
