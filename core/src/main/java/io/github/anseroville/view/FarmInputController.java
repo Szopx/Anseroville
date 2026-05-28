@@ -18,6 +18,14 @@ public class FarmInputController {
             return;
         }
 
+        if (Gdx.input.isKeyJustPressed(Input.Keys.G)) {
+            viewModel.playMachine();
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
+            viewModel.water();
+        }
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
             viewModel.toggleInventory();
         }

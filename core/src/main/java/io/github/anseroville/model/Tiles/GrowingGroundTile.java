@@ -12,7 +12,7 @@ public class GrowingGroundTile extends GroundTile {
 
     public GrowingGroundTile(EmptyGroundTile emptyGroundTile) {
         super(emptyGroundTile.getGridPosition());
-        this.setWatered(emptyGroundTile.isWatered());
+        this.setWatered(false);
     }
 
     public GrowingGroundTile(GridPosition gridPosition) {
@@ -24,6 +24,10 @@ public class GrowingGroundTile extends GroundTile {
             return;
         }
 
+        if (!isWatered()) {
+            return;
+        }
+
         timeFromLastGrowth += delta;
 
         if (timeFromLastGrowth >= this.getDuration()) {
@@ -32,10 +36,11 @@ public class GrowingGroundTile extends GroundTile {
         }
     }
 
-    protected int getDuration(){
-        if (growingState.ordinal() == 0){
+    protected int getDuration() {
+        if (growingState.ordinal() == 0) {
             return 0;
         }
+
         return 3;
     }
 
@@ -51,5 +56,7 @@ public class GrowingGroundTile extends GroundTile {
         return growingState;
     }
 
-    public ItemType getPlantType(){return null;}
+    public ItemType getPlantType() {
+        return null;
+    }
 }

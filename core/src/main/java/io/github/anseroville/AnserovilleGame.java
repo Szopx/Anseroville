@@ -31,7 +31,7 @@ public class AnserovilleGame extends ApplicationAdapter {
         QuestManager questManager = new QuestManager(wallet, gameState.getInventory());
         ShopManager shopManager = new ShopManager(wallet, gameState.getInventory());
 
-        farmViewModel = new FarmViewModel(gameState, collector, questManager, wallet, shopManager);
+        farmViewModel = new FarmViewModel(gameState, collector, questManager, shopManager);
         farmRenderer = new FarmRenderer(farmViewModel);
         handRenderer = new HandRenderer();
         inventoryRenderer = new InventoryRenderer();

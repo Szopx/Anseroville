@@ -23,15 +23,13 @@ public class FarmViewModel {
     private InteractableTile selectedTile;
     private final Collector collector;
     private final QuestManager questManager;
-    private final Wallet wallet;
     private boolean isInventoryOpen = false;
     private ShopManager shopManager;
 
-    public FarmViewModel(GameState gameState, Collector collector, QuestManager questManager, Wallet wallet, ShopManager shopManager) {
+    public FarmViewModel(GameState gameState, Collector collector, QuestManager questManager, ShopManager shopManager) {
         this.gameState = gameState;
         this.collector = collector;
         this.questManager = questManager;
-        this.wallet = wallet;
         this.shopManager = shopManager;
     }
 
@@ -48,6 +46,10 @@ public class FarmViewModel {
     public void plant() {
         gameState.plant(selectedTile);
         updateSelectedTile();
+    }
+
+    public void water() {
+        gameState.water(selectedTile);
     }
 
     private void updateSelectedTile() {
@@ -162,7 +164,7 @@ public class FarmViewModel {
     }
 
     public int getMoney() {
-        return wallet.getMoney();
+        return gameState.getWallet().getMoney();
     }
 
     public Quest getActiveQuest() {
@@ -205,6 +207,10 @@ public class FarmViewModel {
 
     public void selectItemFromInventory(ItemType itemType) {
         gameState.toggleHand(itemType);
+    }
+
+    public void playMachine() {
+        gameState.getMachine().play();
     }
 
 }

@@ -1,22 +1,20 @@
 package io.github.anseroville.model;
 
 import io.github.anseroville.enums.ItemType;
+import io.github.anseroville.model.Gambling.Machine;
 import io.github.anseroville.model.Shop.ShopManager;
-import io.github.anseroville.model.Tiles.EmptyGroundTile;
-import io.github.anseroville.model.Tiles.GrowingCarrotTile;
-import io.github.anseroville.model.Tiles.GrowingCornTile;
-import io.github.anseroville.model.Tiles.GrowingGroundTile;
-import io.github.anseroville.model.Tiles.GrowingPotatoTile;
-import io.github.anseroville.model.Tiles.GrowingWheatTile;
 import io.github.anseroville.model.Tiles.InteractableTile;
 import io.github.anseroville.model.data.GameData;
 import io.github.anseroville.model.inventory.Hand;
 import io.github.anseroville.model.inventory.Inventory;
 import io.github.anseroville.model.quest.QuestManager;
+import io.github.anseroville.model.systems.CropGrowthSystem;
+import io.github.anseroville.model.systems.HandManager;
+import io.github.anseroville.model.systems.NightManager;
+import io.github.anseroville.model.systems.PlantingManager;
+import io.github.anseroville.model.systems.TileManager;
 import io.github.anseroville.model.time.DayNightCycle;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -26,17 +24,18 @@ public class GameState {
     private static final int NIGHT_DESTROY_CHANCE = 5;
 
     private final Player player;
-    private final Map<GridPosition, InteractableTile> interactableTiles;
     private final Inventory inventory;
     private final Hand hand;
     private final Wallet wallet;
     private final QuestManager questManager;
     private final ShopManager shopManager;
-    private final DayNightCycle dayNightCycle;
-    private final Random random;
+    private final Machine machine;
 
-    private boolean nightEffectApplied = false;
-    private boolean isTorchThisNight = false;
+    private final TileManager tileManager;
+    private final HandManager handManager;
+    private final PlantingManager plantingManager;
+    private final CropGrowthSystem cropGrowthSystem;
+    private final NightManager nightManager;
 
     public GameState() {
         this.player = new Player(100, 100);
@@ -48,13 +47,22 @@ public class GameState {
 
         this.wallet = new Wallet();
         this.wallet.add(GameData.STARTING_MONEY);
+        this.machine = new Machine(wallet);
 
         this.questManager = new QuestManager(wallet, inventory);
         this.shopManager = new ShopManager(wallet, inventory);
 
-        this.dayNightCycle = new DayNightCycle(DAY_DURATION, NIGHT_DURATION);
-        this.random = new Random();
-        this.interactableTiles = GameData.createInteractableTiles();
+        this.tileManager = new TileManager(GameData.createInteractableTiles());
+        this.handManager = new HandManager(hand, inventory);
+        this.plantingManager = new PlantingManager(tileManager, hand, inventory);
+        this.cropGrowthSystem = new CropGrowthSystem(tileManager);
+        this.nightManager = new NightManager(
+                tileManager,
+                inventory,
+                new DayNightCycle(DAY_DURATION, NIGHT_DURATION),
+                new Random(),
+                NIGHT_DESTROY_CHANCE
+        );
     }
 
     public Player getPlayer() {
@@ -62,15 +70,15 @@ public class GameState {
     }
 
     public Map<GridPosition, InteractableTile> getInteractableTiles() {
-        return interactableTiles;
+        return tileManager.getInteractableTiles();
     }
 
     public InteractableTile getTile(GridPosition position) {
-        return interactableTiles.get(position);
+        return tileManager.getTile(position);
     }
 
     public void modifyTile(GridPosition position, InteractableTile interactableTile) {
-        interactableTiles.put(position, interactableTile);
+        tileManager.modifyTile(position, interactableTile);
     }
 
     public Inventory getInventory() {
@@ -94,151 +102,40 @@ public class GameState {
     }
 
     public void toggleHand(ItemType clickedType) {
-
-        if (!hand.isEmpty()) {
-            ItemType typeInHand = hand.getType();
-            hand.clear();
-
-            if (typeInHand == clickedType) {
-                return;
-            }
-        }
-
-        int amountInInventory = inventory.getAmount(clickedType);
-        if (amountInInventory > 0) {
-            hand.set(clickedType);
-        }
+        handManager.toggleHand(clickedType);
     }
 
-    //todo ogarnijcie sobie i poprawcie
     public void plant(InteractableTile selectedTile) {
-        if (selectedTile != null && selectedTile instanceof EmptyGroundTile) {
-            EmptyGroundTile emptyGroundTile = (EmptyGroundTile) selectedTile;
+        plantingManager.plant(selectedTile);
+    }
 
-            if (hand.getType() != null && hand.getAmount()>0) {
-                if (hand.getType() == ItemType.CARROT_SEED) {
-                    System.out.println("posadz marchewki");
-                    GrowingCarrotTile carrotTile = new GrowingCarrotTile(emptyGroundTile);
-                    interactableTiles.remove(emptyGroundTile.getGridPosition());
-                    interactableTiles.put(carrotTile.getGridPosition(), carrotTile);
-                    carrotTile.update((float)0.1);
-                    inventory.remove(ItemType.CARROT_SEED,1);
-                }
-                else if (hand.getType() == ItemType.POTATO_SEED) {
-                    System.out.println("posadz ziemniaki");
-                    GrowingPotatoTile potatoTile = new GrowingPotatoTile(emptyGroundTile);
-                    interactableTiles.remove(emptyGroundTile.getGridPosition());
-                    interactableTiles.put(potatoTile.getGridPosition(), potatoTile);
-                    potatoTile.update((float)0.1);
-                    inventory.remove(ItemType.POTATO_SEED,1);
-                }
-                else if (hand.getType() == ItemType.CORN_SEED) {
-                    System.out.println("posadz kukurydze");
-                    GrowingCornTile cornTile = new GrowingCornTile(emptyGroundTile);
-                    interactableTiles.remove(emptyGroundTile.getGridPosition());
-                    interactableTiles.put(cornTile.getGridPosition(), cornTile);
-                    cornTile.update((float)0.1);
-                    inventory.remove(ItemType.CORN_SEED,1);
-                }
-                else if (hand.getType() == ItemType.WHEAT_SEED) {
-                    System.out.println("posadz pszenice");
-                    GrowingWheatTile wheatTile = new GrowingWheatTile(emptyGroundTile);
-                    interactableTiles.remove(emptyGroundTile.getGridPosition());
-                    interactableTiles.put(wheatTile.getGridPosition(), wheatTile);
-                    wheatTile.update((float)0.1);
-                    inventory.remove(ItemType.WHEAT_SEED,1);
-                }
-            }
-        }
-        System.out.println("nie udalo sie posadzic");
+    public void water(InteractableTile selectedTile) {
+        plantingManager.water(selectedTile);
     }
 
     public void update(float delta) {
-        updateGrowingTiles(delta);
-        dayNightCycle.update(delta);
-
-        if (dayNightCycle.isNight()) {
-            if (!nightEffectApplied) {
-                handleNightStart();
-                nightEffectApplied = true;
-            }
-        } else {
-            nightEffectApplied = false;
-            isTorchThisNight = false;
-        }
-    }
-
-    private void updateGrowingTiles(float delta) {
-        for (InteractableTile tile : interactableTiles.values()) {
-            if (tile instanceof GrowingGroundTile) {
-                GrowingGroundTile growingTile = (GrowingGroundTile) tile;
-                growingTile.update(delta);
-            }
-        }
-    }
-
-    private void handleNightStart() {
-        isTorchThisNight = inventory.remove(ItemType.TORCH, 1);
-
-        if (isTorchThisNight) {
-            System.out.println("Pochodnia zostala zuzyta na te noc.");
-        }
-
-        if (inventory.has(ItemType.SHIELD, 1)) {
-            System.out.println("Masz tarcze - uprawy sa bezpieczne.");
-            inventory.remove(ItemType.SHIELD, 1);
-            return;
-        }
-
-        removeRandomCrops();
-    }
-
-    private void removeRandomCrops() {
-        List<GridPosition> positionsToClear = new ArrayList<>();
-
-        for (Map.Entry<GridPosition, InteractableTile> entry : interactableTiles.entrySet()) {
-            InteractableTile tile = entry.getValue();
-
-            if (tile instanceof GrowingGroundTile && random.nextInt(NIGHT_DESTROY_CHANCE) == 0) {
-                positionsToClear.add(entry.getKey());
-            }
-        }
-
-        for (GridPosition position : positionsToClear) {
-            InteractableTile oldTile = interactableTiles.get(position);
-
-            if (oldTile instanceof GrowingGroundTile) {
-                GrowingGroundTile growingGroundTile = (GrowingGroundTile) oldTile;
-                EmptyGroundTile emptyGroundTile = new EmptyGroundTile(growingGroundTile);
-
-                if (oldTile.isSelected()) {
-                    emptyGroundTile.select();
-                }
-
-                interactableTiles.put(position, emptyGroundTile);
-            }
-        }
-
-        System.out.println("Noc zniszczyla uprawy: " + positionsToClear.size());
+        cropGrowthSystem.update(delta);
+        nightManager.update(delta);
     }
 
     public boolean isNight() {
-        return dayNightCycle.isNight();
+        return nightManager.isNight();
     }
 
     public boolean hasTorch() {
-        return isTorchThisNight;
+        return nightManager.hasTorch();
     }
 
     public boolean isNightWithoutTorch() {
-        return isNight() && !hasTorch();
+        return nightManager.isNightWithoutTorch();
     }
 
     public float getNightRemainingTime() {
-        if (!isNight()) {
-            return 0f;
-        }
+        return nightManager.getNightRemainingTime();
+    }
 
-        return dayNightCycle.getRemainingTime();
+    public Machine getMachine() {
+        return machine;
     }
 }
+
