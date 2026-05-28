@@ -1,6 +1,7 @@
 package io.github.anseroville.viewModel;
 
 
+import io.github.anseroville.enums.ActivityTileType;
 import io.github.anseroville.enums.Direction;
 import io.github.anseroville.enums.GrowingState;
 import io.github.anseroville.model.*;
@@ -214,6 +215,38 @@ public class FarmViewModel {
 
     public void playMachine() {
         gameState.getMachine().play();
+    }
+
+    //mozna zmienic nazwe, ogolnie to jest tylko dla activity tile
+    // docelowo ma byc zamiennikiem playMachine(), completeMainQuest() itp
+    // mozna przekopiowac kod a mozna dac tamte jako prywatne
+    public boolean interactWithTile() {
+        if (!(selectedTile instanceof ActivityTile)) return false;
+
+        ActivityTile activityTile = (ActivityTile) selectedTile;
+        ActivityTileType activityTileType = activityTile.getActivityTileType();
+
+        switch (activityTileType)
+        {
+            case SHOP:
+                // do implementacji - albo tutaj wywolujemy prywatna funkcje, albo caly jej kod tu ma byc
+                break;
+            case MAIN_QUEST:
+                completeMainQuest();
+                break;
+            case QUEST:
+                completeActiveQuest();
+                break;
+            case GAMBLING:
+                gameState.getMachine().play();
+                break;
+            case WATER:
+                // jeszcze nie ma napelniania konewki
+                break;
+        }
+
+        updateSelectedTile();
+        return true;
     }
 
 }

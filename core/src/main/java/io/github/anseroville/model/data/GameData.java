@@ -1,10 +1,11 @@
 package io.github.anseroville.model.data;
 
+import io.github.anseroville.enums.ActivityTileType;
 import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.model.GridPosition;
 import io.github.anseroville.model.Tiles.EmptyGroundTile;
 import io.github.anseroville.model.Tiles.InteractableTile;
-import io.github.anseroville.model.Tiles.ShopTile;
+import io.github.anseroville.model.Tiles.ActivityTile;
 import io.github.anseroville.model.inventory.Inventory;
 
 import java.util.HashMap;
@@ -59,7 +60,7 @@ public final class GameData {
             int row = shop[0];
             int column = shop[1];
             GridPosition position = new GridPosition(column, row);
-            tiles.put(position, new ShopTile(position));
+            tiles.put(position, new ActivityTile(position, ActivityTileType.SHOP));
         }
     }
 }
