@@ -1,13 +1,13 @@
 package io.github.anseroville.model.systems;
 
 import io.github.anseroville.enums.ItemType;
-import io.github.anseroville.model.Tiles.EmptyGroundTile;
-import io.github.anseroville.model.Tiles.GrowingCarrotTile;
-import io.github.anseroville.model.Tiles.GrowingCornTile;
-import io.github.anseroville.model.Tiles.GrowingGroundTile;
-import io.github.anseroville.model.Tiles.GrowingPotatoTile;
-import io.github.anseroville.model.Tiles.GrowingWheatTile;
-import io.github.anseroville.model.Tiles.InteractableTile;
+import io.github.anseroville.model.tiles.EmptyGroundTile;
+import io.github.anseroville.model.tiles.GrowingCarrotTile;
+import io.github.anseroville.model.tiles.GrowingCornTile;
+import io.github.anseroville.model.tiles.GrowingGroundTile;
+import io.github.anseroville.model.tiles.GrowingPotatoTile;
+import io.github.anseroville.model.tiles.GrowingWheatTile;
+import io.github.anseroville.model.tiles.InteractableTile;
 import io.github.anseroville.model.inventory.Hand;
 import io.github.anseroville.model.inventory.Inventory;
 

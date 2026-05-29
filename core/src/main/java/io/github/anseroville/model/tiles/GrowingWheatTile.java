@@ -1,18 +1,18 @@
-package io.github.anseroville.model.Tiles;
+package io.github.anseroville.model.tiles;
 
 import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.model.GridPosition;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class GrowingCornTile extends GrowingGroundTile {
-    private final int growthModifier = ThreadLocalRandom.current().nextInt(0, 6);
+public class GrowingWheatTile extends GrowingGroundTile{
+    private final int growthModifier = ThreadLocalRandom.current().nextInt(-1, 2);
 
-    public GrowingCornTile(EmptyGroundTile emptyGroundTile) {
+    public GrowingWheatTile(EmptyGroundTile emptyGroundTile) {
         super(emptyGroundTile);
     }
 
-    GrowingCornTile(GridPosition gridPosition) {
+    GrowingWheatTile(GridPosition gridPosition) {
         super(gridPosition);
     }
 
@@ -20,8 +20,8 @@ public class GrowingCornTile extends GrowingGroundTile {
     protected int getDuration(){
         return switch (growingState.ordinal()) {
             case 0 -> 0;
-            case 1 -> 3 + growthModifier;
-            case 2 -> 7 + growthModifier;
+            case 1 -> 2 + growthModifier;
+            case 2 -> 3 + growthModifier;
             case 3 -> 0;
             default -> throw new IllegalStateException("Unexpected value: " + growingState.ordinal());
         };
@@ -29,6 +29,6 @@ public class GrowingCornTile extends GrowingGroundTile {
 
     @Override
     public ItemType getPlantType(){
-        return ItemType.CORN;
+        return ItemType.WHEAT;
     }
 }

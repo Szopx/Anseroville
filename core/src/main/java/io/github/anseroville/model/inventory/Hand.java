@@ -14,6 +14,26 @@ public class Hand {
         this.type = type;
     }
 
+    public void toggleHand(ItemType clickedType) {
+        if (clickedType == null) {
+            this.clear();
+            return;
+        }
+
+        if (!this.isEmpty()) {
+            ItemType typeInHand = this.getType();
+            this.clear();
+
+            if (typeInHand == clickedType) {
+                return;
+            }
+        }
+
+        if (inventory.has(clickedType, 1)) {
+            this.set(clickedType);
+        }
+    }
+
     public void clear() {
         this.type = null;
     }

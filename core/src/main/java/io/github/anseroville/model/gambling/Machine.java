@@ -1,4 +1,4 @@
-package io.github.anseroville.model.Gambling;
+package io.github.anseroville.model.gambling;
 
 import io.github.anseroville.model.Wallet;
 

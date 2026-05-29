@@ -3,9 +3,9 @@ package io.github.anseroville.model.data;
 import io.github.anseroville.enums.ActivityTileType;
 import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.model.GridPosition;
-import io.github.anseroville.model.Tiles.EmptyGroundTile;
-import io.github.anseroville.model.Tiles.InteractableTile;
-import io.github.anseroville.model.Tiles.ActivityTile;
+import io.github.anseroville.model.tiles.EmptyGroundTile;
+import io.github.anseroville.model.tiles.InteractableTile;
+import io.github.anseroville.model.tiles.ActivityTile;
 import io.github.anseroville.model.inventory.Inventory;
 
 import java.util.HashMap;

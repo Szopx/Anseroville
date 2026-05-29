@@ -1,4 +1,4 @@
-package io.github.anseroville.model.Shop;
+package io.github.anseroville.model.shop;
 
 import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.model.Wallet;

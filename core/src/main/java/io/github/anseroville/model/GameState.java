@@ -1,15 +1,14 @@
 package io.github.anseroville.model;
 
 import io.github.anseroville.enums.ItemType;
-import io.github.anseroville.model.Gambling.Machine;
-import io.github.anseroville.model.Shop.ShopManager;
-import io.github.anseroville.model.Tiles.InteractableTile;
+import io.github.anseroville.model.gambling.Machine;
+import io.github.anseroville.model.shop.ShopManager;
+import io.github.anseroville.model.tiles.InteractableTile;
 import io.github.anseroville.model.data.GameData;
 import io.github.anseroville.model.inventory.Hand;
 import io.github.anseroville.model.inventory.Inventory;
 import io.github.anseroville.model.quest.QuestManager;
 import io.github.anseroville.model.systems.CropGrowthSystem;
-import io.github.anseroville.model.systems.HandManager;
 import io.github.anseroville.model.systems.NightManager;
 import io.github.anseroville.model.systems.PlantingManager;
 import io.github.anseroville.model.systems.TileManager;
@@ -32,7 +31,6 @@ public class GameState {
     private final Machine machine;
 
     private final TileManager tileManager;
-    private final HandManager handManager;
     private final PlantingManager plantingManager;
     private final CropGrowthSystem cropGrowthSystem;
     private final NightManager nightManager;
@@ -53,7 +51,6 @@ public class GameState {
         this.shopManager = new ShopManager(wallet, inventory);
 
         this.tileManager = new TileManager(GameData.createInteractableTiles());
-        this.handManager = new HandManager(hand, inventory);
         this.plantingManager = new PlantingManager(tileManager, hand, inventory);
         this.cropGrowthSystem = new CropGrowthSystem(tileManager);
         this.nightManager = new NightManager(
@@ -91,18 +88,6 @@ public class GameState {
 
     public Wallet getWallet() {
         return wallet;
-    }
-
-    public QuestManager getQuestManager() {
-        return questManager;
-    }
-
-    public ShopManager getShopManager() {
-        return shopManager;
-    }
-
-    public void toggleHand(ItemType clickedType) {
-        handManager.toggleHand(clickedType);
     }
 
     public void plant(InteractableTile selectedTile) {

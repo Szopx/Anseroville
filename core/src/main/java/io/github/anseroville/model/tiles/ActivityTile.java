@@ -1,4 +1,4 @@
-package io.github.anseroville.model.Tiles;
+package io.github.anseroville.model.tiles;
 
 import io.github.anseroville.enums.ActivityTileType;
 import io.github.anseroville.model.GridPosition;

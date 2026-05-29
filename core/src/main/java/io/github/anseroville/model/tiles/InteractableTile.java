@@ -1,6 +1,5 @@
-package io.github.anseroville.model.Tiles;
+package io.github.anseroville.model.tiles;
 
-import io.github.anseroville.enums.GrowingState;
 import io.github.anseroville.model.GridPosition;
 
 public abstract class InteractableTile {

@@ -1,9 +1,9 @@
 package io.github.anseroville.model.systems;
 
 import io.github.anseroville.model.GridPosition;
-import io.github.anseroville.model.Tiles.EmptyGroundTile;
-import io.github.anseroville.model.Tiles.GrowingGroundTile;
-import io.github.anseroville.model.Tiles.InteractableTile;
+import io.github.anseroville.model.tiles.EmptyGroundTile;
+import io.github.anseroville.model.tiles.GrowingGroundTile;
+import io.github.anseroville.model.tiles.InteractableTile;
 
 import java.util.Map;
 

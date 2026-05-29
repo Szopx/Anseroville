@@ -5,9 +5,10 @@ import io.github.anseroville.enums.ActivityTileType;
 import io.github.anseroville.enums.Direction;
 import io.github.anseroville.enums.GrowingState;
 import io.github.anseroville.model.*;
-import io.github.anseroville.model.Shop.Shop;
-import io.github.anseroville.model.Shop.ShopManager;
-import io.github.anseroville.model.Tiles.*;
+import io.github.anseroville.model.shop.Shop;
+import io.github.anseroville.model.shop.ShopManager;
+import io.github.anseroville.model.systems.CollectingManager;
+import io.github.anseroville.model.tiles.*;
 import io.github.anseroville.model.inventory.Hand;
 import io.github.anseroville.model.inventory.Inventory;
 import io.github.anseroville.enums.ItemType;
@@ -23,14 +24,14 @@ public class FarmViewModel {
 
     private final GameState gameState;
     private InteractableTile selectedTile;
-    private final Collector collector;
+    private final CollectingManager collectingManager;
     private final QuestManager questManager;
     private boolean isInventoryOpen = false;
     private ShopManager shopManager;
 
-    public FarmViewModel(GameState gameState, Collector collector, QuestManager questManager, ShopManager shopManager) {
+    public FarmViewModel(GameState gameState, CollectingManager collectingManager, QuestManager questManager, ShopManager shopManager) {
         this.gameState = gameState;
-        this.collector = collector;
+        this.collectingManager = collectingManager;
         this.questManager = questManager;
         this.shopManager = shopManager;
     }
@@ -140,7 +141,7 @@ public class FarmViewModel {
     }
 
     public void collect() {
-        if(!collector.collect(selectedTile)) {
+        if(!collectingManager.collect(selectedTile)) {
             System.out.println("nie udało się zebrać warzywa");
         } else {
             System.out.println("udało się zebrać warzywa");
@@ -210,7 +211,7 @@ public class FarmViewModel {
     }
 
     public void selectItemFromInventory(ItemType itemType) {
-        gameState.toggleHand(itemType);
+        gameState.getHand().toggleHand(itemType);
     }
 
     public void playMachine() {

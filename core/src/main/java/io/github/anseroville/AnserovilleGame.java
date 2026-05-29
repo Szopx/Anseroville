@@ -2,16 +2,12 @@ package io.github.anseroville;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.utils.ScreenUtils;
-import io.github.anseroville.model.Collector;
+import io.github.anseroville.model.systems.CollectingManager;
 import io.github.anseroville.model.GameState;
-import io.github.anseroville.model.Shop.ShopManager;
-import io.github.anseroville.model.Wallet;
-import io.github.anseroville.enums.ItemType;
+import io.github.anseroville.model.shop.ShopManager;
 import io.github.anseroville.model.quest.QuestManager;
 import io.github.anseroville.view.*;
 import io.github.anseroville.viewModel.FarmViewModel;
-import io.github.anseroville.viewModel.InventoryViewState;
-import java.util.HashMap;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -33,15 +29,14 @@ public class AnserovilleGame extends ApplicationAdapter {
     @Override
     public void create() {
         GameState gameState = new GameState();
-        Collector collector = new Collector(gameState);
-        Wallet wallet = new Wallet();
-        QuestManager questManager = new QuestManager(wallet, gameState.getInventory());
-        ShopManager shopManager = new ShopManager(wallet, gameState.getInventory());
+        CollectingManager collectingManager = new CollectingManager(gameState);
+        QuestManager questManager = new QuestManager(gameState.getWallet(), gameState.getInventory());
+        ShopManager shopManager = new ShopManager(gameState.getWallet(), gameState.getInventory());
         camera = new OrthographicCamera();
         viewport = new FitViewport(width, height, camera);
         camera.position.set(viewport.getWorldWidth() / 2f, viewport.getWorldHeight() / 2f, 0);
 
-        farmViewModel = new FarmViewModel(gameState, collector, questManager, shopManager);
+        farmViewModel = new FarmViewModel(gameState, collectingManager, questManager, shopManager);
         farmRenderer = new FarmRenderer(farmViewModel, camera);
         handRenderer = new HandRenderer(camera);
         inventoryRenderer = new InventoryRenderer(camera);

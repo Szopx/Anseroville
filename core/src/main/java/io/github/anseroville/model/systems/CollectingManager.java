@@ -1,12 +1,13 @@
-package io.github.anseroville.model;
+package io.github.anseroville.model.systems;
 
-import io.github.anseroville.model.Tiles.*;
+import io.github.anseroville.model.GameState;
+import io.github.anseroville.model.tiles.*;
 import io.github.anseroville.enums.ItemType;
 
-public class Collector {
+public class CollectingManager {
     private final GameState gameState;
 
-    public Collector(GameState gameState) {
+    public CollectingManager(GameState gameState) {
         this.gameState = gameState;
     }
 
