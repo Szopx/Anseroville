@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import io.github.anseroville.enums.GrowingState;
 import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.viewModel.FarmViewModel;
@@ -29,13 +30,15 @@ public class FarmRenderer {
     private final Texture pole;
     private final Texture pole_zaznaczone;
     private final Map<ItemType, Map<GrowingState, Texture>> plantTextures;
+    private final OrthographicCamera camera;
 
     private final Texture darknessTexture;
     private final BitmapFont font;
     private final GlyphLayout glyphLayout;
 
-    public FarmRenderer(FarmViewModel viewModel) {
+    public FarmRenderer(FarmViewModel viewModel, OrthographicCamera camera) {
         this.viewModel = viewModel;
+        this.camera = camera;
         this.batch = new SpriteBatch();
         this.shapeRenderer = new ShapeRenderer();
         this.backgroundTexture = new Texture("tlo.png");
@@ -58,6 +61,8 @@ public class FarmRenderer {
     }
 
     public void render() {
+        batch.setProjectionMatrix(camera.combined);
+        shapeRenderer.setProjectionMatrix(camera.combined);
         renderBackground();
         renderTiles();
         renderPlayer();
@@ -82,7 +87,7 @@ public class FarmRenderer {
 
     private void renderBackground() {
         batch.begin();
-        batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch.draw(backgroundTexture, 0, 0, camera.viewportWidth, camera.viewportHeight);
         batch.end();
     }
 
@@ -131,13 +136,13 @@ public class FarmRenderer {
     }
 
     private void renderFullNightOverlay(NightViewState nightViewState) {
-        int screenWidth = Gdx.graphics.getWidth();
-        int screenHeight = Gdx.graphics.getHeight();
+        float screenWidth = camera.viewportWidth;
+        float screenHeight = camera.viewportHeight;
 
         batch.begin();
 
         batch.setColor(0f, 0f, 0f, 1f);
-        batch.draw(darknessTexture, 0, 0, screenWidth, screenHeight);
+        batch.draw(darknessTexture, 0, 0, camera.viewportWidth, camera.viewportHeight);
 
         batch.setColor(Color.WHITE);
 
@@ -162,8 +167,8 @@ public class FarmRenderer {
     }
 
     private void renderTorchNightOverlay() {
-        int screenWidth = Gdx.graphics.getWidth();
-        int screenHeight = Gdx.graphics.getHeight();
+        float screenWidth = camera.viewportWidth;
+        float screenHeight = camera.viewportHeight;
 
         int edgeSize = 120;
 

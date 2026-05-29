@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.anseroville.viewModel.FarmViewModel;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 
 public class StatusBarRenderer {
     private final SpriteBatch batch;
@@ -14,9 +15,11 @@ public class StatusBarRenderer {
     private final FarmViewModel viewModel;
     private final Texture money;
     private final Texture statusBarTexture;
+    private final OrthographicCamera camera;
 
-    public StatusBarRenderer(FarmViewModel viewModel) {
+    public StatusBarRenderer(FarmViewModel viewModel, OrthographicCamera camera) {
         this.batch=new SpriteBatch();
+        this.camera=camera;
         this.font=new BitmapFont();
         this.font.getData().setScale(2f);
         this.viewModel=viewModel;
@@ -29,14 +32,15 @@ public class StatusBarRenderer {
     }
 
     public void render(){
+        batch.setProjectionMatrix(camera.combined);
         int rectangleHeight=80;
-        float startY=Gdx.graphics.getHeight()-rectangleHeight;
-        float width=Gdx.graphics.getWidth();
+        float startY=camera.viewportHeight-rectangleHeight;
+        float width=camera.viewportWidth;
         batch.begin();
         batch.setColor(0f, 0f, 0f, 0.8f);
         batch.draw(statusBarTexture, 0, startY, width, rectangleHeight);
         int moneyAmount=viewModel.getMoney();
-        float startX=Gdx.graphics.getWidth()-250;
+        float startX=camera.viewportWidth-250;
         batch.setColor(1,1,1,1);
         batch.draw(money, startX, startY+5, 70f, 70f);
         this.font.getData().setScale(2f);

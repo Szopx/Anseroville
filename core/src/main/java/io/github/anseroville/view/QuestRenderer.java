@@ -8,6 +8,7 @@ import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.viewModel.FarmViewModel;
 import io.github.anseroville.viewModel.InventoryViewState;
 import io.github.anseroville.viewModel.QuestViewState;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -19,9 +20,11 @@ public class QuestRenderer {
     private final FarmViewModel viewModel;
     private final Texture questBackground;
     private final Map<ItemType, Texture> itemIcons;
+    private final OrthographicCamera camera;
 
-    public QuestRenderer(FarmViewModel viewModel) {
+    public QuestRenderer(FarmViewModel viewModel, OrthographicCamera camera) {
         this.batch=new SpriteBatch();
+        this.camera=camera;
         this.font=new BitmapFont();
         this.font.getData().setScale(1.5f);
         this.requiredItems=new EnumMap<>(ItemType.class);
@@ -35,6 +38,7 @@ public class QuestRenderer {
     }
 
     public void render() {
+        batch.setProjectionMatrix(camera.combined);
         QuestViewState state=viewModel.getQuestViewState();
         InventoryViewState invState=viewModel.getInventoryViewState();
         if (!state.isActiveQuestAvailable()) {
@@ -48,8 +52,8 @@ public class QuestRenderer {
         float bgHeight=300;
         float topBarHeight=80;
 
-        float drawX=Gdx.graphics.getWidth()-bgWidth-15;
-        float drawY=Gdx.graphics.getHeight()-topBarHeight-bgHeight;
+        float drawX=camera.viewportWidth-bgWidth-15;
+        float drawY=camera.viewportHeight-topBarHeight-bgHeight;
 
         batch.draw(questBackground, drawX, drawY, bgWidth, bgHeight);
 

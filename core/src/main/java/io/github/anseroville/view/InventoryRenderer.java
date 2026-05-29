@@ -1,9 +1,9 @@
 package io.github.anseroville.view;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.viewModel.InventoryViewState;
 import java.util.Map;
@@ -12,20 +12,18 @@ import java.util.HashMap;
 public class InventoryRenderer {
     private static final int ICON_SIZE = 90;
     private final SpriteBatch batch;
-    private final Texture carrot;
-    private final Texture carrotSeed;
     private final Texture inventory;
     private final BitmapFont font;
     private final Map <ItemType, Texture> itemTextures;
+    private final OrthographicCamera camera;
 
 
-    public InventoryRenderer(){
+    public InventoryRenderer(OrthographicCamera camera){
         this.batch=new SpriteBatch();
+        this.camera=camera;
         this.inventory = new Texture("1779347732838.png");
         this.font = new BitmapFont();
         this.font.getData().setScale(2f);
-        this.carrot = new Texture("marchewka.png");
-        this.carrotSeed = new Texture("nasiona_marchewek.png");
         this.itemTextures = new HashMap<>();
         loadItemTextures();
     }
@@ -41,14 +39,16 @@ public class InventoryRenderer {
     }
 
     public void render(InventoryViewState state){
+        batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        batch.draw(inventory, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        float width=camera.viewportWidth;
+        float height=camera.viewportHeight;
+        batch.draw(inventory, 0, 0, width, height);
 
-        // Ustawienia układu ekwipunku
-        float startX = Gdx.graphics.getWidth() * 0.12f;
-        float startY = Gdx.graphics.getHeight() * 0.73f;
-        float offsetX = 160f;
-        float offsetY = 165f;
+        float startX = width*0.12f;
+        float startY = height*0.73f;
+        float offsetX = 170f;
+        float offsetY = 180f;
         int columns = 4;
 
         int index = 0;
@@ -70,7 +70,8 @@ public class InventoryRenderer {
 
                 index++;
 
-        }}
+            }
+        }
         batch.end();
     }
 

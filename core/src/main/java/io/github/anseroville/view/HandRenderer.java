@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import io.github.anseroville.viewModel.InventoryViewState;
 import io.github.anseroville.enums.ItemType;
 import java.util.Map;
@@ -16,9 +17,11 @@ public class HandRenderer {
     private final SpriteBatch batch;
     private final ShapeRenderer shapeRenderer;
     private final Map<ItemType, Texture> itemTextures;
+    private final OrthographicCamera camera;
 
-    public HandRenderer() {
+    public HandRenderer(OrthographicCamera camera) {
         this.batch = new SpriteBatch();
+        this.camera=camera;
         this.shapeRenderer = new ShapeRenderer();
         this.itemTextures = new EnumMap<>(ItemType.class);
         loadItemTextures();
@@ -35,12 +38,14 @@ public class HandRenderer {
         itemTextures.put(ItemType.POTATO_SEED, new Texture("potato_seed.png"));
     }
 
-    public void render(InventoryViewState state, boolean isInventoryOpen){
+    public void render(InventoryViewState state){
+        batch.setProjectionMatrix(camera.combined);
+        shapeRenderer.setProjectionMatrix(camera.combined);
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(Color.WHITE);
-        float height= Gdx.graphics.getHeight()-TILE_SIZE-2.5f;
-        float width=Gdx.graphics.getWidth()-80;
+        float height=camera.viewportHeight-TILE_SIZE-2.5f;
+        float width=camera.viewportWidth-80;
         shapeRenderer.rect(width, height, TILE_SIZE, TILE_SIZE);
         shapeRenderer.end();
 
