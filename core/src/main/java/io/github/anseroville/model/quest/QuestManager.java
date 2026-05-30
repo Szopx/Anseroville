@@ -79,4 +79,12 @@ public class QuestManager {
         wallet.add(mainQuest.getRewardMoney());
         return true;
     }
+
+    public int getActiveQuestRewardMoney(){
+        return getActiveQuest().getRewardMoney();
+    }
+
+    public int getMainQuestRewardMoney(){
+        return mainQuest.getRewardMoney();
+    }
 }

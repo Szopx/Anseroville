@@ -191,10 +191,17 @@ public class FarmViewModel {
     public QuestViewState getQuestViewState() {
         if (questManager.isActiveQuestAvailable()) {
             return new QuestViewState(true,
-                    Collections.unmodifiableMap(questManager.getActiveQuestRequiredItems()));
+                    Collections.unmodifiableMap(questManager.getActiveQuestRequiredItems()),
+                    Collections.unmodifiableMap(questManager.getMainQuestRequiredItems()),
+                    questManager.getActiveQuestRewardMoney(),
+                    questManager.getMainQuestRewardMoney());
         }
         else {
-            return new QuestViewState(false, Collections.emptyMap());
+            return new QuestViewState(false,
+                    Collections.emptyMap(),
+                    Collections.unmodifiableMap(questManager.getMainQuestRequiredItems()),
+                    0,
+                    questManager.getMainQuestRewardMoney());
         }
     }
 
