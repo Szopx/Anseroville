@@ -2,15 +2,19 @@ package io.github.anseroville.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.Vector3;
 import io.github.anseroville.enums.Direction;
 import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.viewModel.FarmViewModel;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class FarmInputController {
     private final FarmViewModel viewModel;
+    private final Viewport viewport;
 
-    public FarmInputController(FarmViewModel viewModel) {
+    public FarmInputController(FarmViewModel viewModel, Viewport viewport) {
         this.viewModel = viewModel;
+        this.viewport=viewport;
     }
 
     public void handleInput() {
@@ -31,8 +35,10 @@ public class FarmInputController {
         }
 
         if (viewModel.isInventoryOpen()) {
-            if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-                handleInventoryClick(Gdx.input.getX(), Gdx.input.getY());
+            if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+                Vector3 clickPosition = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+                viewport.unproject(clickPosition);
+                handleInventoryClick(clickPosition.x, clickPosition.y);
             }
             return;
         }
@@ -86,15 +92,14 @@ public class FarmInputController {
         }
 
     }
-    private void handleInventoryClick(int screenX, int screenY) {
-        int renderY = Gdx.graphics.getHeight() - screenY;
+    private void handleInventoryClick(float clickX, float clickY) {
 
-        float startX = Gdx.graphics.getWidth() * 0.12f;
-        float startY = Gdx.graphics.getHeight() * 0.73f;
-        float offsetX = 160f;
-        float offsetY = 165f;
+        float startX = viewport.getWorldWidth() * 0.12f;
+        float startY = viewport.getWorldHeight() * 0.73f;
+        float offsetX = 170f;
+        float offsetY = 180f;
         int columns = 4;
-        int ICON_SIZE = 100;
+        int ICON_SIZE = 90;
 
         int index = 0;
         for (ItemType itemType : ItemType.values()) {
@@ -102,8 +107,8 @@ public class FarmInputController {
                 int row = index / columns;
                 float drawX = startX + (col * offsetX);
                 float drawY = startY - (row * offsetY);
-                if (screenX >= drawX && screenX <= drawX + ICON_SIZE &&
-                        renderY >= drawY && renderY <= drawY + ICON_SIZE) {
+                if (clickX >= drawX && clickX <= drawX + ICON_SIZE &&
+                        clickY >= drawY && clickY <= drawY + ICON_SIZE) {
                     viewModel.selectItemFromInventory(itemType);
                     break;
                 }

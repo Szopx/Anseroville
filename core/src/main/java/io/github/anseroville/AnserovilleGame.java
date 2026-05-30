@@ -50,7 +50,7 @@ public class AnserovilleGame extends ApplicationAdapter {
         handRenderer = new HandRenderer(camera);
         inventoryRenderer = new InventoryRenderer(camera);
         questRenderer = new QuestRenderer(farmViewModel, camera);
-        farmInputController = new FarmInputController(farmViewModel);
+        farmInputController = new FarmInputController(farmViewModel, viewport);
         statusBarRenderer = new StatusBarRenderer(farmViewModel, camera);
 
     }
