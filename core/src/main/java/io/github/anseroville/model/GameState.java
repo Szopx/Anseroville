@@ -7,10 +7,6 @@ import io.github.anseroville.model.inventory.Hand;
 import io.github.anseroville.model.inventory.Inventory;
 
 public class GameState {
-    private static final float DAY_DURATION = 30f;
-    private static final float NIGHT_DURATION = 10f;
-    private static final int NIGHT_DESTROY_CHANCE = 5;
-
     private final Player player;
     private final Inventory inventory;
     private final Hand hand;
@@ -50,4 +46,3 @@ public class GameState {
         return machine;
     }
 }
-
