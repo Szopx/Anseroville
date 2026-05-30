@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import io.github.anseroville.viewModel.InventoryViewState;
 import io.github.anseroville.enums.ItemType;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import java.util.Map;
 import java.util.EnumMap;
 
@@ -18,12 +19,15 @@ public class HandRenderer {
     private final ShapeRenderer shapeRenderer;
     private final Map<ItemType, Texture> itemTextures;
     private final OrthographicCamera camera;
+    private final BitmapFont font;
 
     public HandRenderer(OrthographicCamera camera) {
         this.batch = new SpriteBatch();
         this.camera=camera;
         this.shapeRenderer = new ShapeRenderer();
         this.itemTextures = new EnumMap<>(ItemType.class);
+        this.font=new BitmapFont();
+        this.font.getData().setScale(1.0f);
         loadItemTextures();
     }
 
@@ -55,6 +59,7 @@ public class HandRenderer {
             if (texture != null) {
                 batch.begin();
                 batch.draw(texture, width, height, TILE_SIZE, TILE_SIZE);
+                font.draw(batch, "x"+state.getHeldItemAmount(), width+TILE_SIZE-25, height+15);
                 batch.end();
             }
         }
@@ -62,6 +67,7 @@ public class HandRenderer {
 
     public void dispose() {
         batch.dispose();
+        font.dispose();
         shapeRenderer.dispose();
         for (Texture texture : itemTextures.values()) {
             texture.dispose();
