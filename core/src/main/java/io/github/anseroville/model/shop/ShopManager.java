@@ -4,6 +4,9 @@ import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.model.Wallet;
 import io.github.anseroville.model.inventory.Inventory;
 
+import java.util.Collections;
+import java.util.Map;
+
 public class ShopManager {
 
     private final Wallet wallet;
@@ -20,45 +23,71 @@ public class ShopManager {
         return currentShop;
     }
 
+    public boolean isCurrentShopAvailable() {
+        if (getCurrentShop() == null) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
     public void setCurrentShop(Shop currentShop) {
         this.currentShop = currentShop;
     }
 
-    public boolean buyItem(ItemType type, int amount) {
-        if (currentShop == null || type == null || amount <= 0) {
+    public Map<ItemType, Integer> getCurrentShopBuyPrices() {
+        if (isCurrentShopAvailable()) {
+            return currentShop.getBuyPrices();
+        }
+        else {
+            return Collections.emptyMap();
+        }
+    }
+
+    public Map<ItemType, Integer> getCurrentShopSellPrices() {
+        if (isCurrentShopAvailable()) {
+            return currentShop.getSellPrices();
+        }
+        else {
+            return Collections.emptyMap();
+        }
+    }
+
+    public boolean buyItem(ItemType type) {
+        if (currentShop == null || type == null) {
             return false;
         }
 
-        int pricePerUnit = currentShop.getBuyPrice(type);
-        if (pricePerUnit == -1) {
+        int price = currentShop.getBuyPrice(type);
+        if (price == -1) {
             return false;
         }
 
-        int totalCost = pricePerUnit * amount;
-        if (wallet.getMoney() < totalCost) {
+        if (wallet.getMoney() < price) {
             return false;
         }
 
-        if (!inventory.add(type, amount)) {
+        if (!inventory.add(type, 1)) {
             return false;
         }
 
-        wallet.sub(totalCost);
+        wallet.sub(price);
         return true;
     }
 
-    public boolean sellItem(ItemType type, int amount) {
-        if (currentShop == null || type == null || amount <= 0) {
+    public boolean sellItem(ItemType type) {
+        if (currentShop == null || type == null) {
             return false;
         }
 
-        int pricePerUnit = currentShop.getSellPrice(type);
-        if (pricePerUnit == -1 || !inventory.has(type, amount)) {
+        int price = currentShop.getSellPrice(type);
+        if (price == -1 || !inventory.has(type, 1)) {
             return false;
         }
 
-        inventory.remove(type, amount);
-        wallet.add(pricePerUnit * amount);
+        inventory.remove(type, 1);
+        wallet.add(price);
         return true;
     }
 }

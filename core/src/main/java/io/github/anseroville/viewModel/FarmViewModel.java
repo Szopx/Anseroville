@@ -4,8 +4,9 @@ package io.github.anseroville.viewModel;
 import io.github.anseroville.enums.ActivityTileType;
 import io.github.anseroville.enums.Direction;
 import io.github.anseroville.enums.GrowingState;
-import io.github.anseroville.model.*;
-import io.github.anseroville.model.shop.Shop;
+import io.github.anseroville.model.GameState;
+import io.github.anseroville.model.GridPosition;
+import io.github.anseroville.model.Player;
 import io.github.anseroville.model.shop.ShopManager;
 import io.github.anseroville.model.systems.CollectingManager;
 import io.github.anseroville.model.tiles.*;
@@ -118,8 +119,13 @@ public class FarmViewModel {
     }
 
     public ShopViewState getShopViewState() {
-        Shop shop = shopManager.getCurrentShop();
-        return new ShopViewState(shop.getBuyPrices(), shop.getSellPrices());
+        if (shopManager.isCurrentShopAvailable()) {
+            return new ShopViewState(Collections.unmodifiableMap(shopManager.getCurrentShopBuyPrices()),
+                    Collections.unmodifiableMap(shopManager.getCurrentShopSellPrices()));
+        }
+        else {
+            return new ShopViewState(Collections.emptyMap(), Collections.emptyMap());
+        }
     }
 
     public InventoryViewState getInventoryViewState(){
@@ -173,7 +179,8 @@ public class FarmViewModel {
 
     public QuestViewState getQuestViewState() {
         if (questManager.isActiveQuestAvailable()) {
-            return new QuestViewState(true, Collections.unmodifiableMap(questManager.getActiveQuestRequiredItems()));
+            return new QuestViewState(true,
+                    Collections.unmodifiableMap(questManager.getActiveQuestRequiredItems()));
         }
         else {
             return new QuestViewState(false, Collections.emptyMap());
@@ -207,6 +214,14 @@ public class FarmViewModel {
 
     public void playMachine() {
         gameState.getMachine().play();
+    }
+
+    public void sellItem(ItemType type) {
+        shopManager.sellItem(type);
+    }
+
+    public void buyItem(ItemType type) {
+        shopManager.buyItem(type);
     }
 
     //mozna zmienic nazwe, ogolnie to jest tylko dla activity tile
