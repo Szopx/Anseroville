@@ -9,6 +9,7 @@ import io.github.anseroville.model.tiles.ActivityTile;
 import io.github.anseroville.model.inventory.Inventory;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public final class GameData {

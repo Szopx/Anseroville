@@ -12,7 +12,6 @@ import io.github.anseroville.model.tiles.*;
 import io.github.anseroville.model.inventory.Hand;
 import io.github.anseroville.model.inventory.Inventory;
 import io.github.anseroville.enums.ItemType;
-import io.github.anseroville.model.quest.Quest;
 import io.github.anseroville.model.quest.QuestManager;
 
 import java.util.*;
@@ -172,21 +171,13 @@ public class FarmViewModel {
         return gameState.getWallet().getMoney();
     }
 
-    public Quest getActiveQuest() {
-        return questManager.getActiveQuest();
-    }
-
     public QuestViewState getQuestViewState() {
-        Quest activeQuest = questManager.getActiveQuest();
-        if (activeQuest==null) {
-            return new QuestViewState(false, Collections.emptyMap());
-        } else {
-            return new QuestViewState(true, Collections.unmodifiableMap(activeQuest.getRequiredItems()));
+        if (questManager.isActiveQuestAvailable()) {
+            return new QuestViewState(true, Collections.unmodifiableMap(questManager.getActiveQuestRequiredItems()));
         }
-    }
-
-    public boolean isActiveQuestAvailable() {
-        return getActiveQuest() == null;
+        else {
+            return new QuestViewState(false, Collections.emptyMap());
+        }
     }
 
     public void toggleInventory() {

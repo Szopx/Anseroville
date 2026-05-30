@@ -1,13 +1,10 @@
 package io.github.anseroville.model;
 
-import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.model.gambling.Machine;
-import io.github.anseroville.model.shop.ShopManager;
 import io.github.anseroville.model.tiles.InteractableTile;
 import io.github.anseroville.model.data.GameData;
 import io.github.anseroville.model.inventory.Hand;
 import io.github.anseroville.model.inventory.Inventory;
-import io.github.anseroville.model.quest.QuestManager;
 import io.github.anseroville.model.systems.CropGrowthSystem;
 import io.github.anseroville.model.systems.NightManager;
 import io.github.anseroville.model.systems.PlantingManager;
@@ -26,8 +23,6 @@ public class GameState {
     private final Inventory inventory;
     private final Hand hand;
     private final Wallet wallet;
-    private final QuestManager questManager;
-    private final ShopManager shopManager;
     private final Machine machine;
 
     private final TileManager tileManager;
@@ -46,9 +41,6 @@ public class GameState {
         this.wallet = new Wallet();
         this.wallet.add(GameData.STARTING_MONEY);
         this.machine = new Machine(wallet);
-
-        this.questManager = new QuestManager(wallet, inventory);
-        this.shopManager = new ShopManager(wallet, inventory);
 
         this.tileManager = new TileManager(GameData.createInteractableTiles());
         this.plantingManager = new PlantingManager(tileManager, hand, inventory);
