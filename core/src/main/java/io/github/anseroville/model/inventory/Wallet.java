@@ -1,4 +1,4 @@
-package io.github.anseroville.model;
+package io.github.anseroville.model.inventory;
 
 public class Wallet {
     private int money;

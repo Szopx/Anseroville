@@ -31,7 +31,7 @@ public class TileManager {
             growingGroundTile.select();
         }
 
-        interactableTiles.put(emptyGroundTile.getGridPosition(), growingGroundTile);
+        modifyTile(emptyGroundTile.getGridPosition(), growingGroundTile);
     }
 
     public void clearGrowingTile(GridPosition position) {
@@ -48,6 +48,6 @@ public class TileManager {
             emptyGroundTile.select();
         }
 
-        interactableTiles.put(position, emptyGroundTile);
+        modifyTile(position, emptyGroundTile);
     }
 }

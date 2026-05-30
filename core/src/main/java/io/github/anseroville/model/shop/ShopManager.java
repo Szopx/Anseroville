@@ -1,7 +1,7 @@
 package io.github.anseroville.model.shop;
 
 import io.github.anseroville.enums.ItemType;
-import io.github.anseroville.model.Wallet;
+import io.github.anseroville.model.inventory.Wallet;
 import io.github.anseroville.model.inventory.Inventory;
 
 import java.util.Collections;

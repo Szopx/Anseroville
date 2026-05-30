@@ -8,7 +8,7 @@ import io.github.anseroville.model.GameState;
 import io.github.anseroville.model.GridPosition;
 import io.github.anseroville.model.Player;
 import io.github.anseroville.model.shop.ShopManager;
-import io.github.anseroville.model.systems.CollectingManager;
+import io.github.anseroville.model.systems.*;
 import io.github.anseroville.model.tiles.*;
 import io.github.anseroville.model.inventory.Hand;
 import io.github.anseroville.model.inventory.Inventory;
@@ -24,13 +24,23 @@ public class FarmViewModel {
 
     private final GameState gameState;
     private InteractableTile selectedTile;
+    private final TileManager tileManager;
+    private final CropGrowthSystem cropGrowthSystem;
+    private final NightManager nightManager;
+    private final PlantingManager plantingManager;
     private final CollectingManager collectingManager;
     private final QuestManager questManager;
+    private final ShopManager shopManager;
     private boolean isInventoryOpen = false;
-    private ShopManager shopManager;
 
-    public FarmViewModel(GameState gameState, CollectingManager collectingManager, QuestManager questManager, ShopManager shopManager) {
+    public FarmViewModel(GameState gameState, TileManager tileManager, CropGrowthSystem cropGrowthSystem,
+                         PlantingManager plantingManager, NightManager nightManager,
+                         CollectingManager collectingManager, QuestManager questManager, ShopManager shopManager) {
         this.gameState = gameState;
+        this.tileManager = tileManager;
+        this.cropGrowthSystem = cropGrowthSystem;
+        this.nightManager = nightManager;
+        this.plantingManager = plantingManager;
         this.collectingManager = collectingManager;
         this.questManager = questManager;
         this.shopManager = shopManager;
@@ -47,12 +57,12 @@ public class FarmViewModel {
     }
 
     public void plant() {
-        gameState.plant(selectedTile);
+        plantingManager.plant(selectedTile);
         updateSelectedTile();
     }
 
     public void water() {
-        gameState.water(selectedTile);
+        plantingManager.water(selectedTile);
     }
 
     private void updateSelectedTile() {
@@ -62,7 +72,7 @@ public class FarmViewModel {
 
         GridPosition lookedPosition = getLookedGridPosition();
 
-        selectedTile = gameState.getInteractableTiles().get(lookedPosition);
+        selectedTile = tileManager.getInteractableTiles().get(lookedPosition);
 
         if (selectedTile != null) {
             selectedTile.select();
@@ -98,7 +108,7 @@ public class FarmViewModel {
     public List<TileViewState> getTileViewStates() {
         List<TileViewState> tileViewStates = new ArrayList<>();
 
-        for (Map.Entry<GridPosition, InteractableTile> entry : gameState.getInteractableTiles().entrySet()) {
+        for (Map.Entry<GridPosition, InteractableTile> entry : tileManager.getInteractableTiles().entrySet()) {
             InteractableTile tile = entry.getValue();
 
             ItemType plantType = null;
@@ -142,7 +152,8 @@ public class FarmViewModel {
     }
 
     public void update(float delta) {
-        gameState.update(delta);
+        cropGrowthSystem.update(delta);
+        nightManager.update(delta);
     }
 
     public void collect() {
@@ -197,11 +208,11 @@ public class FarmViewModel {
     }
 
     public NightViewState getNightViewState() {
-        return new NightViewState(gameState.isNight(), gameState.hasTorch(), gameState.getNightRemainingTime());
+        return new NightViewState(nightManager.isNight(), nightManager.hasTorch(), nightManager.getNightRemainingTime());
     }
 
     public boolean isNightWithoutTorch() {
-        return gameState.isNightWithoutTorch();
+        return nightManager.isNightWithoutTorch();
     }
 
     public void addItemToInventory(ItemType itemType, int amount) {

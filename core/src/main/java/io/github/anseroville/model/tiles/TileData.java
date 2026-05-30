@@ -1,22 +1,14 @@
-package io.github.anseroville.model.data;
+package io.github.anseroville.model.tiles;
 
 import io.github.anseroville.enums.ActivityTileType;
-import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.model.GridPosition;
-import io.github.anseroville.model.tiles.EmptyGroundTile;
-import io.github.anseroville.model.tiles.InteractableTile;
-import io.github.anseroville.model.tiles.ActivityTile;
-import io.github.anseroville.model.inventory.Inventory;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
-public final class GameData {
+public class TileData {
 
-    public static final int STARTING_MONEY = 20;
-
-    private GameData() {
+    private TileData() {
     }
 
     public static Map<GridPosition, InteractableTile> createInteractableTiles() {
@@ -26,14 +18,6 @@ public final class GameData {
         addShopTiles(tiles);
 
         return tiles;
-    }
-
-    public static void addStartingInventory(Inventory inventory) {
-        inventory.add(ItemType.CARROT_SEED, 10);
-        inventory.add(ItemType.WHEAT_SEED, 6);
-        inventory.add(ItemType.POTATO_SEED, 4);
-        inventory.add(ItemType.CORN_SEED, 3);
-        inventory.add(ItemType.TORCH, 2);
     }
 
     private static void addFarmFields(Map<GridPosition, InteractableTile> tiles) {

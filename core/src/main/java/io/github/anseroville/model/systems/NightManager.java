@@ -13,27 +13,25 @@ import java.util.Map;
 import java.util.Random;
 
 public class NightManager {
+    private static final float DAY_DURATION = 30f;
+    private static final float NIGHT_DURATION = 10f;
+    private static final int NIGHT_DESTROY_CHANCE = 5;
     private final TileManager tileManager;
     private final Inventory inventory;
     private final DayNightCycle dayNightCycle;
     private final Random random;
-    private final int nightDestroyChance;
 
     private boolean nightEffectApplied = false;
     private boolean torchThisNight = false;
 
     public NightManager(
         TileManager tileManager,
-        Inventory inventory,
-        DayNightCycle dayNightCycle,
-        Random random,
-        int nightDestroyChance
+        Inventory inventory
     ) {
         this.tileManager = tileManager;
         this.inventory = inventory;
-        this.dayNightCycle = dayNightCycle;
-        this.random = random;
-        this.nightDestroyChance = nightDestroyChance;
+        this.dayNightCycle = new DayNightCycle(DAY_DURATION,NIGHT_DURATION);
+        this.random = new Random();
     }
 
     public void update(float delta) {
@@ -94,7 +92,7 @@ public class NightManager {
         for (Map.Entry<GridPosition, InteractableTile> entry : tileManager.getInteractableTiles().entrySet()) {
             InteractableTile tile = entry.getValue();
 
-            if (tile instanceof GrowingGroundTile && random.nextInt(nightDestroyChance) == 0) {
+            if (tile instanceof GrowingGroundTile && random.nextInt(NIGHT_DESTROY_CHANCE) == 0) {
                 positionsToClear.add(entry.getKey());
             }
         }

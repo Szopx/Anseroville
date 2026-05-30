@@ -1,6 +1,6 @@
 package io.github.anseroville.model.gambling;
 
-import io.github.anseroville.model.Wallet;
+import io.github.anseroville.model.inventory.Wallet;
 
 import java.util.Random;
 

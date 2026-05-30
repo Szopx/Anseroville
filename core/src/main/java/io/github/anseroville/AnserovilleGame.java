@@ -2,16 +2,20 @@ package io.github.anseroville;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.utils.ScreenUtils;
-import io.github.anseroville.model.systems.CollectingManager;
+import io.github.anseroville.model.systems.*;
 import io.github.anseroville.model.GameState;
 import io.github.anseroville.model.shop.ShopManager;
 import io.github.anseroville.model.quest.QuestManager;
+import io.github.anseroville.model.tiles.TileData;
+import io.github.anseroville.model.time.DayNightCycle;
 import io.github.anseroville.view.*;
 import io.github.anseroville.viewModel.FarmViewModel;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.Gdx;
+
+import java.util.Random;
 
 public class AnserovilleGame extends ApplicationAdapter {
     private FarmViewModel farmViewModel;
@@ -29,14 +33,19 @@ public class AnserovilleGame extends ApplicationAdapter {
     @Override
     public void create() {
         GameState gameState = new GameState();
-        CollectingManager collectingManager = new CollectingManager(gameState);
+        TileManager tileManager = new TileManager(TileData.createInteractableTiles());
+        NightManager nightManager = new NightManager(tileManager, gameState.getInventory());
+        CropGrowthSystem cropGrowthSystem = new CropGrowthSystem(tileManager);
+        CollectingManager collectingManager = new CollectingManager(tileManager, gameState.getInventory());
+        PlantingManager plantingManager = new PlantingManager(tileManager, gameState.getHand(), gameState.getInventory());
         QuestManager questManager = new QuestManager(gameState.getWallet(), gameState.getInventory());
         ShopManager shopManager = new ShopManager(gameState.getWallet(), gameState.getInventory());
         camera = new OrthographicCamera();
         viewport = new FitViewport(width, height, camera);
         camera.position.set(viewport.getWorldWidth() / 2f, viewport.getWorldHeight() / 2f, 0);
 
-        farmViewModel = new FarmViewModel(gameState, collectingManager, questManager, shopManager);
+        farmViewModel = new FarmViewModel(gameState, tileManager, cropGrowthSystem, plantingManager,
+                nightManager, collectingManager, questManager, shopManager);
         farmRenderer = new FarmRenderer(farmViewModel, camera);
         handRenderer = new HandRenderer(camera);
         inventoryRenderer = new InventoryRenderer(camera);
