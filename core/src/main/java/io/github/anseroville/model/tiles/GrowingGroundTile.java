@@ -7,7 +7,7 @@ import io.github.anseroville.model.GridPosition;
 import static io.github.anseroville.enums.GrowingState.ZERO;
 
 public class GrowingGroundTile extends GroundTile {
-    protected GrowingState growingState = ZERO;
+    protected GrowingState growingState = GrowingState.SMALL;
     private float timeFromLastGrowth = 0f;
 
     public GrowingGroundTile(EmptyGroundTile emptyGroundTile) {
