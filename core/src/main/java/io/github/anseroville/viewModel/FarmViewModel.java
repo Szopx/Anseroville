@@ -14,6 +14,7 @@ import io.github.anseroville.model.inventory.Hand;
 import io.github.anseroville.model.inventory.Inventory;
 import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.model.quest.QuestManager;
+import io.github.anseroville.model.quest.LevelStartState;
 
 import java.util.*;
 
@@ -33,9 +34,16 @@ public class FarmViewModel {
     private final ShopManager shopManager;
     private boolean isInventoryOpen = false;
 
-    public FarmViewModel(GameState gameState, TileManager tileManager, CropGrowthSystem cropGrowthSystem,
-                         PlantingManager plantingManager, NightManager nightManager,
-                         CollectingManager collectingManager, QuestManager questManager, ShopManager shopManager) {
+    public FarmViewModel(
+            GameState gameState,
+            TileManager tileManager,
+            CropGrowthSystem cropGrowthSystem,
+            PlantingManager plantingManager,
+            NightManager nightManager,
+            CollectingManager collectingManager,
+            QuestManager questManager,
+            ShopManager shopManager
+    ) {
         this.gameState = gameState;
         this.tileManager = tileManager;
         this.cropGrowthSystem = cropGrowthSystem;
@@ -44,6 +52,8 @@ public class FarmViewModel {
         this.collectingManager = collectingManager;
         this.questManager = questManager;
         this.shopManager = shopManager;
+
+        this.questManager.initializeCurrentLevel();
     }
 
     public void movePlayer(Direction direction) {
@@ -175,13 +185,29 @@ public class FarmViewModel {
     }
 
     public void completeMainQuest() {
+        int previousLevelNumber = questManager.getActiveLevelNumber();
+
         boolean completed = questManager.completeMainQuest();
 
         if (!completed) {
             System.out.println("nie udało się zrobic main questa");
-        } else {
-            System.out.println("udało się zrobic main questa");
+            return;
         }
+
+        if (questManager.isGameFinished()) {
+            System.out.println("ukończono wszystkie poziomy");
+            return;
+        }
+
+        selectedTile = null;
+        updateSelectedTile();
+
+        System.out.println(
+                "udało się zrobic main questa, przechodzisz z poziomu "
+                        + previousLevelNumber
+                        + " na poziom "
+                        + questManager.getActiveLevelNumber()
+        );
     }
 
     public int getMoney() {
@@ -189,20 +215,18 @@ public class FarmViewModel {
     }
 
     public QuestViewState getQuestViewState() {
-        if (questManager.isActiveQuestAvailable()) {
-            return new QuestViewState(true,
-                    Collections.unmodifiableMap(questManager.getActiveQuestRequiredItems()),
-                    Collections.unmodifiableMap(questManager.getMainQuestRequiredItems()),
-                    questManager.getActiveQuestRewardMoney(),
-                    questManager.getMainQuestRewardMoney());
-        }
-        else {
-            return new QuestViewState(false,
-                    Collections.emptyMap(),
-                    Collections.unmodifiableMap(questManager.getMainQuestRequiredItems()),
-                    0,
-                    questManager.getMainQuestRewardMoney());
-        }
+        return new QuestViewState(
+                questManager.isActiveQuestAvailable(),
+                Collections.unmodifiableMap(questManager.getActiveQuestRequiredItems()),
+                Collections.unmodifiableMap(questManager.getMainQuestRequiredItems()),
+                questManager.getActiveQuestRewardMoney(),
+                questManager.getMainQuestRewardMoney(),
+                questManager.getActiveLevelNumber(),
+                questManager.getMaxLevelNumber(),
+                questManager.getActiveSideQuestNumber(),
+                questManager.getSideQuestsCount(),
+                questManager.isGameFinished()
+        );
     }
 
     public void toggleInventory() {
@@ -273,5 +297,6 @@ public class FarmViewModel {
         updateSelectedTile();
         return true;
     }
+
 
 }

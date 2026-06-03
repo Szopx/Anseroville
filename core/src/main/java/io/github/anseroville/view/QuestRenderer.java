@@ -41,6 +41,20 @@ public class QuestRenderer {
         Map<ItemType, Integer> mainQuest=state.getMainQuest();
         batch.begin();
 
+        if (state.isGameFinished()) {
+            float bgWidth = 420;
+            float bgHeight = 220;
+            float drawX = camera.viewportWidth - bgWidth - 15;
+            float drawY = camera.viewportHeight - bgHeight - 60;
+
+            batch.draw(assetProvider.getQuestBackgroundTexture(), drawX, drawY, bgWidth, bgHeight);
+            font.draw(batch, "GAME FINISHED", drawX + 105, drawY + 140);
+            font.draw(batch, "ALL LEVELS DONE", drawX + 90, drawY + 100);
+
+            batch.end();
+            return;
+        }
+
         float bgWidth=420;
         float bgHeight=400;
         float topBarHeight=80;
@@ -55,6 +69,17 @@ public class QuestRenderer {
 
         float textStartX=drawX+145;
         float textStartY=drawY+bgHeight-70;
+
+        ///------------------- //Todo: to ja tylko sobie dodalem na potrzeby testow i mozna usunac
+        font.draw(
+                batch,
+                "LEVEL " + state.getActiveLevelNumber() + "/" + state.getMaxLevelNumber(),
+                textStartX,
+                textStartY
+        );
+
+        textStartY -= 40;
+        /// -----------------------
 
         font.draw(batch, "MAIN QUEST", textStartX, textStartY);
 

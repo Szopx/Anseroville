@@ -50,4 +50,27 @@ public class TileManager {
 
         modifyTile(position, emptyGroundTile);
     }
+
+    public void resetGroundTiles() {
+        for (Map.Entry<GridPosition, InteractableTile> entry : interactableTiles.entrySet()) {
+            InteractableTile tile = entry.getValue();
+
+            if (tile instanceof GrowingGroundTile) {
+                GrowingGroundTile growingGroundTile = (GrowingGroundTile) tile;
+                EmptyGroundTile emptyGroundTile = new EmptyGroundTile(growingGroundTile);
+
+                if (tile.isSelected()) {
+                    emptyGroundTile.select();
+                }
+
+                entry.setValue(emptyGroundTile);
+                continue;
+            }
+
+            if (tile instanceof EmptyGroundTile) {
+                EmptyGroundTile emptyGroundTile = (EmptyGroundTile) tile;
+                emptyGroundTile.setWatered(false);
+            }
+        }
+    }
 }

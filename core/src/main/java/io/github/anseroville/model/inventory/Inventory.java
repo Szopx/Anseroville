@@ -11,7 +11,7 @@ public class Inventory {
     private final Map<ItemType, Integer> items = new EnumMap<>(ItemType.class);
 
     public boolean add(ItemType itemType, int amount) {
-        if (amount <= 0) {
+        if (itemType == null || amount <= 0) {
             return false;
         }
 
@@ -26,7 +26,7 @@ public class Inventory {
     }
 
     public boolean remove(ItemType itemType, int amount) {
-        if (amount <= 0) {
+        if (itemType == null || amount <= 0) {
             return false;
         }
 
@@ -45,6 +45,14 @@ public class Inventory {
     }
 
     public int getAmount(ItemType itemType) {
+        if (itemType == null) {
+            return 0;
+        }
+
         return items.getOrDefault(itemType, 0);
+    }
+
+    public void clear() {
+        items.clear();
     }
 }

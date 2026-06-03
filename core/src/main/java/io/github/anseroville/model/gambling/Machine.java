@@ -5,6 +5,8 @@ import io.github.anseroville.model.inventory.Wallet;
 import java.util.Random;
 
 public class Machine {
+    private static final int MAX_MONEY = 99999;
+
     private final Wallet wallet;
     private final Random random;
 
@@ -16,15 +18,22 @@ public class Machine {
     public void play() {
         int currentMoney = wallet.getMoney();
 
-        if (currentMoney > Integer.MAX_VALUE / 2) {
-            throw new IllegalStateException("Player has too much money to use machine safely.");
-        }
-
-        int newMoney = random.nextInt(currentMoney * 2 + 1);
+        int maxPossibleMoney = calculateMaxPossibleMoney(currentMoney);
+        int newMoney = random.nextInt(maxPossibleMoney + 1);
 
         changeWalletMoney(currentMoney, newMoney);
 
         System.out.println("Money changed from " + currentMoney + " to " + newMoney);
+    }
+
+    private int calculateMaxPossibleMoney(int currentMoney) {
+        long doubledMoney = (long) currentMoney * 2;
+
+        if (doubledMoney > MAX_MONEY) {
+            return MAX_MONEY;
+        }
+
+        return (int) doubledMoney;
     }
 
     private void changeWalletMoney(int currentMoney, int newMoney) {

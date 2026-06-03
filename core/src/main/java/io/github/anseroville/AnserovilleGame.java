@@ -39,13 +39,28 @@ public class AnserovilleGame extends ApplicationAdapter {
     @Override
     public void create() {
         GameState gameState = new GameState();
+
         TileManager tileManager = new TileManager(TileData.createInteractableTiles());
         NightManager nightManager = new NightManager(tileManager, gameState.getInventory());
         CropGrowthSystem cropGrowthSystem = new CropGrowthSystem(tileManager);
         CollectingManager collectingManager = new CollectingManager(tileManager, gameState.getInventory());
-        PlantingManager plantingManager = new PlantingManager(tileManager, gameState.getHand(), gameState.getInventory());
-        QuestManager questManager = new QuestManager(gameState.getWallet(), gameState.getInventory());
-        ShopManager shopManager = new ShopManager(gameState.getWallet(), gameState.getInventory());
+        PlantingManager plantingManager = new PlantingManager(
+                tileManager,
+                gameState.getHand(),
+                gameState.getInventory()
+        );
+
+        ShopManager shopManager = new ShopManager(
+                gameState.getWallet(),
+                gameState.getInventory()
+        );
+
+        QuestManager questManager = new QuestManager(
+                gameState,
+                shopManager,
+                tileManager
+        );
+
         camera = new OrthographicCamera();
         viewport = new FitViewport(width, height, camera);
         camera.position.set(viewport.getWorldWidth() / 2f, viewport.getWorldHeight() / 2f, 0);

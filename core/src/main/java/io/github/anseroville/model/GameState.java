@@ -15,14 +15,9 @@ public class GameState {
 
     public GameState() {
         this.player = new Player(100, 100);
-
         this.inventory = new Inventory();
-        InventoryData.addStartingInventory(inventory);
-
         this.hand = new Hand(inventory);
-
         this.wallet = new Wallet();
-        this.wallet.add(InventoryData.STARTING_MONEY);
         this.machine = new Machine(wallet);
     }
 

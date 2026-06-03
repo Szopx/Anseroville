@@ -22,6 +22,13 @@ public class FarmInputController {
             return;
         }
 
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
+            viewModel.addItemToInventory(ItemType.CARROT, 10);
+            viewModel.addItemToInventory(ItemType.WHEAT, 10);
+            viewModel.addItemToInventory(ItemType.POTATO, 10);
+            viewModel.addItemToInventory(ItemType.CORN, 10);
+        }
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.G)) {
             viewModel.playMachine();
         }

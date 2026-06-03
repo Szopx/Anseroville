@@ -1,8 +1,9 @@
 package io.github.anseroville.model.quest;
 
-import io.github.anseroville.model.inventory.Inventory;
 import io.github.anseroville.enums.ItemType;
+import io.github.anseroville.model.inventory.Inventory;
 
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -55,7 +56,11 @@ public class Quest {
         return rewardMoney;
     }
 
-    public Map<ItemType, Integer> getRequiredItems(){
-        return requiredItems;
+    public Map<ItemType, Integer> getRequiredItems() {
+        return Collections.unmodifiableMap(requiredItems);
+    }
+
+    public boolean isCompleted() {
+        return completed;
     }
 }
