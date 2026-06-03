@@ -1,6 +1,5 @@
 package io.github.anseroville.view;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -20,14 +19,15 @@ public class HandRenderer {
     private final Map<ItemType, Texture> itemTextures;
     private final OrthographicCamera camera;
     private final BitmapFont font;
+    private final AssetProvider assetProvider;
 
-    public HandRenderer(OrthographicCamera camera) {
-        this.batch = new SpriteBatch();
+    public HandRenderer(OrthographicCamera camera, SpriteBatch batch, ShapeRenderer shapeRenderer, AssetProvider assetProvider) {
+        this.batch = batch;
         this.camera=camera;
-        this.shapeRenderer = new ShapeRenderer();
+        this.shapeRenderer = shapeRenderer;
         this.itemTextures = new EnumMap<>(ItemType.class);
-        this.font=new BitmapFont();
-        this.font.getData().setScale(1.0f);
+        this.assetProvider=assetProvider;
+        this.font=assetProvider.getSmallestFont();
         loadItemTextures();
     }
 

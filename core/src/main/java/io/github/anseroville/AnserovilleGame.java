@@ -1,6 +1,8 @@
 package io.github.anseroville;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 import io.github.anseroville.model.systems.*;
 import io.github.anseroville.model.GameState;
@@ -24,9 +26,13 @@ public class AnserovilleGame extends ApplicationAdapter {
     private QuestRenderer questRenderer;
     private InventoryRenderer inventoryRenderer;
     private StatusBarRenderer statusBarRenderer;
+    private NightRenderer nightRenderer;
     private FarmInputController farmInputController;
+    private AssetProvider assetProvider;
     private OrthographicCamera camera;
     private Viewport viewport;
+    private SpriteBatch batch;
+    private ShapeRenderer shapeRenderer;
     private static final float width = 1920f;
     private static final float height = 1080f;
 
@@ -43,15 +49,18 @@ public class AnserovilleGame extends ApplicationAdapter {
         camera = new OrthographicCamera();
         viewport = new FitViewport(width, height, camera);
         camera.position.set(viewport.getWorldWidth() / 2f, viewport.getWorldHeight() / 2f, 0);
-
+        assetProvider=new AssetProvider();
+        batch=new SpriteBatch();
+        shapeRenderer=new ShapeRenderer();
         farmViewModel = new FarmViewModel(gameState, tileManager, cropGrowthSystem, plantingManager,
                 nightManager, collectingManager, questManager, shopManager);
-        farmRenderer = new FarmRenderer(farmViewModel, camera);
-        handRenderer = new HandRenderer(camera);
+        farmRenderer = new FarmRenderer(farmViewModel, camera, assetProvider, batch, shapeRenderer);
+        handRenderer = new HandRenderer(camera, batch, shapeRenderer, assetProvider);
         inventoryRenderer = new InventoryRenderer(camera);
         questRenderer = new QuestRenderer(farmViewModel, camera);
         farmInputController = new FarmInputController(farmViewModel, viewport);
         statusBarRenderer = new StatusBarRenderer(farmViewModel, camera);
+        nightRenderer = new NightRenderer(farmViewModel, camera, assetProvider, batch);
 
     }
 
@@ -75,6 +84,7 @@ public class AnserovilleGame extends ApplicationAdapter {
         } //nieoptymalne, chodzi o to że musi być wakaźnik czy jest noc w trakcie otwatrego inventory albo żeby inventory nie liczyło czasu bo noc odbiera ruszanie sie todo do poprawy
         statusBarRenderer.render(); //zakladam ze to moze byc caly czas widoczne, correct me if i'm wrong
         handRenderer.render(farmViewModel.getInventoryViewState());
+        nightRenderer.render();
     }
 
     @Override
@@ -84,10 +94,12 @@ public class AnserovilleGame extends ApplicationAdapter {
 
     @Override
     public void dispose() {
-        farmRenderer.dispose();
         statusBarRenderer.dispose();
         inventoryRenderer.dispose();
         questRenderer.dispose();
         handRenderer.dispose();
+        batch.dispose();
+        shapeRenderer.dispose();
+        assetProvider.dispose();
     }
 }
