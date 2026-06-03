@@ -43,7 +43,7 @@ public class FarmRenderer {
 
     private void renderBackground() {
         batch.begin();
-        batch.draw(assetProvider.getBackground(), 0, 0, camera.viewportWidth, camera.viewportHeight);
+        batch.draw(assetProvider.getBackgroundTexture(), 0, 0, camera.viewportWidth, camera.viewportHeight);
         batch.end();
     }
 
@@ -52,9 +52,9 @@ public class FarmRenderer {
 
         for (TileViewState tile : viewModel.getTileViewStates()) {
             if (tile.isSelected()) {
-                batch.draw(assetProvider.getSelectedField(), tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
+                batch.draw(assetProvider.getSelectedFieldTexture(), tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
             } else {
-                batch.draw(assetProvider.getField(), tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
+                batch.draw(assetProvider.getFieldTexture(), tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
             }
 
             ItemType plantType = tile.whatGrows();

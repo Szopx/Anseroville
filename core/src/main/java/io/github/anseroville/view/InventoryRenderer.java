@@ -6,36 +6,22 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.viewModel.InventoryViewState;
-import java.util.Map;
-import java.util.HashMap;
 
 public class InventoryRenderer {
     private static final int ICON_SIZE = 90;
     private final SpriteBatch batch;
-    private final Texture inventory;
+    private final AssetProvider assetProvider;
     private final BitmapFont font;
-    private final Map <ItemType, Texture> itemTextures;
     private final OrthographicCamera camera;
 
 
-    public InventoryRenderer(OrthographicCamera camera){
-        this.batch=new SpriteBatch();
+    public InventoryRenderer(OrthographicCamera camera,
+                             AssetProvider assetProvider,
+                             SpriteBatch batch) {
+        this.batch=batch;
+        this.assetProvider=assetProvider;
         this.camera=camera;
-        this.inventory = new Texture("1779347732838.png");
-        this.font = new BitmapFont();
-        this.font.getData().setScale(2f);
-        this.itemTextures = new HashMap<>();
-        loadItemTextures();
-    }
-    void loadItemTextures(){
-        itemTextures.put(ItemType.CARROT, new Texture("marchewka.png"));
-        itemTextures.put(ItemType.CORN, new Texture("corn.png"));
-        itemTextures.put(ItemType.WHEAT, new Texture("wheat.png"));
-        itemTextures.put(ItemType.POTATO, new Texture("potato.png"));
-        itemTextures.put(ItemType.CARROT_SEED, new Texture("nasiona_marchewek.png"));
-        itemTextures.put(ItemType.CORN_SEED, new Texture("corn_seed.png"));
-        itemTextures.put(ItemType.WHEAT_SEED, new Texture("wheat_seeds.png"));
-        itemTextures.put(ItemType.POTATO_SEED, new Texture("potato_seed.png"));
+        this.font=assetProvider.getBigFont();
     }
 
     public void render(InventoryViewState state){
@@ -43,7 +29,7 @@ public class InventoryRenderer {
         batch.begin();
         float width=camera.viewportWidth;
         float height=camera.viewportHeight;
-        batch.draw(inventory, 0, 0, width, height);
+        batch.draw(assetProvider.getInventoryTexture(), 0, 0, width, height);
 
         float startX = width*0.12f;
         float startY = height*0.73f;
@@ -57,7 +43,7 @@ public class InventoryRenderer {
 
             int amount = state.getAmount(itemType);
 
-                Texture texture = itemTextures.get(itemType);
+                Texture texture = assetProvider.getItemTexture(itemType);
                 if (texture != null){
                 int col = index % columns;
                 int row = index / columns;
@@ -73,15 +59,5 @@ public class InventoryRenderer {
             }
         }
         batch.end();
-    }
-
-    public void dispose() {
-        batch.dispose();
-        inventory.dispose();
-        font.dispose();
-
-        for (Texture texture : itemTextures.values()) {
-            texture.dispose();
-        }
     }
 }

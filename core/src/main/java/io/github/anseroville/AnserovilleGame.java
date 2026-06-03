@@ -56,10 +56,10 @@ public class AnserovilleGame extends ApplicationAdapter {
                 nightManager, collectingManager, questManager, shopManager);
         farmRenderer = new FarmRenderer(farmViewModel, camera, assetProvider, batch, shapeRenderer);
         handRenderer = new HandRenderer(camera, batch, shapeRenderer, assetProvider);
-        inventoryRenderer = new InventoryRenderer(camera);
-        questRenderer = new QuestRenderer(farmViewModel, camera);
+        inventoryRenderer = new InventoryRenderer(camera, assetProvider, batch);
+        questRenderer = new QuestRenderer(farmViewModel, camera, assetProvider, batch);
         farmInputController = new FarmInputController(farmViewModel, viewport);
-        statusBarRenderer = new StatusBarRenderer(farmViewModel, camera);
+        statusBarRenderer = new StatusBarRenderer(farmViewModel, camera, assetProvider, batch);
         nightRenderer = new NightRenderer(farmViewModel, camera, assetProvider, batch);
 
     }
@@ -94,10 +94,6 @@ public class AnserovilleGame extends ApplicationAdapter {
 
     @Override
     public void dispose() {
-        statusBarRenderer.dispose();
-        inventoryRenderer.dispose();
-        questRenderer.dispose();
-        handRenderer.dispose();
         batch.dispose();
         shapeRenderer.dispose();
         assetProvider.dispose();

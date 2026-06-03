@@ -6,41 +6,27 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import io.github.anseroville.viewModel.InventoryViewState;
-import io.github.anseroville.enums.ItemType;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import java.util.Map;
-import java.util.EnumMap;
 
 public class HandRenderer {
     private static final int TILE_SIZE = 75;
-
     private final SpriteBatch batch;
     private final ShapeRenderer shapeRenderer;
-    private final Map<ItemType, Texture> itemTextures;
     private final OrthographicCamera camera;
     private final BitmapFont font;
     private final AssetProvider assetProvider;
 
-    public HandRenderer(OrthographicCamera camera, SpriteBatch batch, ShapeRenderer shapeRenderer, AssetProvider assetProvider) {
+    public HandRenderer(OrthographicCamera camera,
+                        SpriteBatch batch,
+                        ShapeRenderer shapeRenderer,
+                        AssetProvider assetProvider) {
         this.batch = batch;
         this.camera=camera;
         this.shapeRenderer = shapeRenderer;
-        this.itemTextures = new EnumMap<>(ItemType.class);
         this.assetProvider=assetProvider;
         this.font=assetProvider.getSmallestFont();
-        loadItemTextures();
     }
 
-    private void loadItemTextures() {
-        itemTextures.put(ItemType.CARROT, new Texture("marchewka.png"));
-        itemTextures.put(ItemType.CORN, new Texture("corn.png"));
-        itemTextures.put(ItemType.WHEAT, new Texture("wheat.png"));
-        itemTextures.put(ItemType.POTATO, new Texture("potato.png"));
-        itemTextures.put(ItemType.CARROT_SEED, new Texture("nasiona_marchewek.png"));
-        itemTextures.put(ItemType.CORN_SEED, new Texture("corn_seed.png"));
-        itemTextures.put(ItemType.WHEAT_SEED, new Texture("wheat_seeds.png"));
-        itemTextures.put(ItemType.POTATO_SEED, new Texture("potato_seed.png"));
-    }
 
     public void render(InventoryViewState state){
         batch.setProjectionMatrix(camera.combined);
@@ -54,7 +40,7 @@ public class HandRenderer {
         shapeRenderer.end();
 
         if (state.hasItemInHand()) {
-            Texture texture = itemTextures.get(state.getHeldItemType());
+            Texture texture = assetProvider.getItemTexture(state.getHeldItemType());
 
             if (texture != null) {
                 batch.begin();
@@ -62,15 +48,6 @@ public class HandRenderer {
                 font.draw(batch, "x"+state.getHeldItemAmount(), width+TILE_SIZE-25, height+15);
                 batch.end();
             }
-        }
-    }
-
-    public void dispose() {
-        batch.dispose();
-        font.dispose();
-        shapeRenderer.dispose();
-        for (Texture texture : itemTextures.values()) {
-            texture.dispose();
         }
     }
 }
