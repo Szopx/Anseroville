@@ -32,7 +32,7 @@ public class TileData {
             int row = field[0];
             int column = field[1];
             GridPosition position = new GridPosition(column, row);
-            tiles.put(position, new EmptyGroundTile(position));
+            tiles.put(position, new GroundTile(position));
         }
     }
 

@@ -25,7 +25,6 @@ public class FarmViewModel {
 
     private final GameState gameState;
     private InteractableTile selectedTile;
-    private final TileManager tileManager;
     private final CropGrowthSystem cropGrowthSystem;
     private final NightManager nightManager;
     private final PlantingManager plantingManager;
@@ -40,7 +39,6 @@ public class FarmViewModel {
 
     public FarmViewModel(
             GameState gameState,
-            TileManager tileManager,
             CropGrowthSystem cropGrowthSystem,
             PlantingManager plantingManager,
             NightManager nightManager,
@@ -49,7 +47,6 @@ public class FarmViewModel {
             ShopManager shopManager, GameSettings gameSettings
     ) {
         this.gameState = gameState;
-        this.tileManager = tileManager;
         this.cropGrowthSystem = cropGrowthSystem;
         this.nightManager = nightManager;
         this.plantingManager = plantingManager;
@@ -87,7 +84,7 @@ public class FarmViewModel {
 
         GridPosition lookedPosition = getLookedGridPosition();
 
-        selectedTile = tileManager.getInteractableTiles().get(lookedPosition);
+        selectedTile = gameState.getWorldState().getTile(lookedPosition);
 
         if (selectedTile != null) {
             selectedTile.select();
@@ -123,17 +120,15 @@ public class FarmViewModel {
     public List<TileViewState> getTileViewStates() {
         List<TileViewState> tileViewStates = new ArrayList<>();
 
-        for (Map.Entry<GridPosition, InteractableTile> entry : tileManager.getInteractableTiles().entrySet()) {
+        for (Map.Entry<GridPosition, InteractableTile> entry : gameState.getWorldState().getTilesView().entrySet()) {
             InteractableTile tile = entry.getValue();
 
             ItemType plantType = null;
             GrowingState growingState = null;
-            if (tile instanceof GrowingGroundTile){
-                plantType = ((GrowingGroundTile) tile).getPlantType();
-                growingState = ((GrowingGroundTile) tile).getGrowingState();
+            if (tile instanceof GroundTile && !((GroundTile) tile).isEmpty()) {
+                plantType = ((GroundTile) tile).getHarvestItem();
+                growingState = ((GroundTile) tile).getCrop().getGrowingState();
             }
-
-
 
             tileViewStates.add(new TileViewState(
             tile.getGridPosition().getX(),tile.getGridPosition().getY()

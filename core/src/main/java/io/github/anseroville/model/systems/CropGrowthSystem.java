@@ -1,21 +1,20 @@
 package io.github.anseroville.model.systems;
 
-import io.github.anseroville.model.tiles.GrowingGroundTile;
+import io.github.anseroville.model.WorldState;
+import io.github.anseroville.model.tiles.GroundTile;
 import io.github.anseroville.model.tiles.InteractableTile;
 
 public class CropGrowthSystem {
-    private final TileManager tileManager;
+    private final WorldState worldState;
 
-    public CropGrowthSystem(TileManager tileManager) {
-        this.tileManager = tileManager;
+    public CropGrowthSystem(WorldState worldState) {
+        this.worldState = worldState;
     }
 
     public void update(float delta) {
-        for (InteractableTile tile : tileManager.getInteractableTiles().values()) {
-            if (tile instanceof GrowingGroundTile) {
-                GrowingGroundTile growingTile = (GrowingGroundTile) tile;
-                growingTile.update(delta);
-            }
+        for (InteractableTile tile : worldState.getTiles()) {
+            if(tile instanceof GroundTile)
+                ((GroundTile) tile).update(delta);
         }
     }
 }

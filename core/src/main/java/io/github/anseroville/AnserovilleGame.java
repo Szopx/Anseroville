@@ -42,14 +42,13 @@ public class AnserovilleGame extends ApplicationAdapter {
     @Override
     public void create() {
         GameState gameState = new GameState();
+
         GameSettings gameSettings = new GameSettings();
 
-        TileManager tileManager = new TileManager(TileData.createInteractableTiles());
-        NightManager nightManager = new NightManager(tileManager, gameState.getInventory());
-        CropGrowthSystem cropGrowthSystem = new CropGrowthSystem(tileManager);
-        CollectingManager collectingManager = new CollectingManager(tileManager, gameState.getInventory());
+        NightManager nightManager = new NightManager(gameState.getInventory(), gameState.getWorldState());
+        CropGrowthSystem cropGrowthSystem = new CropGrowthSystem(gameState.getWorldState());
+        CollectingManager collectingManager = new CollectingManager(gameState.getInventory());
         PlantingManager plantingManager = new PlantingManager(
-                tileManager,
                 gameState.getHand(),
                 gameState.getInventory()
         );
@@ -61,8 +60,7 @@ public class AnserovilleGame extends ApplicationAdapter {
 
         QuestManager questManager = new QuestManager(
                 gameState,
-                shopManager,
-                tileManager
+                shopManager
         );
 
         camera = new OrthographicCamera();
@@ -71,7 +69,7 @@ public class AnserovilleGame extends ApplicationAdapter {
         assetProvider=new AssetProvider();
         batch=new SpriteBatch();
         shapeRenderer=new ShapeRenderer();
-        farmViewModel = new FarmViewModel(gameState, tileManager, cropGrowthSystem, plantingManager,
+        farmViewModel = new FarmViewModel(gameState, cropGrowthSystem, plantingManager,
                 nightManager, collectingManager, questManager, shopManager,  gameSettings);
         farmRenderer = new FarmRenderer(farmViewModel, camera, assetProvider, batch, shapeRenderer);
         handRenderer = new HandRenderer(camera, batch, shapeRenderer, assetProvider);

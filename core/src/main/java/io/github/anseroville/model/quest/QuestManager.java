@@ -2,10 +2,12 @@ package io.github.anseroville.model.quest;
 
 import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.model.GameState;
+import io.github.anseroville.model.GridPosition;
 import io.github.anseroville.model.inventory.Inventory;
 import io.github.anseroville.model.inventory.Wallet;
 import io.github.anseroville.model.shop.ShopManager;
-import io.github.anseroville.model.systems.TileManager;
+import io.github.anseroville.model.tiles.GroundTile;
+import io.github.anseroville.model.tiles.InteractableTile;
 
 import java.util.Collections;
 import java.util.List;
@@ -16,7 +18,6 @@ public class QuestManager {
     private final Inventory inventory;
     private final Wallet wallet;
     private final ShopManager shopManager;
-    private final TileManager tileManager;
     private final List<Level> levels;
 
     private int activeLevelIndex;
@@ -26,14 +27,11 @@ public class QuestManager {
 
     public QuestManager(
             GameState gameState,
-            ShopManager shopManager,
-            TileManager tileManager
-    ) {
+            ShopManager shopManager) {
         this.gameState = gameState;
         this.inventory = gameState.getInventory();
         this.wallet = gameState.getWallet();
         this.shopManager = shopManager;
-        this.tileManager = tileManager;
         this.levels = QuestData.createLevels();
         this.activeLevelIndex = 0;
         this.activeSideQuestIndex = 0;
@@ -243,7 +241,11 @@ public class QuestManager {
     }
 
     private void resetWorld() {
-        tileManager.resetGroundTiles();
+        for (Map.Entry<GridPosition, InteractableTile> tile : gameState.getWorldState().getTilesView().entrySet()) {
+            if (tile.getValue() instanceof GroundTile) {
+                ((GroundTile) tile.getValue()).clearCrop();
+            }
+        }
     }
 
     private void resetPlayer() {

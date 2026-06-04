@@ -1,47 +1,48 @@
 package io.github.anseroville.model.systems;
 
+import io.github.anseroville.enums.CropType;
 import io.github.anseroville.enums.ItemType;
-import io.github.anseroville.model.tiles.*;
 import io.github.anseroville.model.inventory.Hand;
 import io.github.anseroville.model.inventory.Inventory;
+import io.github.anseroville.model.tiles.GroundTile;
+import io.github.anseroville.model.tiles.InteractableTile;
 
 public class PlantingManager {
-    private static final float INITIAL_GROWTH_DELTA = 0.1f;
-
-    private final TileManager tileManager;
     private final Hand hand;
     private final Inventory inventory;
 
-    public PlantingManager(TileManager tileManager, Hand hand, Inventory inventory) {
-        this.tileManager = tileManager;
+    public PlantingManager(Hand hand, Inventory inventory) {
         this.hand = hand;
         this.inventory = inventory;
     }
 
     public boolean plant(InteractableTile selectedTile) {
-        if (!(selectedTile instanceof EmptyGroundTile)) {
-            System.out.println("Nie udalo sie posadzic.");
+        if (!(selectedTile instanceof GroundTile groundTile)) {
             return false;
         }
 
-        EmptyGroundTile emptyGroundTile = (EmptyGroundTile) selectedTile;
         ItemType seedType = hand.getType();
-        GrowingGroundTile growingTile = createGrowingTile(seedType, emptyGroundTile);
+        CropType cropType = CropType.fromSeed(seedType);
 
-        if (growingTile == null) {
-            System.out.println("Nie udalo sie posadzic.");
+        if (cropType == null) {
+            return false;
+        }
+
+        if (!groundTile.isEmpty()) {
             return false;
         }
 
         if (!inventory.remove(seedType, 1)) {
             hand.clear();
-            System.out.println("Nie udalo sie posadzic.");
             return false;
         }
 
-        tileManager.replaceEmptyTile(emptyGroundTile, growingTile);
+        boolean planted = groundTile.plant(cropType);
 
-        // growingTile.update(INITIAL_GROWTH_DELTA);
+        if (!planted) {
+            inventory.add(seedType, 1);
+            return false;
+        }
 
         if (!inventory.has(seedType, 1)) {
             hand.clear();
@@ -51,43 +52,10 @@ public class PlantingManager {
     }
 
     public boolean water(InteractableTile selectedTile) {
-        if (!(selectedTile instanceof GroundTile)) {
-            System.out.println("Nie ma tutaj rosliny do podlania.");
+        if (!(selectedTile instanceof GroundTile groundTile)) {
             return false;
         }
 
-        GroundTile growingTile = (GrowingGroundTile) selectedTile;
-
-        if (growingTile.isWatered()) {
-            System.out.println("Ta roslina jest juz podlana.");
-            return false;
-        }
-
-        growingTile.setWatered(true);
-        System.out.println("Podlano rosline.");
-        return true;
-    }
-
-    private GrowingGroundTile createGrowingTile(ItemType seedType, EmptyGroundTile emptyGroundTile) {
-        if (seedType == null || !inventory.has(seedType, 1)) {
-            return null;
-        }
-
-        switch (seedType) {
-            case CARROT_SEED:
-                System.out.println("Posadz marchewki.");
-                return new GrowingCarrotTile(emptyGroundTile);
-            case POTATO_SEED:
-                System.out.println("Posadz ziemniaki.");
-                return new GrowingPotatoTile(emptyGroundTile);
-            case CORN_SEED:
-                System.out.println("Posadz kukurydze.");
-                return new GrowingCornTile(emptyGroundTile);
-            case WHEAT_SEED:
-                System.out.println("Posadz pszenice.");
-                return new GrowingWheatTile(emptyGroundTile);
-            default:
-                return null;
-        }
+        return groundTile.water();
     }
 }

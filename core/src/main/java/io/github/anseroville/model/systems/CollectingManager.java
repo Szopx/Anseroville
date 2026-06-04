@@ -1,45 +1,33 @@
 package io.github.anseroville.model.systems;
 
-import io.github.anseroville.model.inventory.Inventory;
-import io.github.anseroville.model.tiles.*;
 import io.github.anseroville.enums.ItemType;
+import io.github.anseroville.model.inventory.Inventory;
+import io.github.anseroville.model.tiles.GroundTile;
+import io.github.anseroville.model.tiles.InteractableTile;
 
 public class CollectingManager {
-    private final TileManager tileManager;
     private final Inventory inventory;
 
-    public CollectingManager(TileManager tileManager, Inventory inventory) {
-        this.tileManager = tileManager;
+    public CollectingManager(Inventory inventory) {
         this.inventory = inventory;
     }
 
-    public boolean collect(InteractableTile tile) {
-        if (!(tile instanceof GrowingGroundTile growingGroundTile)) {
+    public boolean collect(InteractableTile selectedTile) {
+        if (!(selectedTile instanceof GroundTile groundTile)) {
             return false;
         }
 
-        if (!growingGroundTile.canBeCollected()) {
+        ItemType harvestItem = groundTile.getHarvestItem();
+
+        if (harvestItem == null) {
             return false;
         }
 
-        boolean addedToInventory = false;
-
-        if(tile instanceof GrowingCarrotTile) {
-            addedToInventory = inventory.add(ItemType.CARROT, 1);
-        } else if (tile instanceof GrowingCornTile) {
-            addedToInventory = inventory.add(ItemType.CORN, 1);
-        } else if(tile instanceof GrowingWheatTile) {
-            addedToInventory = inventory.add(ItemType.WHEAT, 1);
-        } else if(tile instanceof GrowingPotatoTile) {
-            addedToInventory = inventory.add(ItemType.POTATO, 1);
-        }
-
-        if (!addedToInventory) {
+        if (!inventory.add(harvestItem, 1)) {
             return false;
         }
 
-        tileManager.modifyTile(growingGroundTile.getGridPosition(), new EmptyGroundTile(growingGroundTile));
-
+        groundTile.clearCrop();
         return true;
     }
 }
