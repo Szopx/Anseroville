@@ -18,7 +18,31 @@ public class FarmInputController {
     }
 
     public void handleInput() {
-        if (viewModel.isNightWithoutTorch()) {
+        if(viewModel.isNightWithoutTorch()) {
+            return;
+        }
+
+        if (viewModel.isSettingsOpen()) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.O)) {
+                viewModel.toggleSettings();
+                return;
+            } else return;
+        }
+
+        if(viewModel.isHelpOpen()) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+                viewModel.toggleHelp();
+                return;
+            } else return;
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.O)) {
+            viewModel.toggleSettings();
+            return;
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            viewModel.toggleHelp();
             return;
         }
 

@@ -1,13 +1,7 @@
 package io.github.anseroville.model.systems;
 
 import io.github.anseroville.enums.ItemType;
-import io.github.anseroville.model.tiles.EmptyGroundTile;
-import io.github.anseroville.model.tiles.GrowingCarrotTile;
-import io.github.anseroville.model.tiles.GrowingCornTile;
-import io.github.anseroville.model.tiles.GrowingGroundTile;
-import io.github.anseroville.model.tiles.GrowingPotatoTile;
-import io.github.anseroville.model.tiles.GrowingWheatTile;
-import io.github.anseroville.model.tiles.InteractableTile;
+import io.github.anseroville.model.tiles.*;
 import io.github.anseroville.model.inventory.Hand;
 import io.github.anseroville.model.inventory.Inventory;
 
@@ -57,17 +51,12 @@ public class PlantingManager {
     }
 
     public boolean water(InteractableTile selectedTile) {
-        if (!(selectedTile instanceof GrowingGroundTile)) {
+        if (!(selectedTile instanceof GroundTile)) {
             System.out.println("Nie ma tutaj rosliny do podlania.");
             return false;
         }
 
-        GrowingGroundTile growingTile = (GrowingGroundTile) selectedTile;
-
-        if (growingTile.canBeCollected()) {
-            System.out.println("Ta roslina jest juz gotowa do zebrania.");
-            return false;
-        }
+        GroundTile growingTile = (GrowingGroundTile) selectedTile;
 
         if (growingTile.isWatered()) {
             System.out.println("Ta roslina jest juz podlana.");

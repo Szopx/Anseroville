@@ -14,7 +14,7 @@ import io.github.anseroville.model.inventory.Hand;
 import io.github.anseroville.model.inventory.Inventory;
 import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.model.quest.QuestManager;
-import io.github.anseroville.model.quest.LevelStartState;
+import io.github.anseroville.model.settings.GameSettings;
 
 import java.util.*;
 
@@ -33,6 +33,10 @@ public class FarmViewModel {
     private final QuestManager questManager;
     private final ShopManager shopManager;
     private boolean isInventoryOpen = false;
+    private boolean isHelpOpen = false;
+
+    private final GameSettings gameSettings;
+    private boolean isSettingsOpen = false;
 
     public FarmViewModel(
             GameState gameState,
@@ -42,7 +46,7 @@ public class FarmViewModel {
             NightManager nightManager,
             CollectingManager collectingManager,
             QuestManager questManager,
-            ShopManager shopManager
+            ShopManager shopManager, GameSettings gameSettings
     ) {
         this.gameState = gameState;
         this.tileManager = tileManager;
@@ -52,6 +56,7 @@ public class FarmViewModel {
         this.collectingManager = collectingManager;
         this.questManager = questManager;
         this.shopManager = shopManager;
+        this.gameSettings = gameSettings;
 
         this.questManager.initializeCurrentLevel();
     }
@@ -163,7 +168,10 @@ public class FarmViewModel {
 
     public void update(float delta) {
         cropGrowthSystem.update(delta);
-        nightManager.update(delta);
+
+        if (gameSettings.isNightCycleEnabled()) {
+            nightManager.update(delta);
+        }
     }
 
     public void collect() {
@@ -239,11 +247,14 @@ public class FarmViewModel {
     }
 
     public NightViewState getNightViewState() {
+        if (!gameSettings.isNightCycleEnabled())
+            return new NightViewState(false, true, 0f);
+
         return new NightViewState(nightManager.isNight(), nightManager.hasTorch(), nightManager.getNightRemainingTime());
     }
 
     public boolean isNightWithoutTorch() {
-        return nightManager.isNightWithoutTorch();
+        return gameSettings.isNightCycleEnabled() && nightManager.isNightWithoutTorch();
     }
 
     public void addItemToInventory(ItemType itemType, int amount) {
@@ -298,5 +309,59 @@ public class FarmViewModel {
         return true;
     }
 
+    public void toggleSettings() {
+        isSettingsOpen = !isSettingsOpen;
+    }
 
+    public boolean isSettingsOpen() {
+        return isSettingsOpen;
+    }
+
+    public void cycleMovementSpeed() {
+        gameSettings.cycleMovementSpeed();
+        applyPlayerSpeed();
+    }
+
+    public void toggleNightCycle() {
+        gameSettings.toggleNightCycle();
+    }
+
+    public void toggleQuestPanelVisible() {
+        gameSettings.toggleQuestPanelVisible();
+    }
+
+    public void toggleShowFps() {
+        gameSettings.toggleShowFps();
+    }
+
+    public void resetSettings() {
+        gameSettings.resetToDefaults();
+        applyPlayerSpeed();
+    }
+
+    private void applyPlayerSpeed() {
+        gameState.getPlayer().setSpeed(gameSettings.getMovementSpeed().getPlayerSpeed());
+    }
+
+    public boolean isQuestPanelVisible() {
+        return gameSettings.isQuestPanelVisible();
+    }
+
+    public SettingsViewState getSettingsViewState() {
+        return new SettingsViewState(
+                isSettingsOpen,
+                gameSettings.getMovementSpeed().getLabel(),
+                gameSettings.isNightCycleEnabled(),
+                gameSettings.isQuestPanelVisible(),
+                gameSettings.isShowFps()
+        );
+    }
+
+    public void toggleHelp() {
+        isHelpOpen = !isHelpOpen;
+    }
+
+    public boolean isHelpOpen() {
+        return isHelpOpen;
+    }
 }

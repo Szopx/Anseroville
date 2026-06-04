@@ -17,7 +17,7 @@ public class GrowingCornTile extends GrowingGroundTile {
     }
 
     @Override
-    protected int getDuration(){
+    protected int getDuration() {
         return switch (growingState.ordinal()) {
             case 0 -> 0;
             case 1 -> 3 + growthModifier;

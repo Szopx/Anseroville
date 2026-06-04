@@ -9,7 +9,7 @@ import io.github.anseroville.model.GameState;
 import io.github.anseroville.model.shop.ShopManager;
 import io.github.anseroville.model.quest.QuestManager;
 import io.github.anseroville.model.tiles.TileData;
-import io.github.anseroville.model.time.DayNightCycle;
+import io.github.anseroville.model.settings.GameSettings;
 import io.github.anseroville.view.*;
 import io.github.anseroville.viewModel.FarmViewModel;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -33,12 +33,16 @@ public class AnserovilleGame extends ApplicationAdapter {
     private Viewport viewport;
     private SpriteBatch batch;
     private ShapeRenderer shapeRenderer;
+    private SettingsRenderer settingsRenderer;
+    private HelpRenderer helpRenderer;
+
     private static final float width = 1920f;
     private static final float height = 1080f;
 
     @Override
     public void create() {
         GameState gameState = new GameState();
+        GameSettings gameSettings = new GameSettings();
 
         TileManager tileManager = new TileManager(TileData.createInteractableTiles());
         NightManager nightManager = new NightManager(tileManager, gameState.getInventory());
@@ -68,7 +72,7 @@ public class AnserovilleGame extends ApplicationAdapter {
         batch=new SpriteBatch();
         shapeRenderer=new ShapeRenderer();
         farmViewModel = new FarmViewModel(gameState, tileManager, cropGrowthSystem, plantingManager,
-                nightManager, collectingManager, questManager, shopManager);
+                nightManager, collectingManager, questManager, shopManager,  gameSettings);
         farmRenderer = new FarmRenderer(farmViewModel, camera, assetProvider, batch, shapeRenderer);
         handRenderer = new HandRenderer(camera, batch, shapeRenderer, assetProvider);
         inventoryRenderer = new InventoryRenderer(camera, assetProvider, batch);
@@ -76,7 +80,8 @@ public class AnserovilleGame extends ApplicationAdapter {
         farmInputController = new FarmInputController(farmViewModel, viewport);
         statusBarRenderer = new StatusBarRenderer(farmViewModel, camera, assetProvider, batch);
         nightRenderer = new NightRenderer(farmViewModel, camera, assetProvider, batch);
-
+        settingsRenderer = new SettingsRenderer(farmViewModel, camera, batch, shapeRenderer, assetProvider);
+        helpRenderer = new HelpRenderer(farmViewModel, camera, batch, shapeRenderer, assetProvider);
     }
 
     @Override
@@ -90,7 +95,9 @@ public class AnserovilleGame extends ApplicationAdapter {
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
 
         farmRenderer.render();
-        questRenderer.render();
+        if (farmViewModel.isQuestPanelVisible()) {
+            questRenderer.render();
+        }
         if(farmViewModel.isInventoryOpen()){
             inventoryRenderer.render(farmViewModel.getInventoryViewState());
         }
@@ -100,6 +107,9 @@ public class AnserovilleGame extends ApplicationAdapter {
         statusBarRenderer.render(); //zakladam ze to moze byc caly czas widoczne, correct me if i'm wrong
         handRenderer.render(farmViewModel.getInventoryViewState());
         nightRenderer.render();
+
+        settingsRenderer.render();
+        helpRenderer.render();
     }
 
     @Override
