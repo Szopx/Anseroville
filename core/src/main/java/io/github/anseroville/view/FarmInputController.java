@@ -64,12 +64,24 @@ public class FarmInputController {
         if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
             viewModel.toggleInventory();
         }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+            viewModel.toggleShop();
+        }
 
         if (viewModel.isInventoryOpen()) {
             if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
                 Vector3 clickPosition = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
                 viewport.unproject(clickPosition);
                 handleInventoryClick(clickPosition.x, clickPosition.y);
+            }
+            return;
+        }
+
+        if (viewModel.isShopOpen()) {
+            if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+                Vector3 clickPosition = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+                viewport.unproject(clickPosition);
+                handleShopClick(clickPosition.x, clickPosition.y);
             }
             return;
         }
@@ -144,6 +156,44 @@ public class FarmInputController {
                     break;
                 }
                 index++;
+        }
+    }
+    private void handleShopClick(float clickX, float clickY) {
+
+        float startX = viewport.getWorldWidth() * 0.1f;
+        float startY = viewport.getWorldHeight() * 0.545f;
+        float offsetX = 127f;
+        float offsetY = 140f;
+        int columns = 5;
+        int ICON_SIZE = 85;
+
+        int index = 0;
+        for (ItemType itemType : viewModel.getShopViewState().getBuyPrices().keySet()) {
+            int col = index % columns;
+            int row = index / columns;
+            float drawX = startX + (col * offsetX);
+            float drawY = startY - (row * offsetY);
+            if (clickX >= drawX && clickX <= drawX + ICON_SIZE &&
+                    clickY >= drawY && clickY <= drawY + ICON_SIZE) {
+                viewModel.buyItem(itemType);
+                break;
+            }
+            index++;
+        }
+        startX = viewport.getWorldWidth() * 0.59f;
+        index = 0;
+        offsetX = 135f;
+        for (ItemType itemType : viewModel.getShopViewState().getSellPrices().keySet()) {
+            int col = index % columns;
+            int row = index / columns;
+            float drawX = startX + (col * offsetX);
+            float drawY = startY - (row * offsetY);
+            if (clickX >= drawX && clickX <= drawX + ICON_SIZE &&
+                    clickY >= drawY && clickY <= drawY + ICON_SIZE) {
+                viewModel.sellItem(itemType);
+                break;
+            }
+            index++;
         }
     }
 }

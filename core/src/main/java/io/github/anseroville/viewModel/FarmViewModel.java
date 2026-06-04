@@ -33,6 +33,7 @@ public class FarmViewModel {
     private final ShopManager shopManager;
     private boolean isInventoryOpen = false;
     private boolean isHelpOpen = false;
+    private boolean isShopOpen = false;
 
     private final GameSettings gameSettings;
     private boolean isSettingsOpen = false;
@@ -239,6 +240,14 @@ public class FarmViewModel {
 
     public boolean isInventoryOpen() {
         return isInventoryOpen;
+    }
+
+    public void toggleShop(){
+        isShopOpen = !isShopOpen;
+    }
+
+    public boolean isShopOpen() {
+        return isShopOpen;
     }
 
     public NightViewState getNightViewState() {

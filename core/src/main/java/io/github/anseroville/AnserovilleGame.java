@@ -35,6 +35,7 @@ public class AnserovilleGame extends ApplicationAdapter {
     private ShapeRenderer shapeRenderer;
     private SettingsRenderer settingsRenderer;
     private HelpRenderer helpRenderer;
+    private ShopRenderer shopRenderer;
 
     private static final float width = 1920f;
     private static final float height = 1080f;
@@ -80,6 +81,7 @@ public class AnserovilleGame extends ApplicationAdapter {
         nightRenderer = new NightRenderer(farmViewModel, camera, assetProvider, batch);
         settingsRenderer = new SettingsRenderer(farmViewModel, camera, batch, shapeRenderer, assetProvider);
         helpRenderer = new HelpRenderer(farmViewModel, camera, batch, shapeRenderer, assetProvider);
+        shopRenderer = new ShopRenderer(assetProvider, camera, batch);
     }
 
     @Override
@@ -99,13 +101,15 @@ public class AnserovilleGame extends ApplicationAdapter {
         if(farmViewModel.isInventoryOpen()){
             inventoryRenderer.render(farmViewModel.getInventoryViewState());
         }
+        if(farmViewModel.isShopOpen()){
+            shopRenderer.render(farmViewModel.getShopViewState());
+        }
         if(farmViewModel.isNightWithoutTorch()){
             farmRenderer.render();
         } //nieoptymalne, chodzi o to że musi być wakaźnik czy jest noc w trakcie otwatrego inventory albo żeby inventory nie liczyło czasu bo noc odbiera ruszanie sie todo do poprawy
         statusBarRenderer.render(); //zakladam ze to moze byc caly czas widoczne, correct me if i'm wrong
         handRenderer.render(farmViewModel.getInventoryViewState());
         nightRenderer.render();
-
         settingsRenderer.render();
         helpRenderer.render();
     }

@@ -19,6 +19,7 @@ public class AssetProvider {
     private final Texture inventoryTexture;
     private final Texture questBackgroundTexture;
     private final Texture coinTexture;
+    private final Texture shopInsideTexture;
     private final BitmapFont bigFont;
     private final BitmapFont smallestFont;
     private final BitmapFont mediumFont;
@@ -33,6 +34,7 @@ public class AssetProvider {
         this.inventoryTexture = new Texture("1779347732838.png");
         this.questBackgroundTexture = new Texture("quests.png");
         this.coinTexture = new Texture("coin.png");
+        this.shopInsideTexture = new Texture("1780525878689.png");
 
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.WHITE);
@@ -80,6 +82,8 @@ public class AssetProvider {
         itemTextures.put(ItemType.CORN_SEED, new Texture("corn_seed.png"));
         itemTextures.put(ItemType.WHEAT_SEED, new Texture("wheat_seeds.png"));
         itemTextures.put(ItemType.POTATO_SEED, new Texture("potato_seed.png"));
+        itemTextures.put(ItemType.SHIELD, new Texture("1780083486565.png"));
+        itemTextures.put(ItemType.TORCH, new Texture("1780083376816.png"));
     }
 
     public Texture getBackgroundTexture(){
@@ -124,6 +128,10 @@ public class AssetProvider {
         return coinTexture;
     }
 
+    public Texture getShopInsideTexture(){
+        return shopInsideTexture;
+    }
+
     public BitmapFont getBigFont(){
         return bigFont;
     }
@@ -148,6 +156,7 @@ public class AssetProvider {
         inventoryTexture.dispose();
         questBackgroundTexture.dispose();
         coinTexture.dispose();
+        shopInsideTexture.dispose();
 
         for (Map<GrowingState, Texture> stateMap : plantTextures.values()) {
             for (Texture texture : stateMap.values()) {
