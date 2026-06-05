@@ -1,14 +1,17 @@
-package io.github.anseroville.model.quest;
+package io.github.anseroville.model.levels;
 
 import io.github.anseroville.enums.ItemType;
+import io.github.anseroville.model.quest.Quest;
+import io.github.anseroville.model.quest.QuestManager;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
-public final class QuestData {
-    private QuestData() {
+public class LevelData {
+
+    private LevelData(){
     }
 
     public static List<Level> createLevels() {
@@ -21,8 +24,6 @@ public final class QuestData {
 
         return levels;
     }
-
-    /// ////////////////////////
 
     private static LevelStartState createLevelOneStartState() {
         Map<ItemType, Integer> inventoryItems = new EnumMap<>(ItemType.class);
@@ -83,12 +84,6 @@ public final class QuestData {
                 createLevelFourSellPrices()
         );
     }
-
-
-
-
-
-
 
     private static Map<ItemType, Integer> createLevelOneBuyPrices() {
         Map<ItemType, Integer> prices = new EnumMap<>(ItemType.class);
@@ -159,29 +154,23 @@ public final class QuestData {
         return prices;
     }
 
-
-
-
-
-
-
     private static Level createLevelOne() {
         List<Quest> sideQuests = new ArrayList<>();
 
-        sideQuests.add(createQuest(
+        sideQuests.add(QuestManager.createQuest(
                 15,
-                requirement(ItemType.CARROT, 3)
+                QuestManager.requirement(ItemType.CARROT, 3)
         ));
 
-        sideQuests.add(createQuest(
+        sideQuests.add(QuestManager.createQuest(
                 35,
-                requirement(ItemType.CARROT, 6)
+                QuestManager.requirement(ItemType.CARROT, 6)
         ));
 
-        Quest mainQuest = createQuest(
+        Quest mainQuest = QuestManager.createQuest(
                 100,
-                requirement(ItemType.CARROT, 10),
-                requirement(ItemType.WHEAT, 5)
+                QuestManager.requirement(ItemType.CARROT, 10),
+                QuestManager.requirement(ItemType.WHEAT, 5)
         );
 
         return new Level(1, createLevelOneStartState(), sideQuests, mainQuest);
@@ -190,20 +179,20 @@ public final class QuestData {
     private static Level createLevelTwo() {
         List<Quest> sideQuests = new ArrayList<>();
 
-        sideQuests.add(createQuest(
+        sideQuests.add(QuestManager.createQuest(
                 60,
-                requirement(ItemType.WHEAT, 8)
+                QuestManager.requirement(ItemType.WHEAT, 8)
         ));
 
-        sideQuests.add(createQuest(
+        sideQuests.add(QuestManager.createQuest(
                 80,
-                requirement(ItemType.POTATO, 6)
+                QuestManager.requirement(ItemType.POTATO, 6)
         ));
 
-        Quest mainQuest = createQuest(
+        Quest mainQuest = QuestManager.createQuest(
                 180,
-                requirement(ItemType.WHEAT, 12),
-                requirement(ItemType.POTATO, 10)
+                QuestManager.requirement(ItemType.WHEAT, 12),
+                QuestManager.requirement(ItemType.POTATO, 10)
         );
 
         return new Level(2, createLevelTwoStartState(), sideQuests, mainQuest);
@@ -212,22 +201,22 @@ public final class QuestData {
     private static Level createLevelThree() {
         List<Quest> sideQuests = new ArrayList<>();
 
-        sideQuests.add(createQuest(
+        sideQuests.add(QuestManager.createQuest(
                 120,
-                requirement(ItemType.CORN, 8)
+                QuestManager.requirement(ItemType.CORN, 8)
         ));
 
-        sideQuests.add(createQuest(
+        sideQuests.add(QuestManager.createQuest(
                 150,
-                requirement(ItemType.POTATO, 12),
-                requirement(ItemType.CORN, 6)
+                QuestManager.requirement(ItemType.POTATO, 12),
+                QuestManager.requirement(ItemType.CORN, 6)
         ));
 
-        Quest mainQuest = createQuest(
+        Quest mainQuest = QuestManager.createQuest(
                 300,
-                requirement(ItemType.CARROT, 15),
-                requirement(ItemType.POTATO, 15),
-                requirement(ItemType.CORN, 12)
+                QuestManager.requirement(ItemType.CARROT, 15),
+                QuestManager.requirement(ItemType.POTATO, 15),
+                QuestManager.requirement(ItemType.CORN, 12)
         );
 
         return new Level(3, createLevelThreeStartState(), sideQuests, mainQuest);
@@ -236,40 +225,26 @@ public final class QuestData {
     private static Level createLevelFour() {
         List<Quest> sideQuests = new ArrayList<>();
 
-        sideQuests.add(createQuest(
+        sideQuests.add(QuestManager.createQuest(
                 200,
-                requirement(ItemType.CARROT, 20),
-                requirement(ItemType.WHEAT, 15)
+                QuestManager.requirement(ItemType.CARROT, 20),
+                QuestManager.requirement(ItemType.WHEAT, 15)
         ));
 
-        sideQuests.add(createQuest(
+        sideQuests.add(QuestManager.createQuest(
                 250,
-                requirement(ItemType.POTATO, 18),
-                requirement(ItemType.CORN, 18)
+                QuestManager.requirement(ItemType.POTATO, 18),
+                QuestManager.requirement(ItemType.CORN, 18)
         ));
 
-        Quest mainQuest = createQuest(
+        Quest mainQuest = QuestManager.createQuest(
                 500,
-                requirement(ItemType.CARROT, 25),
-                requirement(ItemType.WHEAT, 20),
-                requirement(ItemType.POTATO, 20),
-                requirement(ItemType.CORN, 20)
+                QuestManager.requirement(ItemType.CARROT, 25),
+                QuestManager.requirement(ItemType.WHEAT, 20),
+                QuestManager.requirement(ItemType.POTATO, 20),
+                QuestManager.requirement(ItemType.CORN, 20)
         );
 
         return new Level(4, createLevelFourStartState(), sideQuests, mainQuest);
-    }
-
-    private static Quest createQuest(int rewardMoney, QuestRequirement... requirements) {
-        Map<ItemType, Integer> requiredItems = new EnumMap<>(ItemType.class);
-
-        for (QuestRequirement requirement : requirements) {
-            requiredItems.put(requirement.getItemType(), requirement.getAmount());
-        }
-
-        return new Quest(requiredItems, rewardMoney);
-    }
-
-    private static QuestRequirement requirement(ItemType itemType, int amount) {
-        return new QuestRequirement(itemType, amount);
     }
 }

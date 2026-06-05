@@ -2,102 +2,45 @@ package io.github.anseroville.model.quest;
 
 import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.model.GameState;
-import io.github.anseroville.model.GridPosition;
-import io.github.anseroville.model.inventory.Inventory;
-import io.github.anseroville.model.inventory.Wallet;
-import io.github.anseroville.model.shop.ShopManager;
-import io.github.anseroville.model.tiles.GroundTile;
-import io.github.anseroville.model.tiles.InteractableTile;
+import io.github.anseroville.model.levels.LevelManager;
 
 import java.util.Collections;
-import java.util.List;
+import java.util.EnumMap;
 import java.util.Map;
 
 public class QuestManager {
     private final GameState gameState;
-    private final Inventory inventory;
-    private final Wallet wallet;
-    private final ShopManager shopManager;
-    private final List<Level> levels;
-
-    private int activeLevelIndex;
+    private final LevelManager levelManager;
     private int activeSideQuestIndex;
-    private boolean gameFinished;
-    private boolean initialized;
 
-    public QuestManager(
-            GameState gameState,
-            ShopManager shopManager) {
+    public QuestManager(GameState gameState, LevelManager levelManager) {
         this.gameState = gameState;
-        this.inventory = gameState.getInventory();
-        this.wallet = gameState.getWallet();
-        this.shopManager = shopManager;
-        this.levels = QuestData.createLevels();
-        this.activeLevelIndex = 0;
+        this.levelManager = levelManager;
         this.activeSideQuestIndex = 0;
-        this.gameFinished = false;
-        this.initialized = false;
-    }
-
-    public void initializeCurrentLevel() {
-        if (initialized) {
-            return;
-        }
-
-        applyActiveLevelStartState();
-        initialized = true;
-    }
-
-    private Level getActiveLevel() {
-        if (gameFinished || activeLevelIndex >= levels.size()) {
-            return null;
-        }
-
-        return levels.get(activeLevelIndex);
     }
 
     private Quest getActiveSideQuest() {
-        Level activeLevel = getActiveLevel();
-
-        if (activeLevel == null) {
+        if (levelManager.getActiveLevel() == null) {
             return null;
         }
 
-        if (activeSideQuestIndex >= activeLevel.getSideQuestsCount()) {
+        if (activeSideQuestIndex >= levelManager.getActiveLevel().getSideQuestsCount()) {
             return null;
         }
 
-        return activeLevel.getSideQuests().get(activeSideQuestIndex);
+        return levelManager.getActiveLevel().getSideQuests().get(activeSideQuestIndex);
     }
 
     private Quest getActiveMainQuest() {
-        Level activeLevel = getActiveLevel();
-
-        if (activeLevel == null) {
+        if (levelManager.getActiveLevel() == null) {
             return null;
         }
 
-        return activeLevel.getMainQuest();
+        return levelManager.getActiveLevel().getMainQuest();
     }
 
     public boolean isActiveQuestAvailable() {
         return getActiveSideQuest() != null;
-    }
-
-    public boolean isGameFinished() {
-        return gameFinished;
-    }
-
-    public int getActiveLevelNumber() {
-        if (gameFinished) {
-            return levels.size();
-        }
-
-        return activeLevelIndex + 1;
-    }
-
-    public int getMaxLevelNumber() {
-        return levels.size();
     }
 
     public int getActiveSideQuestNumber() {
@@ -109,13 +52,11 @@ public class QuestManager {
     }
 
     public int getSideQuestsCount() {
-        Level activeLevel = getActiveLevel();
-
-        if (activeLevel == null) {
+        if (levelManager.getActiveLevel() == null) {
             return 0;
         }
 
-        return activeLevel.getSideQuestsCount();
+        return levelManager.getActiveLevel().getSideQuestsCount();
     }
 
     public Map<ItemType, Integer> getActiveQuestRequiredItems() {
@@ -161,12 +102,12 @@ public class QuestManager {
     public boolean completeActiveQuest() {
         Quest activeSideQuest = getActiveSideQuest();
 
-        if (activeSideQuest == null || !activeSideQuest.canComplete(inventory)) {
+        if (activeSideQuest == null || !activeSideQuest.canComplete(gameState.getInventory())) {
             return false;
         }
 
-        activeSideQuest.complete(inventory);
-        wallet.add(activeSideQuest.getRewardMoney());
+        activeSideQuest.complete(gameState.getInventory());
+        gameState.getWallet().add(activeSideQuest.getRewardMoney());
         activeSideQuestIndex++;
 
         return true;
@@ -175,80 +116,30 @@ public class QuestManager {
     public boolean completeMainQuest() {
         Quest activeMainQuest = getActiveMainQuest();
 
-        if (activeMainQuest == null || !activeMainQuest.canComplete(inventory)) {
+        if (activeMainQuest == null || !activeMainQuest.canComplete(gameState.getInventory())) {
             return false;
         }
 
-        activeMainQuest.complete(inventory);
-        wallet.add(activeMainQuest.getRewardMoney());
+        activeMainQuest.complete(gameState.getInventory());
+        gameState.getWallet().add(activeMainQuest.getRewardMoney());
 
-        if (activeLevelIndex >= levels.size() - 1) {
-            gameFinished = true;
-            return true;
-        }
-
-        activeLevelIndex++;
+        levelManager.startNextLevel();
         activeSideQuestIndex = 0;
-
-        applyActiveLevelStartState();
 
         return true;
     }
 
-    public LevelStartState getActiveLevelStartState() {
-        Level activeLevel = getActiveLevel();
+    public static Quest createQuest(int rewardMoney, QuestRequirement... requirements) {
+        Map<ItemType, Integer> requiredItems = new EnumMap<>(ItemType.class);
 
-        if (activeLevel == null) {
-            return null;
+        for (QuestRequirement requirement : requirements) {
+            requiredItems.put(requirement.getItemType(), requirement.getAmount());
         }
 
-        return activeLevel.getStartState();
+        return new Quest(requiredItems, rewardMoney);
     }
 
-    private void applyActiveLevelStartState() {
-        LevelStartState startState = getActiveLevelStartState();
-
-        if (startState == null) {
-            return;
-        }
-
-        resetInventory(startState);
-        resetWallet(startState);
-        resetHand();
-        resetShop(startState);
-        resetWorld();
-        resetPlayer();
-    }
-
-    private void resetInventory(LevelStartState startState) {
-        inventory.clear();
-
-        for (Map.Entry<ItemType, Integer> entry : startState.getInventoryItems().entrySet()) {
-            inventory.add(entry.getKey(), entry.getValue());
-        }
-    }
-
-    private void resetWallet(LevelStartState startState) {
-        wallet.setMoney(startState.getMoney());
-    }
-
-    private void resetHand() {
-        gameState.getHand().clear();
-    }
-
-    private void resetShop(LevelStartState startState) {
-        shopManager.setCurrentShop(startState.createShop());
-    }
-
-    private void resetWorld() {
-        for (Map.Entry<GridPosition, InteractableTile> tile : gameState.getWorldState().getTilesView().entrySet()) {
-            if (tile.getValue() instanceof GroundTile) {
-                ((GroundTile) tile.getValue()).clearCrop();
-            }
-        }
-    }
-
-    private void resetPlayer() {
-        gameState.getPlayer().teleportToStart();
+    public static QuestRequirement requirement(ItemType itemType, int amount) {
+        return new QuestRequirement(itemType, amount);
     }
 }

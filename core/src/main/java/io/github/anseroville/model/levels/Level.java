@@ -1,4 +1,6 @@
-package io.github.anseroville.model.quest;
+package io.github.anseroville.model.levels;
+
+import io.github.anseroville.model.quest.Quest;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -7,6 +7,7 @@ import io.github.anseroville.enums.GrowingState;
 import io.github.anseroville.model.GameState;
 import io.github.anseroville.model.GridPosition;
 import io.github.anseroville.model.Player;
+import io.github.anseroville.model.levels.LevelManager;
 import io.github.anseroville.model.shop.ShopManager;
 import io.github.anseroville.model.systems.*;
 import io.github.anseroville.model.tiles.*;
@@ -30,6 +31,7 @@ public class FarmViewModel {
     private final PlantingManager plantingManager;
     private final CollectingManager collectingManager;
     private final QuestManager questManager;
+    private final LevelManager levelManager;
     private final ShopManager shopManager;
     private boolean isInventoryOpen = false;
     private boolean isHelpOpen = false;
@@ -45,7 +47,9 @@ public class FarmViewModel {
             NightManager nightManager,
             CollectingManager collectingManager,
             QuestManager questManager,
-            ShopManager shopManager, GameSettings gameSettings
+            LevelManager levelManager,
+            ShopManager shopManager,
+            GameSettings gameSettings
     ) {
         this.gameState = gameState;
         this.cropGrowthSystem = cropGrowthSystem;
@@ -53,10 +57,11 @@ public class FarmViewModel {
         this.plantingManager = plantingManager;
         this.collectingManager = collectingManager;
         this.questManager = questManager;
+        this.levelManager = levelManager;
         this.shopManager = shopManager;
         this.gameSettings = gameSettings;
 
-        this.questManager.initializeCurrentLevel();
+        this.levelManager.initializeCurrentLevel();
     }
 
     public void movePlayer(Direction direction) {
@@ -189,7 +194,7 @@ public class FarmViewModel {
     }
 
     public void completeMainQuest() {
-        int previousLevelNumber = questManager.getActiveLevelNumber();
+        int previousLevelNumber = levelManager.getActiveLevelNumber();
 
         boolean completed = questManager.completeMainQuest();
 
@@ -198,7 +203,7 @@ public class FarmViewModel {
             return;
         }
 
-        if (questManager.isGameFinished()) {
+        if (levelManager.isGameFinished()) {
             System.out.println("ukończono wszystkie poziomy");
             return;
         }
@@ -210,7 +215,7 @@ public class FarmViewModel {
                 "udało się zrobic main questa, przechodzisz z poziomu "
                         + previousLevelNumber
                         + " na poziom "
-                        + questManager.getActiveLevelNumber()
+                        + levelManager.getActiveLevelNumber()
         );
     }
 
@@ -225,11 +230,11 @@ public class FarmViewModel {
                 Collections.unmodifiableMap(questManager.getMainQuestRequiredItems()),
                 questManager.getActiveQuestRewardMoney(),
                 questManager.getMainQuestRewardMoney(),
-                questManager.getActiveLevelNumber(),
-                questManager.getMaxLevelNumber(),
+                levelManager.getActiveLevelNumber(),
+                levelManager.getMaxLevelNumber(),
                 questManager.getActiveSideQuestNumber(),
                 questManager.getSideQuestsCount(),
-                questManager.isGameFinished()
+                levelManager.isGameFinished()
         );
     }
 

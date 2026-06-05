@@ -6,7 +6,6 @@ public abstract class InteractableTile {
     private final GridPosition gridPosition;
 
     private boolean selected;
-    //GrowingState growingState;
 
     public InteractableTile(GridPosition gridPosition) {
         this.gridPosition = gridPosition;
@@ -26,5 +25,4 @@ public abstract class InteractableTile {
     public void unselect() {
         selected = false;
     }
-    //public GrowingState getGrowingState(){ return growingState;}
 }

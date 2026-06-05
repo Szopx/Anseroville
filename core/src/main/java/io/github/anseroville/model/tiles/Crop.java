@@ -41,7 +41,7 @@ public class Crop {
     }
 
     public ItemType getPlantItem() {
-        return type.getHarvestItem();
+        return type.getSeedItem();
     }
 
     public GrowingState getGrowingState() {

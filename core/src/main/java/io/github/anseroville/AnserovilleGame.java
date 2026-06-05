@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
+import io.github.anseroville.model.levels.LevelManager;
 import io.github.anseroville.model.systems.*;
 import io.github.anseroville.model.GameState;
 import io.github.anseroville.model.shop.ShopManager;
@@ -59,10 +60,9 @@ public class AnserovilleGame extends ApplicationAdapter {
                 gameState.getInventory()
         );
 
-        QuestManager questManager = new QuestManager(
-                gameState,
-                shopManager
-        );
+        LevelManager levelManager = new LevelManager(gameState, shopManager);
+
+        QuestManager questManager = new QuestManager(gameState, levelManager);
 
         camera = new OrthographicCamera();
         viewport = new FitViewport(width, height, camera);
@@ -71,7 +71,7 @@ public class AnserovilleGame extends ApplicationAdapter {
         batch=new SpriteBatch();
         shapeRenderer=new ShapeRenderer();
         farmViewModel = new FarmViewModel(gameState, cropGrowthSystem, plantingManager,
-                nightManager, collectingManager, questManager, shopManager,  gameSettings);
+                nightManager, collectingManager, questManager, levelManager, shopManager, gameSettings);
         farmRenderer = new FarmRenderer(farmViewModel, camera, assetProvider, batch, shapeRenderer);
         handRenderer = new HandRenderer(camera, batch, shapeRenderer, assetProvider);
         inventoryRenderer = new InventoryRenderer(camera, assetProvider, batch);

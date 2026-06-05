@@ -1,4 +1,4 @@
-package io.github.anseroville.model.quest;
+package io.github.anseroville.model.levels;
 
 import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.model.shop.Shop;
