@@ -178,7 +178,9 @@ public class FarmViewModel {
     }
 
     public void update(float delta) {
-        cropGrowthSystem.update(delta);
+        float plantGrowthDelta = delta * gameSettings.getPlantGrowthMultiplier();
+
+        cropGrowthSystem.update(plantGrowthDelta);
 
         if (gameSettings.isNightCycleEnabled()) {
             nightManager.update(delta);
@@ -341,6 +343,10 @@ public class FarmViewModel {
         applyPlayerSpeed();
     }
 
+    public void cyclePlantGrowthSpeed() {
+        gameSettings.cyclePlantGrowthSpeed();
+    }
+
     public void toggleNightCycle() {
         gameSettings.toggleNightCycle();
     }
@@ -370,6 +376,7 @@ public class FarmViewModel {
         return new SettingsViewState(
                 isSettingsOpen,
                 gameSettings.getMovementSpeed().getLabel(),
+                gameSettings.getPlantGrowthSpeed().getLabel(),
                 gameSettings.isNightCycleEnabled(),
                 gameSettings.isQuestPanelVisible(),
                 gameSettings.isShowFps()

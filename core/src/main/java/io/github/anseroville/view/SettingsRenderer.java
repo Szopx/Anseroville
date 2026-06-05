@@ -10,12 +10,8 @@ import io.github.anseroville.viewModel.FarmViewModel;
 import io.github.anseroville.viewModel.SettingsViewState;
 
 public class SettingsRenderer {
-    public static final float BUTTON_SIZE = 64f;
-    public static final float BUTTON_MARGIN = 24f;
-
     private static final float PANEL_WIDTH = 700f;
-    private static final float PANEL_HEIGHT = 540f;
-    private static final float ROW_HEIGHT = 64f;
+    private static final float PANEL_HEIGHT = 610f;
 
     private final FarmViewModel viewModel;
     private final OrthographicCamera camera;
@@ -70,10 +66,11 @@ public class SettingsRenderer {
         shapeRenderer.setColor(new Color(0.95f, 0.74f, 0.32f, 1f));
         shapeRenderer.rect(panelX, panelY + PANEL_HEIGHT - 8f, PANEL_WIDTH, 8f);
 
-        renderSettingButtonShape(panelX + 430f, panelY + 360f);
-        renderSettingButtonShape(panelX + 430f, panelY + 290f);
-        renderSettingButtonShape(panelX + 430f, panelY + 220f);
-        renderSettingButtonShape(panelX + 430f, panelY + 150f);
+        renderSettingButtonShape(panelX + 430f, panelY + 425f);
+        renderSettingButtonShape(panelX + 430f, panelY + 355f);
+        renderSettingButtonShape(panelX + 430f, panelY + 285f);
+        renderSettingButtonShape(panelX + 430f, panelY + 215f);
+        renderSettingButtonShape(panelX + 430f, panelY + 145f);
 
         shapeRenderer.setColor(new Color(0.55f, 0.18f, 0.18f, 1f));
         shapeRenderer.rect(panelX + 250f, panelY + 55f, 200f, 52f);
@@ -94,17 +91,20 @@ public class SettingsRenderer {
 
         titleFont.draw(batch, "SETTINGS", panelX + 250f, panelY + PANEL_HEIGHT - 55f);
 
-        font.draw(batch, "Player speed", panelX + 80f, panelY + 397f);
-        font.draw(batch, state.getMovementSpeedLabel(), panelX + 475f, panelY + 395f);
+        font.draw(batch, "Player speed", panelX + 80f, panelY + 462f);
+        font.draw(batch, state.getMovementSpeedLabel(), panelX + 475f, panelY + 460f);
 
-        font.draw(batch, "Night cycle", panelX + 80f, panelY + 327f);
-        font.draw(batch, onOff(state.isNightCycleEnabled()), panelX + 490f, panelY + 325f);
+        font.draw(batch, "Plant growth", panelX + 80f, panelY + 392f);
+        font.draw(batch, state.getPlantGrowthSpeedLabel(), panelX + 475f, panelY + 390f);
 
-        font.draw(batch, "Quest panel", panelX + 80f, panelY + 257f);
-        font.draw(batch, onOff(state.isQuestPanelVisible()), panelX + 490f, panelY + 255f);
+        font.draw(batch, "Night cycle", panelX + 80f, panelY + 322f);
+        font.draw(batch, onOff(state.isNightCycleEnabled()), panelX + 490f, panelY + 320f);
 
-        font.draw(batch, "Show FPS", panelX + 80f, panelY + 187f);
-        font.draw(batch, onOff(state.isShowFps()), panelX + 490f, panelY + 185f);
+        font.draw(batch, "Quest panel", panelX + 80f, panelY + 252f);
+        font.draw(batch, onOff(state.isQuestPanelVisible()), panelX + 490f, panelY + 250f);
+
+        font.draw(batch, "Show FPS", panelX + 80f, panelY + 182f);
+        font.draw(batch, onOff(state.isShowFps()), panelX + 490f, panelY + 180f);
 
         font.draw(batch, "RESET", panelX + 302f, panelY + 90f);
         font.draw(batch, "Press O to close", panelX + 205f, panelY + 35f);
@@ -118,7 +118,12 @@ public class SettingsRenderer {
         }
 
         batch.begin();
-        font.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), camera.viewportWidth - 160f, camera.viewportHeight - 25f);
+        font.draw(
+                batch,
+                "FPS: " + Gdx.graphics.getFramesPerSecond(),
+                camera.viewportWidth - 160f,
+                camera.viewportHeight - 25f
+        );
         batch.end();
     }
 
