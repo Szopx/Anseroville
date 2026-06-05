@@ -75,12 +75,22 @@ public class FarmViewModel {
     }
 
     public void plant() {
-        plantingManager.plant(selectedTile);
+        if (plantingManager.plant(selectedTile)) {
+            System.out.println("posadzono rosline");
+        }
+        else {
+            System.out.println("nie udalo sie posadzic");
+        }
         updateSelectedTile();
     }
 
     public void water() {
-        plantingManager.water(selectedTile);
+        if (plantingManager.water(selectedTile)) {
+            System.out.println("udało się podlac");
+        }
+        else {
+            System.out.println("nie udalo sie podlac");
+        }
     }
 
     private void updateSelectedTile() {

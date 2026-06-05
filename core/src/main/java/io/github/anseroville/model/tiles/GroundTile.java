@@ -52,10 +52,6 @@ public class GroundTile extends InteractableTile {
     }
 
     public ItemType getHarvestItem() {
-        if (!canBeCollected()) {
-            return null;
-        }
-
         return crop.getHarvestItem();
     }
 
