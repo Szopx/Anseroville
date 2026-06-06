@@ -1,5 +1,6 @@
 package io.github.anseroville.view;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -24,6 +25,10 @@ public class AssetProvider {
     private final BitmapFont smallestFont;
     private final BitmapFont mediumFont;
     private final BitmapFont smallFont;
+    private final Texture lobbyBackgroundTexture;
+
+    private final Texture helpWoodTexture;
+    private final Texture ivyCornerTexture;
 
     public AssetProvider() {
         this.backgroundTexture = new Texture("tlo.png");
@@ -35,6 +40,15 @@ public class AssetProvider {
         this.questBackgroundTexture = new Texture("quests.png");
         this.coinTexture = new Texture("coin.png");
         this.shopInsideTexture = new Texture("1780525878689.png");
+        this.lobbyBackgroundTexture = new Texture("lobby_farm.jpg");
+
+        this.helpWoodTexture = new Texture("help_wood.png");
+
+        if (Gdx.files.internal("ivy_corner.png").exists()) {
+            this.ivyCornerTexture = new Texture("ivy_corner.png");
+        } else {
+            this.ivyCornerTexture = null;
+        }
 
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.WHITE);
@@ -148,6 +162,18 @@ public class AssetProvider {
         return smallFont;
     }
 
+    public Texture getLobbyBackgroundTexture() {
+        return lobbyBackgroundTexture;
+    }
+
+    public Texture getHelpWoodTexture() {
+        return helpWoodTexture;
+    }
+
+    public Texture getIvyCornerTexture() {
+        return ivyCornerTexture;
+    }
+
     public void dispose(){
         backgroundTexture.dispose();
         fieldTexture.dispose();
@@ -157,6 +183,7 @@ public class AssetProvider {
         questBackgroundTexture.dispose();
         coinTexture.dispose();
         shopInsideTexture.dispose();
+        lobbyBackgroundTexture.dispose();
 
         for (Map<GrowingState, Texture> stateMap : plantTextures.values()) {
             for (Texture texture : stateMap.values()) {
@@ -172,6 +199,10 @@ public class AssetProvider {
         smallestFont.dispose();
         mediumFont.dispose();
         smallFont.dispose();
+        helpWoodTexture.dispose();
 
+        if (ivyCornerTexture != null) {
+            ivyCornerTexture.dispose();
+        }
     }
 }
