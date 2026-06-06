@@ -141,14 +141,21 @@ public class FarmViewModel {
 
             ItemType plantType = null;
             GrowingState growingState = null;
-            if (tile instanceof GroundTile && !((GroundTile) tile).isEmpty()) {
-                plantType = ((GroundTile) tile).getHarvestItem();
-                growingState = ((GroundTile) tile).getCrop().getGrowingState();
+
+            if (tile instanceof GroundTile groundTile && groundTile.hasCrop()) {
+                Crop crop = groundTile.getCrop();
+
+                plantType = crop.getHarvestItem();
+                growingState = crop.getGrowingState();
             }
 
             tileViewStates.add(new TileViewState(
-            tile.getGridPosition().getX(),tile.getGridPosition().getY()
-           ,tile.isSelected(), growingState, plantType));
+                    tile.getGridPosition().getX(),
+                    tile.getGridPosition().getY(),
+                    tile.isSelected(),
+                    growingState,
+                    plantType
+            ));
         }
 
         return tileViewStates;

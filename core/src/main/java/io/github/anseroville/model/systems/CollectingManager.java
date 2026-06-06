@@ -17,6 +17,10 @@ public class CollectingManager {
             return false;
         }
 
+        if (!groundTile.canBeCollected()) {
+            return false;
+        }
+
         ItemType harvestItem = groundTile.getHarvestItem();
 
         if (harvestItem == null) {
@@ -28,6 +32,7 @@ public class CollectingManager {
         }
 
         groundTile.clearCrop();
+
         return true;
     }
 }
