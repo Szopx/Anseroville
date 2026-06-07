@@ -67,6 +67,8 @@ public class AnserovilleGame extends ApplicationAdapter {
 
         QuestManager questManager = new QuestManager(gameState, levelManager);
 
+        CollisionManager collisionManager = new CollisionManager();
+
         camera = new OrthographicCamera();
         viewport = new FitViewport(width, height, camera);
         camera.position.set(viewport.getWorldWidth() / 2f, viewport.getWorldHeight() / 2f, 0);
@@ -74,7 +76,7 @@ public class AnserovilleGame extends ApplicationAdapter {
         batch=new SpriteBatch();
         shapeRenderer=new ShapeRenderer();
         farmViewModel = new FarmViewModel(gameState, cropGrowthSystem, plantingManager,
-                nightManager, collectingManager, questManager, levelManager, shopManager, gameSettings);
+                nightManager, collectingManager, questManager, levelManager, shopManager, collisionManager, gameSettings);
         farmRenderer = new FarmRenderer(farmViewModel, camera, assetProvider, batch, shapeRenderer);
         handRenderer = new HandRenderer(camera, batch, shapeRenderer, assetProvider);
         inventoryRenderer = new InventoryRenderer(camera, assetProvider, batch);

@@ -33,6 +33,7 @@ public class FarmViewModel {
     private final QuestManager questManager;
     private final LevelManager levelManager;
     private final ShopManager shopManager;
+    private final CollisionManager collisionManager;
     private boolean isInventoryOpen = false;
     private boolean isHelpOpen = false;
     private boolean isShopOpen = false;
@@ -55,6 +56,7 @@ public class FarmViewModel {
             QuestManager questManager,
             LevelManager levelManager,
             ShopManager shopManager,
+            CollisionManager collisionManager,
             GameSettings gameSettings
     ) {
         this.gameState = gameState;
@@ -65,13 +67,33 @@ public class FarmViewModel {
         this.questManager = questManager;
         this.levelManager = levelManager;
         this.shopManager = shopManager;
+        this.collisionManager = collisionManager;
         this.gameSettings = gameSettings;
 
         this.levelManager.initializeCurrentLevel();
     }
 
     public void movePlayer(Direction direction) {
-        gameState.getPlayer().move(direction);
+        Player player = gameState.getPlayer();
+
+        int targetX = player.getX();
+        int targetY = player.getY();
+
+        int speed = player.getSpeed();
+
+        switch (direction) {
+            case UP -> targetY += speed;
+            case DOWN -> targetY -= speed;
+            case LEFT -> targetX -= speed;
+            case RIGHT -> targetX += speed;
+        }
+        if (collisionManager.canMoveTo(targetX, targetY)) {
+            player.setPosition(targetX, targetY);
+            player.setDirection(direction);
+        } else {
+            player.setDirection(direction);
+        }
+
         updateSelectedTile();
     }
 

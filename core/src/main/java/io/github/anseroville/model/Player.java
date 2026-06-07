@@ -17,17 +17,6 @@ public class Player {
         this.direction = Direction.UP;
     }
 
-    public void move(Direction direction) {
-        this.direction = direction;
-
-        switch (direction) {
-            case UP -> y += speed;
-            case DOWN -> y -= speed;
-            case LEFT -> x -= speed;
-            case RIGHT -> x += speed;
-        }
-    }
-
     public void teleportToStart() {
         x = 0;
         y = 0;
@@ -52,5 +41,18 @@ public class Player {
         }
 
         this.speed = speed;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 }
