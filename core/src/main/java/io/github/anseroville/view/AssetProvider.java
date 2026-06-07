@@ -26,12 +26,12 @@ public class AssetProvider {
     private final BitmapFont smallFont;
 
     public AssetProvider() {
-        this.backgroundTexture = new Texture("tlo.png");
+        this.backgroundTexture = new Texture("background.png");
         this.plantTextures = new EnumMap<>(ItemType.class);
         this.itemTextures = new EnumMap<>(ItemType.class);
-        this.fieldTexture = new Texture("pole.png");
-        this.selectedFieldTexture = new Texture("pole_zaznaczone.png");
-        this.inventoryTexture = new Texture("1779347732838.png");
+        this.fieldTexture = new Texture("field.png");
+        this.selectedFieldTexture = new Texture("field_selected.png");
+        this.inventoryTexture = new Texture("inventory.png");
         this.questBackgroundTexture = new Texture("quests.png");
         this.coinTexture = new Texture("coin.png");
         this.shopInsideTexture = new Texture("1780525878689.png");
@@ -67,23 +67,23 @@ public class AssetProvider {
     }
 
     private void loadAllPlants() {
-        registerPlant(ItemType.CARROT, "marchewki_0.png", "marchewki_1.png", "marchewki_3.png");
+        registerPlant(ItemType.CARROT, "carrot_0.png", "carrot_1.png", "carrot_3.png");
         registerPlant(ItemType.CORN, "corn_0.png", "corn_1.png", "corn_3.png");
         registerPlant(ItemType.WHEAT, "wheat_0.png", "wheat_1.png", "wheat_3.png");
         registerPlant(ItemType.POTATO, "potato_0.png", "potato_1.png", "potato_3.png");}
     //z jakiegoś powodu wheat jest niższy niż powinien, zamknę ten problem później
 
     private void loadAllItems() {
-        itemTextures.put(ItemType.CARROT, new Texture("marchewka.png"));
+        itemTextures.put(ItemType.CARROT, new Texture("carrot.png"));
         itemTextures.put(ItemType.CORN, new Texture("corn.png"));
         itemTextures.put(ItemType.WHEAT, new Texture("wheat.png"));
         itemTextures.put(ItemType.POTATO, new Texture("potato.png"));
-        itemTextures.put(ItemType.CARROT_SEED, new Texture("nasiona_marchewek.png"));
+        itemTextures.put(ItemType.CARROT_SEED, new Texture("carrot_seed.png"));
         itemTextures.put(ItemType.CORN_SEED, new Texture("corn_seed.png"));
-        itemTextures.put(ItemType.WHEAT_SEED, new Texture("wheat_seeds.png"));
+        itemTextures.put(ItemType.WHEAT_SEED, new Texture("wheat_seed.png"));
         itemTextures.put(ItemType.POTATO_SEED, new Texture("potato_seed.png"));
-        itemTextures.put(ItemType.SHIELD, new Texture("1780083486565.png"));
-        itemTextures.put(ItemType.TORCH, new Texture("1780083376816.png"));
+        itemTextures.put(ItemType.SHIELD, new Texture("shield.png"));
+        itemTextures.put(ItemType.TORCH, new Texture("lamp.png"));
     }
 
     public Texture getBackgroundTexture(){
