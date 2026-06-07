@@ -60,9 +60,12 @@ public class FarmRenderer {
             ItemType plantType = tile.whatGrows();
             GrowingState state = tile.getGrowingState();
 
-            if (plantType!= null && state != null && state != GrowingState.ZERO){
+            if (plantType != null && state != null && state != GrowingState.ZERO) {
                 Texture plantTexture = assetProvider.getPlantTexture(plantType, state);
-                batch.draw(plantTexture, tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
+
+                if (plantTexture != null) {
+                    batch.draw(plantTexture, tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
+                }
             }
         }
         batch.end();

@@ -85,10 +85,10 @@ public class LevelManager {
         resetPlayer();
     }
 
-    public void startNextLevel()
-    {
+    public void startNextLevel() {
         if (activeLevelIndex >= levels.size() - 1) {
             gameFinished = true;
+            return;
         }
 
         activeLevelIndex++;

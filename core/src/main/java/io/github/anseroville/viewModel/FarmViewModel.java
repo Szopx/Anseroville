@@ -36,6 +36,12 @@ public class FarmViewModel {
     private boolean isInventoryOpen = false;
     private boolean isHelpOpen = false;
     private boolean isShopOpen = false;
+    private boolean isGameEndOpen = false;
+
+    private boolean isLobbyOpen = true;
+
+    private boolean missionCompleteOpen = false;
+    private int completedLevelNumber = 0;
 
     private final GameSettings gameSettings;
     private boolean isSettingsOpen = false;
@@ -141,14 +147,21 @@ public class FarmViewModel {
 
             ItemType plantType = null;
             GrowingState growingState = null;
-            if (tile instanceof GroundTile && !((GroundTile) tile).isEmpty()) {
-                plantType = ((GroundTile) tile).getHarvestItem();
-                growingState = ((GroundTile) tile).getCrop().getGrowingState();
+
+            if (tile instanceof GroundTile groundTile && groundTile.hasCrop()) {
+                Crop crop = groundTile.getCrop();
+
+                plantType = crop.getHarvestItem();
+                growingState = crop.getGrowingState();
             }
 
             tileViewStates.add(new TileViewState(
-            tile.getGridPosition().getX(),tile.getGridPosition().getY()
-           ,tile.isSelected(), growingState, plantType));
+                    tile.getGridPosition().getX(),
+                    tile.getGridPosition().getY(),
+                    tile.isSelected(),
+                    growingState,
+                    plantType
+            ));
         }
 
         return tileViewStates;
@@ -178,6 +191,10 @@ public class FarmViewModel {
     }
 
     public void update(float delta) {
+        if (isLobbyOpen || isGameEndOpen || missionCompleteOpen) {
+            return;
+        }
+
         float plantGrowthDelta = delta * gameSettings.getPlantGrowthMultiplier();
 
         cropGrowthSystem.update(plantGrowthDelta);
@@ -206,7 +223,7 @@ public class FarmViewModel {
     }
 
     public void completeMainQuest() {
-        int previousLevelNumber = levelManager.getActiveLevelNumber();
+        int currentLevelNumber = levelManager.getActiveLevelNumber();
 
         boolean completed = questManager.completeMainQuest();
 
@@ -215,20 +232,55 @@ public class FarmViewModel {
             return;
         }
 
+        completedLevelNumber = currentLevelNumber;
+        missionCompleteOpen = true;
+
+        System.out.println("ukończono level " + completedLevelNumber);
+    }
+
+    public boolean isMissionCompleteOpen() {
+        return missionCompleteOpen;
+    }
+
+    public MissionCompleteViewState getMissionCompleteViewState() {
+        return new MissionCompleteViewState(
+                missionCompleteOpen,
+                completedLevelNumber,
+                levelManager.getMaxLevelNumber()
+        );
+    }
+
+    private void closeGameplayOverlays() {
+        isHelpOpen = false;
+        isSettingsOpen = false;
+        isInventoryOpen = false;
+        isShopOpen = false;
+    }
+
+    public void continueAfterMissionComplete() {
+        if (!missionCompleteOpen) {
+            return;
+        }
+
+        missionCompleteOpen = false;
+
+        levelManager.startNextLevel();
+
         if (levelManager.isGameFinished()) {
+            isGameEndOpen = true;
+            selectedTile = null;
+            closeGameplayOverlays();
+
             System.out.println("ukończono wszystkie poziomy");
             return;
         }
 
+        questManager.resetSideQuestProgress();
+
         selectedTile = null;
         updateSelectedTile();
 
-        System.out.println(
-                "udało się zrobic main questa, przechodzisz z poziomu "
-                        + previousLevelNumber
-                        + " na poziom "
-                        + levelManager.getActiveLevelNumber()
-        );
+        System.out.println("start levelu " + levelManager.getActiveLevelNumber());
     }
 
     public int getMoney() {
@@ -389,5 +441,37 @@ public class FarmViewModel {
 
     public boolean isHelpOpen() {
         return isHelpOpen;
+    }
+
+    public boolean isLobbyOpen() {
+        return isLobbyOpen;
+    }
+
+    public void startGame() {
+        isLobbyOpen = false;
+        isGameEndOpen = false;
+        missionCompleteOpen = false;
+        completedLevelNumber = 0;
+
+        closeGameplayOverlays();
+        updateSelectedTile();
+    }
+
+    public boolean isGameEndOpen() {
+        return isGameEndOpen;
+    }
+
+    public GameEndViewState getGameEndViewState() {
+        return new GameEndViewState(isGameEndOpen);
+    }
+
+    public void backToLobbyAfterGameEnd() {
+        isGameEndOpen = false;
+        missionCompleteOpen = false;
+        completedLevelNumber = 0;
+        isLobbyOpen = true;
+
+        selectedTile = null;
+        closeGameplayOverlays();
     }
 }

@@ -123,10 +123,11 @@ public class QuestManager {
         activeMainQuest.complete(gameState.getInventory());
         gameState.getWallet().add(activeMainQuest.getRewardMoney());
 
-        levelManager.startNextLevel();
-        activeSideQuestIndex = 0;
-
         return true;
+    }
+
+    public void resetSideQuestProgress() {
+        activeSideQuestIndex = 0;
     }
 
     public static Quest createQuest(int rewardMoney, QuestRequirement... requirements) {

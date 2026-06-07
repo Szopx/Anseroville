@@ -12,7 +12,10 @@ corn_1.png
 corn_2.png
 corn_3.png
 corn_seed.png
+help_wood.png
+ivy_corner.png
 libgdx.png
+lobby_farm.jpg
 marchewka.png
 marchewki_0.png
 marchewki_1.png

@@ -10,7 +10,7 @@ public class GroundTile extends InteractableTile {
 
     public GroundTile(GridPosition gridPosition) {
         super(gridPosition);
-        crop = null;
+        this.crop = null;
     }
 
     public boolean isEmpty() {
@@ -22,11 +22,13 @@ public class GroundTile extends InteractableTile {
     }
 
     public boolean plant(CropType cropType) {
-        if (crop != null) {
+        if (cropType == null || crop != null) {
             return false;
         }
 
         crop = new Crop(cropType);
+        watered = false;
+
         return true;
     }
 
@@ -52,6 +54,14 @@ public class GroundTile extends InteractableTile {
     }
 
     public ItemType getHarvestItem() {
+        if (crop == null) {
+            return null;
+        }
+
+        if (!crop.canBeCollected()) {
+            return null;
+        }
+
         return crop.getHarvestItem();
     }
 

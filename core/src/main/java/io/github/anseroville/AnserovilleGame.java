@@ -37,6 +37,9 @@ public class AnserovilleGame extends ApplicationAdapter {
     private SettingsRenderer settingsRenderer;
     private HelpRenderer helpRenderer;
     private ShopRenderer shopRenderer;
+    private MissionCompleteRenderer missionCompleteRenderer;
+    private LobbyRenderer lobbyRenderer;
+    private GameEndRenderer gameEndRenderer;
 
     private static final float width = 1920f;
     private static final float height = 1080f;
@@ -82,6 +85,9 @@ public class AnserovilleGame extends ApplicationAdapter {
         settingsRenderer = new SettingsRenderer(farmViewModel, camera, batch, shapeRenderer, assetProvider);
         helpRenderer = new HelpRenderer(farmViewModel, camera, batch, shapeRenderer, assetProvider);
         shopRenderer = new ShopRenderer(assetProvider, camera, batch);
+        missionCompleteRenderer = new MissionCompleteRenderer(farmViewModel, camera, batch, shapeRenderer, assetProvider);
+        lobbyRenderer = new LobbyRenderer(farmViewModel, camera, batch, shapeRenderer, assetProvider);
+        gameEndRenderer = new GameEndRenderer(farmViewModel, camera, batch, shapeRenderer, assetProvider);
     }
 
     @Override
@@ -90,7 +96,17 @@ public class AnserovilleGame extends ApplicationAdapter {
         float delta = Gdx.graphics.getDeltaTime();
 
         farmInputController.handleInput();
-        farmViewModel.update(delta);
+
+        if (!farmViewModel.isLobbyOpen()) {
+            farmViewModel.update(delta);
+        }
+
+        if (farmViewModel.isLobbyOpen()) {
+            lobbyRenderer.render();
+            settingsRenderer.render();
+            helpRenderer.render();
+            return;
+        }
 
         ScreenUtils.clear(0.15f, 0.15f, 0.2f, 1f);
 
@@ -112,6 +128,8 @@ public class AnserovilleGame extends ApplicationAdapter {
         nightRenderer.render();
         settingsRenderer.render();
         helpRenderer.render();
+        missionCompleteRenderer.render();
+        gameEndRenderer.render();
     }
 
     @Override

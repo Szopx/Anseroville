@@ -21,7 +21,22 @@ public class FarmInputController {
     }
 
     public void handleInput() {
+        if (viewModel.isGameEndOpen()) {
+            handleGameEndInput();
+            return;
+        }
+
+        if (viewModel.isLobbyOpen()) {
+            handleLobbyInput();
+            return;
+        }
+
         if (handleGlobalInput()) {
+            return;
+        }
+
+        if (viewModel.isMissionCompleteOpen()) {
+            handleMissionCompleteInput();
             return;
         }
 
@@ -240,6 +255,36 @@ public class FarmInputController {
         }
     }
 
+    private void handleMissionCompleteInput() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+            viewModel.continueAfterMissionComplete();
+            return;
+        }
+
+        if (!Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+            return;
+        }
+
+        Vector3 clickPosition = getClickPosition();
+
+        float panelX = (viewport.getWorldWidth() - MissionCompleteRenderer.PANEL_WIDTH) / 2f;
+        float panelY = (viewport.getWorldHeight() - MissionCompleteRenderer.PANEL_HEIGHT) / 2f;
+
+        float buttonX = panelX + (MissionCompleteRenderer.PANEL_WIDTH - MissionCompleteRenderer.CONTINUE_BUTTON_WIDTH) / 2f;
+        float buttonY = panelY + MissionCompleteRenderer.CONTINUE_BUTTON_Y_OFFSET;
+
+        if (isInside(
+                clickPosition.x,
+                clickPosition.y,
+                buttonX,
+                buttonY,
+                MissionCompleteRenderer.CONTINUE_BUTTON_WIDTH,
+                MissionCompleteRenderer.CONTINUE_BUTTON_HEIGHT
+        )) {
+            viewModel.continueAfterMissionComplete();
+        }
+    }
+
     private void handleShopClick(float clickX, float clickY) {
         float startX = viewport.getWorldWidth() * 0.1f;
         float startY = viewport.getWorldHeight() * 0.545f;
@@ -282,6 +327,120 @@ public class FarmInputController {
             }
 
             index++;
+        }
+    }
+
+    private void handleGameEndInput() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+            viewModel.backToLobbyAfterGameEnd();
+            return;
+        }
+
+        if (!Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+            return;
+        }
+
+        Vector3 clickPosition = getClickPosition();
+
+        if (isInside(
+                clickPosition.x,
+                clickPosition.y,
+                GameEndRenderer.getButtonX(viewport.getWorldWidth()),
+                GameEndRenderer.getButtonY(viewport.getWorldHeight()),
+                GameEndRenderer.BUTTON_WIDTH,
+                GameEndRenderer.BUTTON_HEIGHT
+        )) {
+            viewModel.backToLobbyAfterGameEnd();
+        }
+    }
+
+    private void handleLobbyInput() {
+        if (viewModel.isHelpOpen()) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+                viewModel.toggleHelp();
+            }
+
+            return;
+        }
+
+        if (viewModel.isSettingsOpen()) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.O)) {
+                viewModel.toggleSettings();
+                return;
+            }
+
+            handleSettingsInput();
+            return;
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+            viewModel.startGame();
+            return;
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            viewModel.toggleHelp();
+            return;
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.O)) {
+            viewModel.toggleSettings();
+            return;
+        }
+
+        if (!Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
+            return;
+        }
+
+        Vector3 clickPosition = getClickPosition();
+
+        float buttonX = LobbyRenderer.getButtonX(viewport.getWorldWidth());
+
+        if (isInside(
+                clickPosition.x,
+                clickPosition.y,
+                buttonX,
+                LobbyRenderer.getStartButtonY(viewport.getWorldHeight()),
+                LobbyRenderer.BUTTON_WIDTH,
+                LobbyRenderer.BUTTON_HEIGHT
+        )) {
+            viewModel.startGame();
+            return;
+        }
+
+        if (isInside(
+                clickPosition.x,
+                clickPosition.y,
+                buttonX,
+                LobbyRenderer.getHelpButtonY(viewport.getWorldHeight()),
+                LobbyRenderer.BUTTON_WIDTH,
+                LobbyRenderer.BUTTON_HEIGHT
+        )) {
+            viewModel.toggleHelp();
+            return;
+        }
+
+        if (isInside(
+                clickPosition.x,
+                clickPosition.y,
+                buttonX,
+                LobbyRenderer.getSettingsButtonY(viewport.getWorldHeight()),
+                LobbyRenderer.BUTTON_WIDTH,
+                LobbyRenderer.BUTTON_HEIGHT
+        )) {
+            viewModel.toggleSettings();
+            return;
+        }
+
+        if (isInside(
+                clickPosition.x,
+                clickPosition.y,
+                buttonX,
+                LobbyRenderer.getExitButtonY(viewport.getWorldHeight()),
+                LobbyRenderer.BUTTON_WIDTH,
+                LobbyRenderer.BUTTON_HEIGHT
+        )) {
+            Gdx.app.exit();
         }
     }
 
