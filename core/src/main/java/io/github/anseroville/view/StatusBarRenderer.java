@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.anseroville.viewModel.FarmViewModel;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import io.github.anseroville.viewModel.QuestViewState;
 
 public class StatusBarRenderer {
     private final SpriteBatch batch;
@@ -27,6 +28,7 @@ public class StatusBarRenderer {
     }
 
     public void render(){
+        QuestViewState state=viewModel.getQuestViewState();
         batch.setProjectionMatrix(camera.combined);
         int rectangleHeight=80;
         float startY=camera.viewportHeight-rectangleHeight;
@@ -40,6 +42,8 @@ public class StatusBarRenderer {
         batch.draw(assetProvider.getCoinTexture(), startX, startY+5, 70f, 70f);
         bigFont.draw(batch, String.valueOf(moneyAmount), startX+70, startY+52);
         mediumFont.draw(batch, "Press Esc for help", 25, startY+47.5f);
+        float levelStartX=camera.viewportWidth/2-75;
+        bigFont.draw(batch, "LEVEL " + state.getActiveLevelNumber() + "/" + state.getMaxLevelNumber(), levelStartX, startY+50f);
         batch.end();
     }
 }

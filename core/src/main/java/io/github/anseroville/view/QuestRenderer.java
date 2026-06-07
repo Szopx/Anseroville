@@ -70,24 +70,11 @@ public class QuestRenderer {
         float textStartX=drawX+145;
         float textStartY=drawY+bgHeight-70;
 
-        ///------------------- //Todo: to ja tylko sobie dodalem na potrzeby testow i mozna usunac
-        font.draw(
-                batch,
-                "LEVEL " + state.getActiveLevelNumber() + "/" + state.getMaxLevelNumber(),
-                textStartX,
-                textStartY
-        );
-
-        textStartY -= 40;
-        /// -----------------------
-
         font.draw(batch, "MAIN QUEST", textStartX, textStartY);
 
         float currentY=textStartY-35;
 
-        int rewardMoney=state.getMainQuestRewardMoney();
-
-        currentY=renderQuests(startX, currentY, mainQuest, invState, rewardMoney);
+        currentY=renderQuests(startX, currentY, mainQuest, invState, -1);
 
         if (!state.isActiveQuestAvailable()) {
             font.draw(batch, "YOU HAVE FINISHED", textStartX-45, currentY);
@@ -100,7 +87,7 @@ public class QuestRenderer {
 
         currentY-=35;
 
-        rewardMoney=state.getActiveQuestRewardMoney();
+        int rewardMoney=state.getActiveQuestRewardMoney();
 
         renderQuests(startX, currentY, requiredItems, invState, rewardMoney);
 
@@ -113,12 +100,12 @@ public class QuestRenderer {
                                int rewardMoney){
 
         float textStartX=startX+115;
-
-        rewardFont.draw(batch, "REWARD: ", textStartX, currentY);
-        batch.draw(assetProvider.getCoinTexture(), textStartX+70, currentY-20, 30, 30);
-        rewardFont.draw(batch, "x"+rewardMoney, textStartX+100, currentY);
-
-        currentY-=40;
+        if(rewardMoney!=-1) {
+            rewardFont.draw(batch, "REWARD: ", textStartX, currentY);
+            batch.draw(assetProvider.getCoinTexture(), textStartX + 70, currentY - 20, 30, 30);
+            rewardFont.draw(batch, "x" + rewardMoney, textStartX + 100, currentY);
+            currentY-=40;
+        }
         float itemStartX=startX-5;
 
         for (Map.Entry<ItemType, Integer> requirement : requiredItems.entrySet()) {
