@@ -38,7 +38,7 @@ public class TileData {
 
     private static void addShopTiles(Map<GridPosition, InteractableTile> tiles) {
         int[][] shops = {
-                {1, 8}, {1, 9}
+                {7,4}
         };
 
         for (int[] shop : shops) {
@@ -47,5 +47,8 @@ public class TileData {
             GridPosition position = new GridPosition(column, row);
             tiles.put(position, new ActivityTile(position, ActivityTileType.SHOP));
         }
+        //todo rzucić gdzie indziej ale jest pozno
+        GridPosition position = new GridPosition(9, 7);
+        tiles.put(position, new ActivityTile(position, ActivityTileType.GAMBLING));
     }
 }

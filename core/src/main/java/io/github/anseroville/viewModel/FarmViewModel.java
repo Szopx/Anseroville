@@ -169,6 +169,7 @@ public class FarmViewModel {
 
             ItemType plantType = null;
             GrowingState growingState = null;
+            ActivityTileType activityType = null;
 
             if (tile instanceof GroundTile groundTile && groundTile.hasCrop()) {
                 Crop crop = groundTile.getCrop();
@@ -176,13 +177,17 @@ public class FarmViewModel {
                 plantType = crop.getHarvestItem();
                 growingState = crop.getGrowingState();
             }
+            else if (tile instanceof ActivityTile activityTile) {
+                activityType = activityTile.getActivityTileType();
+            }
 
             tileViewStates.add(new TileViewState(
                     tile.getGridPosition().getX(),
                     tile.getGridPosition().getY(),
                     tile.isSelected(),
                     growingState,
-                    plantType
+                    plantType,
+                    activityType
             ));
         }
 
@@ -384,7 +389,7 @@ public class FarmViewModel {
         switch (activityTileType)
         {
             case SHOP:
-                // do implementacji - albo tutaj wywolujemy prywatna funkcje, albo caly jej kod tu ma byc
+                toggleShop();
                 break;
             case MAIN_QUEST:
                 completeMainQuest();

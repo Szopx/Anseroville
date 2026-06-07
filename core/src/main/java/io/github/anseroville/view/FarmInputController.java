@@ -149,6 +149,9 @@ public class FarmInputController {
             viewModel.addItemToInventory(ItemType.POTATO, 10);
             viewModel.addItemToInventory(ItemType.CORN, 10);
         }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.U)) {
+            viewModel.interactWithTile();
+        }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.G)) {
             viewModel.playMachine();

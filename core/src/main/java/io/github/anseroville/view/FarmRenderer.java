@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import io.github.anseroville.enums.ActivityTileType;
 import io.github.anseroville.enums.GrowingState;
 import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.viewModel.FarmViewModel;
@@ -51,6 +52,22 @@ public class FarmRenderer {
         batch.begin();
 
         for (TileViewState tile : viewModel.getTileViewStates()) {
+            ActivityTileType activityHere = tile.getActivityTileType();
+            if (activityHere!=null){
+
+                switch (activityHere) {
+                    case SHOP:
+                        batch.draw(assetProvider.getShopTexture(), tile.getX()-560/2+30, tile.getY(), 560, 400);
+                        break;
+                    case GAMBLING:
+                        batch.draw(assetProvider.getGamblingTexture(), tile.getX()-30, tile.getY(), 150, 200);
+                }
+                if (tile.isSelected()){
+                    batch.draw(assetProvider.getSelectedFieldTexture(), tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
+
+                }
+            }
+            else{
             if (tile.isSelected()) {
                 batch.draw(assetProvider.getSelectedFieldTexture(), tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
             } else {
@@ -67,7 +84,7 @@ public class FarmRenderer {
                     batch.draw(plantTexture, tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
                 }
             }
-        }
+        }}
         batch.end();
     }
 

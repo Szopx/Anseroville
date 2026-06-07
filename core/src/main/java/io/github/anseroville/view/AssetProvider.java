@@ -27,6 +27,9 @@ public class AssetProvider {
     private final BitmapFont smallFont;
     private final Texture lobbyBackgroundTexture;
 
+    private final Texture shopTexture;
+    private final Texture gamblingTexture;
+
     private final Texture helpWoodTexture;
     private final Texture ivyCornerTexture;
 
@@ -39,8 +42,11 @@ public class AssetProvider {
         this.inventoryTexture = new Texture("inventory.png");
         this.questBackgroundTexture = new Texture("quests.png");
         this.coinTexture = new Texture("coin.png");
-        this.shopInsideTexture = new Texture("1780525878689.png");
+        this.shopInsideTexture = new Texture("shop.png");
         this.lobbyBackgroundTexture = new Texture("lobby_farm.jpg");
+
+        this.shopTexture = new Texture("geeseShop.png");
+        this.gamblingTexture = new Texture("pidgeon.png");
 
         this.helpWoodTexture = new Texture("help_wood.png");
 
@@ -117,6 +123,8 @@ public class AssetProvider {
         }
         return null;
     }
+    public Texture getShopTexture(){return shopTexture;}
+    public Texture getGamblingTexture(){return gamblingTexture;}
 
     public Texture getFieldTexture(){
         return fieldTexture;
