@@ -8,11 +8,16 @@ public class InventoryViewState {
     private final Map<ItemType, Integer> items;
     private final ItemType heldItemType;
     private final int heldItemAmount;
+    private final int currentWater;
+    private final int maxWater;
 
-    public InventoryViewState(Map<ItemType, Integer> items, ItemType heldItemType, int heldItemAmount) {
+    public InventoryViewState(Map<ItemType, Integer> items, ItemType heldItemType, int heldItemAmount,
+    int currentWater, int maxWater) {
         this.items = Map.copyOf(items);
         this.heldItemType=heldItemType;
         this.heldItemAmount=heldItemAmount;
+        this.currentWater = currentWater;
+        this.maxWater = maxWater;
     }
 
     //czy tu powinno sumowac sie z tym co jest w hand? tak todo
@@ -30,5 +35,13 @@ public class InventoryViewState {
 
     public boolean hasItemInHand() {
         return heldItemType != null && heldItemAmount > 0;
+    }
+
+    public int getCurrentWater() {
+        return currentWater;
+    }
+
+    public int getMaxWater() {
+        return maxWater;
     }
 }

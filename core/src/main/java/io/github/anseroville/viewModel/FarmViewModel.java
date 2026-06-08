@@ -113,7 +113,7 @@ public class FarmViewModel {
     }
 
     public void water() {
-        if (plantingManager.water(selectedTile)) {
+        if (gameState.getHand().getType() == ItemType.WATERING_CAN && plantingManager.water(selectedTile)) {
             System.out.println("udało się podlac");
         }
         else {
@@ -169,13 +169,17 @@ public class FarmViewModel {
 
             ItemType plantType = null;
             GrowingState growingState = null;
+            boolean watered = false;
             ActivityTileType activityType = null;
 
-            if (tile instanceof GroundTile groundTile && groundTile.hasCrop()) {
-                Crop crop = groundTile.getCrop();
+            if (tile instanceof GroundTile groundTile) {
+                watered = groundTile.isWatered();
 
-                plantType = crop.getHarvestItem();
-                growingState = crop.getGrowingState();
+                if (groundTile.hasCrop()) {
+                    Crop crop = groundTile.getCrop();
+                    plantType = crop.getHarvestItem();
+                    growingState = crop.getGrowingState();
+                }
             }
             else if (tile instanceof ActivityTile activityTile) {
                 activityType = activityTile.getActivityTileType();
@@ -187,6 +191,7 @@ public class FarmViewModel {
                     tile.isSelected(),
                     growingState,
                     plantType,
+                    watered,
                     activityType
             ));
         }
@@ -214,7 +219,8 @@ public class FarmViewModel {
             stateMap.put(type, inventory.getAmount(type));
         }
 
-        return new InventoryViewState(stateMap,hand.getType(),hand.getAmount());
+        return new InventoryViewState(stateMap,hand.getType(),hand.getAmount(),
+                inventory.getWateringCan().getCurrentWater(),inventory.getWateringCan().getMaxWater());
     }
 
     public void update(float delta) {
@@ -401,7 +407,7 @@ public class FarmViewModel {
                 gameState.getMachine().play();
                 break;
             case WATER:
-                // jeszcze nie ma napelniania konewki
+                gameState.getInventory().getWateringCan().refill();
                 break;
         }
 

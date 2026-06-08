@@ -9,9 +9,14 @@ public class Inventory {
     private static final int MAX_AMOUNT_PER_ITEM = 64;
 
     private final Map<ItemType, Integer> items = new EnumMap<>(ItemType.class);
+    private final WateringCan wateringCan = new WateringCan(30);
 
     public boolean add(ItemType itemType, int amount) {
         if (itemType == null || amount <= 0) {
+            return false;
+        }
+
+        if (itemType == ItemType.WATERING_CAN) {
             return false;
         }
 
@@ -27,6 +32,10 @@ public class Inventory {
 
     public boolean remove(ItemType itemType, int amount) {
         if (itemType == null || amount <= 0) {
+            return false;
+        }
+
+        if (itemType == ItemType.WATERING_CAN) {
             return false;
         }
 
@@ -49,7 +58,15 @@ public class Inventory {
             return 0;
         }
 
+        if (itemType == ItemType.WATERING_CAN) {
+            return 1;
+        }
+
         return items.getOrDefault(itemType, 0);
+    }
+
+    public WateringCan getWateringCan() {
+        return wateringCan;
     }
 
     public void clear() {

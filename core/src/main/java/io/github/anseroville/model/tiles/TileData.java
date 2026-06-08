@@ -15,7 +15,8 @@ public class TileData {
         Map<GridPosition, InteractableTile> tiles = new HashMap<>();
 
         addFarmFields(tiles);
-        addShopTiles(tiles);
+        addActivityTiles(tiles);
+        addWaterTiles(tiles);
 
         return tiles;
     }
@@ -36,19 +37,31 @@ public class TileData {
         }
     }
 
-    private static void addShopTiles(Map<GridPosition, InteractableTile> tiles) {
-        int[][] shops = {
-                {7,4}
+    private static void addActivityTiles(Map<GridPosition, InteractableTile> tiles) {
+        GridPosition shopPosition = new GridPosition(4, 7);
+        tiles.put(shopPosition, new ActivityTile(shopPosition, ActivityTileType.SHOP));
+
+        GridPosition gamblingPosition = new GridPosition(9, 7);
+        tiles.put(gamblingPosition, new ActivityTile(gamblingPosition, ActivityTileType.GAMBLING));
+
+        GridPosition mainQuestPosition = new GridPosition(5, 7);
+        tiles.put(mainQuestPosition, new ActivityTile(mainQuestPosition, ActivityTileType.MAIN_QUEST));
+
+        GridPosition sideQuestPosition = new GridPosition(6, 7);
+        tiles.put(sideQuestPosition, new ActivityTile(sideQuestPosition, ActivityTileType.QUEST));
+    }
+
+    private static void addWaterTiles(Map<GridPosition, InteractableTile> tiles) {
+        int[][] waterSources = {
+                //todo wyznaczyc reszte jeziorka
+                {0,17}
         };
 
-        for (int[] shop : shops) {
-            int row = shop[0];
-            int column = shop[1];
+        for (int[] water : waterSources) {
+            int row = water[0];
+            int column = water[1];
             GridPosition position = new GridPosition(column, row);
-            tiles.put(position, new ActivityTile(position, ActivityTileType.SHOP));
+            tiles.put(position, new ActivityTile(position, ActivityTileType.WATER));
         }
-        //todo rzucić gdzie indziej ale jest pozno
-        GridPosition position = new GridPosition(9, 7);
-        tiles.put(position, new ActivityTile(position, ActivityTileType.GAMBLING));
     }
 }

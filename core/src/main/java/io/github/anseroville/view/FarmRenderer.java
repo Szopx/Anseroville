@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import io.github.anseroville.enums.ActivityTileType;
 import io.github.anseroville.enums.GrowingState;
 import io.github.anseroville.enums.ItemType;
+import io.github.anseroville.model.tiles.GroundTile;
 import io.github.anseroville.viewModel.FarmViewModel;
 import io.github.anseroville.viewModel.PlayerViewState;
 import io.github.anseroville.viewModel.TileViewState;
@@ -68,8 +69,10 @@ public class FarmRenderer {
                 }
             }
             else{
-            if (tile.isSelected()) {
+            if (tile.isSelected()) { //todo inny selected dla podlanego musi byc
                 batch.draw(assetProvider.getSelectedFieldTexture(), tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
+            } else if (tile.isWatered()){
+                batch.draw(assetProvider.getWateredFieldTexture(), tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
             } else {
                 batch.draw(assetProvider.getFieldTexture(), tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
             }

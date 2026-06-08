@@ -56,6 +56,10 @@ public class PlantingManager {
             return false;
         }
 
+        if (!inventory.getWateringCan().useWater(5)) {
+            return false;
+        }
+
         return groundTile.water();
     }
 }

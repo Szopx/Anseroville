@@ -5,8 +5,10 @@ import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.model.GridPosition;
 
 public class GroundTile extends InteractableTile {
+    private static final float WATERED_DURATION = 40.0f;
+
     private Crop crop;
-    private boolean watered = false;
+    private float wateredTimer = 0.0f;
 
     public GroundTile(GridPosition gridPosition) {
         super(gridPosition);
@@ -27,26 +29,32 @@ public class GroundTile extends InteractableTile {
         }
 
         crop = new Crop(cropType);
-        watered = false;
 
         return true;
     }
 
     public boolean water() {
-        if (crop == null || watered) {
+        if (wateredTimer == WATERED_DURATION) {
             return false;
         }
 
-        watered = true;
+        wateredTimer = WATERED_DURATION;
         return true;
     }
 
     public void update(float delta) {
+        if (wateredTimer > 0) {
+            wateredTimer -= delta;
+            if (wateredTimer < 0) {
+                wateredTimer = 0;
+            }
+        }
+
         if (crop == null) {
             return;
         }
 
-        crop.update(delta, watered);
+        crop.update(delta, isWatered());
     }
 
     public boolean canBeCollected() {
@@ -67,7 +75,10 @@ public class GroundTile extends InteractableTile {
 
     public void clearCrop() {
         crop = null;
-        watered = false;
+    }
+
+    public void clearWatered() {
+        wateredTimer = 0.0f;
     }
 
     public Crop getCrop() {
@@ -75,6 +86,6 @@ public class GroundTile extends InteractableTile {
     }
 
     public boolean isWatered() {
-        return watered;
+        return wateredTimer > 0;
     }
 }

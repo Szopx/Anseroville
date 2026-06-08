@@ -11,5 +11,6 @@ public enum ItemType {
     POTATO_SEED,
 
     TORCH,
-    SHIELD
+    SHIELD,
+    WATERING_CAN
 }

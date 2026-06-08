@@ -15,6 +15,7 @@ public class AssetProvider {
     private final Map<ItemType, Map<GrowingState, Texture>> plantTextures;
     private final Map<ItemType, Texture> itemTextures;
     private final Texture fieldTexture;
+    private final Texture wateredFieldTexture;
     private final Texture selectedFieldTexture;
     private final Texture darknessTexture;
     private final Texture inventoryTexture;
@@ -38,6 +39,7 @@ public class AssetProvider {
         this.plantTextures = new EnumMap<>(ItemType.class);
         this.itemTextures = new EnumMap<>(ItemType.class);
         this.fieldTexture = new Texture("field.png");
+        this.wateredFieldTexture = new Texture("wateredtile.png");
         this.selectedFieldTexture = new Texture("field_selected.png");
         this.inventoryTexture = new Texture("inventory.png");
         this.questBackgroundTexture = new Texture("quests.png");
@@ -104,6 +106,7 @@ public class AssetProvider {
         itemTextures.put(ItemType.POTATO_SEED, new Texture("potato_seed.png"));
         itemTextures.put(ItemType.SHIELD, new Texture("shield.png"));
         itemTextures.put(ItemType.TORCH, new Texture("lamp.png"));
+        itemTextures.put(ItemType.WATERING_CAN, new Texture("wateringcan.png"));
     }
 
     public Texture getBackgroundTexture(){
@@ -128,6 +131,10 @@ public class AssetProvider {
 
     public Texture getFieldTexture(){
         return fieldTexture;
+    }
+
+    public Texture getWateredFieldTexture() {
+        return wateredFieldTexture;
     }
 
     public Texture getSelectedFieldTexture(){

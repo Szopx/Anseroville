@@ -119,6 +119,7 @@ public class LevelManager {
         for (Map.Entry<GridPosition, InteractableTile> tile : gameState.getWorldState().getTilesView().entrySet()) {
             if (tile.getValue() instanceof GroundTile) {
                 ((GroundTile) tile.getValue()).clearCrop();
+                ((GroundTile) tile.getValue()).clearWatered();
             }
         }
     }

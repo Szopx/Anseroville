@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.viewModel.InventoryViewState;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
@@ -45,7 +46,18 @@ public class HandRenderer {
             if (texture != null) {
                 batch.begin();
                 batch.draw(texture, width, height, TILE_SIZE, TILE_SIZE);
-                font.draw(batch, "x"+state.getHeldItemAmount(), width+TILE_SIZE-25, height+15);
+
+                String labelText;
+                float textX = width + TILE_SIZE - 25;
+                if (state.getHeldItemType() == ItemType.WATERING_CAN) {
+                    labelText = state.getCurrentWater() + "/" + state.getMaxWater();
+                    textX -= 15;
+                } else {
+                    labelText = "x " + state.getHeldItemAmount();
+                }
+
+                font.draw(batch, labelText, textX, height + 15);
+
                 batch.end();
             }
         }

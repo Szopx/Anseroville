@@ -52,7 +52,15 @@ public class InventoryRenderer {
                 float drawY = startY - (row * offsetY);
 
                 batch.draw(texture, drawX, drawY, ICON_SIZE, ICON_SIZE);
-                font.draw(batch, "x " + amount, drawX + 45, drawY + 15);
+
+                String labelText;
+                if (itemType == ItemType.WATERING_CAN) {
+                    labelText = state.getCurrentWater() + "/" + state.getMaxWater();
+                } else {
+                    labelText = "x " + amount;
+                }
+
+                font.draw(batch, labelText, drawX + 45, drawY + 15);
 
                 index++;
 
