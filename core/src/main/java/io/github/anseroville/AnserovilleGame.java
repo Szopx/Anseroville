@@ -9,7 +9,6 @@ import io.github.anseroville.model.systems.*;
 import io.github.anseroville.model.GameState;
 import io.github.anseroville.model.shop.ShopManager;
 import io.github.anseroville.model.quest.QuestManager;
-import io.github.anseroville.model.tiles.TileData;
 import io.github.anseroville.model.settings.GameSettings;
 import io.github.anseroville.view.*;
 import io.github.anseroville.viewModel.FarmViewModel;

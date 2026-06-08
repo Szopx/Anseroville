@@ -81,29 +81,29 @@ public class FarmRenderer {
 
                         //todo z jakiegoś powodu zwierzęta na wyższych levelach zaczynają z selected
                         int c = 1;
-                        Texture textura = assetProvider.geeseTexture;
-                        Texture textura_selected = assetProvider.geeseTexture_selected;
+                        Texture texture = assetProvider.geeseTexture;
+                        Texture selectedTexture = assetProvider.geeseTexture_selected;
                         if (viewModel.getLevelNumber() == 1) {
                             c = 3;
-                            textura = assetProvider.chickenTexture;
-                            textura_selected = assetProvider.chickenTexture_selected;
+                            texture = assetProvider.chickenTexture;
+                            selectedTexture = assetProvider.chickenTexture_selected;
                         } else if (viewModel.getLevelNumber() == 2) {
                             c = 3;
-                            textura = assetProvider.hedgehogTexture;
-                            textura_selected = assetProvider.hedgehogTexture_selected;
+                            texture = assetProvider.hedgehogTexture;
+                            selectedTexture = assetProvider.hedgehogTexture_selected;
                         } else if (viewModel.getLevelNumber() == 3) {
                             c = 3;
-                            textura = assetProvider.frogTexture;
-                            textura_selected = assetProvider.frogTexture_selected;
+                            texture = assetProvider.frogTexture;
+                            selectedTexture = assetProvider.frogTexture_selected;
                         } else if (viewModel.getLevelNumber() == 4) {
                             c = 3;
-                            textura = assetProvider.sheepTexture;
-                            textura_selected = assetProvider.sheepTexture_selected;
+                            texture = assetProvider.sheepTexture;
+                            selectedTexture = assetProvider.sheepTexture_selected;
                         }
                         if (tile.isSelected()) {
-                            batch.draw(textura_selected, tile.getX(), tile.getY(), textura.getWidth() * c, textura.getHeight() * c);
+                            batch.draw(selectedTexture, tile.getX(), tile.getY(), texture.getWidth() * c, texture.getHeight() * c);
                         } else {
-                            batch.draw(textura, tile.getX(), tile.getY(), textura.getWidth() * c, textura.getHeight() * c);
+                            batch.draw(texture, tile.getX(), tile.getY(), texture.getWidth() * c, texture.getHeight() * c);
                         }
                         break;
                     case QUEST:
@@ -161,25 +161,25 @@ public class FarmRenderer {
         shapeRenderer.end();*/
 
         int c = 2;
-        Texture textura = assetProvider.playerFrontTexture;
+        Texture texture = assetProvider.playerFrontTexture;
         switch (direction) {
             case DOWN:
-                textura = assetProvider.playerFrontTexture;
+                texture = assetProvider.playerFrontTexture;
                 break;
             case UP:
-                textura = assetProvider.playerBackTexture;
+                texture = assetProvider.playerBackTexture;
                 break;
             case LEFT:
-                textura = assetProvider.playerleftTexture;
+                texture = assetProvider.playerleftTexture;
                 break;
             case RIGHT:
-                textura = assetProvider.playerrightTexture;
+                texture = assetProvider.playerrightTexture;
                 break;
         }
 
 
         batch.begin();
-        batch.draw(textura, player.getX(), player.getY(), textura.getWidth() * c, textura.getHeight() * c);
+        batch.draw(texture, player.getX(), player.getY(), texture.getWidth() * c, texture.getHeight() * c);
         batch.end();
     }
 
