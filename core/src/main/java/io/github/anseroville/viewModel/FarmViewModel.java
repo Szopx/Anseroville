@@ -507,4 +507,9 @@ public class FarmViewModel {
         selectedTile = null;
         closeGameplayOverlays();
     }
+
+    //todo sprawdzić czy to tu ma być
+    public int getLevelNumber() {
+        return completedLevelNumber+1;
+    }
 }

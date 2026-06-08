@@ -1,12 +1,13 @@
-inventory poprawić
-GUI grafiki
-levele
-Player grafika
-final win
-poprawić questy
--gambling gołąb animacja
-mostek
+---inventory poprawić
+---Player grafika
+
+
+
 GUI POPRAWIĆ
 
+animacje!! zaimplementować
 zrobić .json
+:levele i komiksy wygenerować
+posprzątać
+
 

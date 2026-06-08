@@ -44,10 +44,10 @@ public class TileData {
         GridPosition gamblingPosition = new GridPosition(9, 7);
         tiles.put(gamblingPosition, new ActivityTile(gamblingPosition, ActivityTileType.GAMBLING));
 
-        GridPosition mainQuestPosition = new GridPosition(5, 7);
+        GridPosition mainQuestPosition = new GridPosition(11, 7);
         tiles.put(mainQuestPosition, new ActivityTile(mainQuestPosition, ActivityTileType.MAIN_QUEST));
 
-        GridPosition sideQuestPosition = new GridPosition(6, 7);
+        GridPosition sideQuestPosition = new GridPosition(15, 7);
         tiles.put(sideQuestPosition, new ActivityTile(sideQuestPosition, ActivityTileType.QUEST));
     }
 
