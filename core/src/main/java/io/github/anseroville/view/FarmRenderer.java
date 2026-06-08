@@ -118,12 +118,13 @@ public class FarmRenderer {
                     case WATER:
                         //todo zrobić offset
                         c = 3;
-                        int offset=100;
+                        int offset=140;
+                        int offsety=50;
                         if (tile.isSelected()) {
-                            batch.draw(assetProvider.bridgeTexture_selected, tile.getX()-offset, tile.getY(), assetProvider.bridgeTexture_selected.getWidth() * c, assetProvider.bridgeTexture_selected.getHeight() * c);
+                            batch.draw(assetProvider.bridgeTexture_selected, tile.getX()-offset, tile.getY()-offsety, assetProvider.bridgeTexture_selected.getWidth() * c, assetProvider.bridgeTexture_selected.getHeight() * c);
 
                         } else {
-                            batch.draw(assetProvider.bridgeTexture, tile.getX()-offset, tile.getY(), assetProvider.bridgeTexture_selected.getWidth() * c, assetProvider.bridgeTexture_selected.getHeight() * c);
+                            batch.draw(assetProvider.bridgeTexture, tile.getX()-offset, tile.getY()-offsety, assetProvider.bridgeTexture_selected.getWidth() * c, assetProvider.bridgeTexture_selected.getHeight() * c);
                         }
                         break;
                 }
@@ -182,7 +183,8 @@ public class FarmRenderer {
 
 
         batch.begin();
-        batch.draw(textura, player.getX(), player.getY(), textura.getWidth() * c, textura.getHeight() * c);
+        batch.draw(textura, player.getX()-25, player.getY()-25,
+                textura.getWidth() * c, textura.getHeight() * c);
         batch.end();
     }
 
