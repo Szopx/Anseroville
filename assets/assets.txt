@@ -4,8 +4,15 @@
 1780850704908.png
 1780850713647.png
 1780916658684.png
+1780942696699.png
+1780942711612.png
+1780942823478.png
+1780942833791.png
 background.png
 coin.png
+file_000000007db4724685f054dcb6c034c9.png
+file_00000000cd087246a3ac36010e28b8d4.png
+file_00000000e9947246a848d1a2904d410b.png
 help_wood.png
 inventory.png
 ivy_corner.png
@@ -68,6 +75,9 @@ plants/wheat_3.png
 plants/wheat_seed.png
 player_back.png
 player_front.png
+player_left.png
+player_right.png
+player_side.png
 quests.png
 row-1-column-2 (3).png
 row-1-column-3 (2).png

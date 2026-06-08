@@ -77,8 +77,8 @@ public class AssetProvider {
         this.bridgeTexture_selected= new Texture("tiles/bridge_selected.png");;
         this.playerFrontTexture = new Texture("player_front.png");;
         this.playerBackTexture= new Texture("player_back.png");;
-        this.playerrightTexture = new Texture("player_front.png");;
-        this.playerleftTexture = new Texture("player_back.png");;
+        this.playerrightTexture = new Texture("player_right.png");;
+        this.playerleftTexture = new Texture("player_left.png");;
 
         this.chickenTexture = new Texture("npcs/baby_chick.png");
         this.chickenTexture_selected = new Texture("npcs/babychick_selected.png");;
