@@ -149,6 +149,7 @@ public class FarmInputController {
             viewModel.addItemToInventory(ItemType.POTATO, 10);
             viewModel.addItemToInventory(ItemType.CORN, 10);
         }
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.U)) {
             viewModel.interactWithTile();
         }
@@ -179,16 +180,6 @@ public class FarmInputController {
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.M)) {
             viewModel.completeMainQuest();
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.T)) {
-            viewModel.addItemToInventory(ItemType.TORCH, 1);
-            System.out.println("Dodano pochodnie");
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.Y)) {
-            viewModel.addItemToInventory(ItemType.SHIELD, 1);
-            System.out.println("Dodano tarcze");
         }
     }
 

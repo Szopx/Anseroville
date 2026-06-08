@@ -123,8 +123,8 @@ public class AnserovilleGame extends ApplicationAdapter {
         }
         if(farmViewModel.isNightWithoutTorch()){
             farmRenderer.render();
-        } //nieoptymalne, chodzi o to że musi być wakaźnik czy jest noc w trakcie otwatrego inventory albo żeby inventory nie liczyło czasu bo noc odbiera ruszanie sie todo do poprawy
-        statusBarRenderer.render(); //zakladam ze to moze byc caly czas widoczne, correct me if i'm wrong
+        }
+        statusBarRenderer.render();
         handRenderer.render(farmViewModel.getInventoryViewState());
         nightRenderer.render();
         settingsRenderer.render();

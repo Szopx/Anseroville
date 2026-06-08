@@ -81,24 +81,24 @@ public class FarmRenderer {
 
                         //todo z jakiegoś powodu zwierzęta na wyższych levelach zaczynają z selected
                         int c = 1;
-                        Texture texture = assetProvider.geeseTexture;
-                        Texture selectedTexture = assetProvider.geeseTexture_selected;
+                        Texture texture = assetProvider.getGeeseTexture();
+                        Texture selectedTexture = assetProvider.getGeeseTexture();
                         if (viewModel.getLevelNumber() == 1) {
                             c = 3;
-                            texture = assetProvider.chickenTexture;
-                            selectedTexture = assetProvider.chickenTexture_selected;
+                            texture = assetProvider.getChickenTexture();
+                            selectedTexture = assetProvider.getChickenTexture();
                         } else if (viewModel.getLevelNumber() == 2) {
                             c = 3;
-                            texture = assetProvider.hedgehogTexture;
-                            selectedTexture = assetProvider.hedgehogTexture_selected;
+                            texture = assetProvider.getHedgehogTexture();
+                            selectedTexture = assetProvider.getHedgehogTexture();
                         } else if (viewModel.getLevelNumber() == 3) {
                             c = 3;
-                            texture = assetProvider.frogTexture;
-                            selectedTexture = assetProvider.frogTexture_selected;
+                            texture = assetProvider.getFrogTexture();
+                            selectedTexture = assetProvider.getFrogTexture();
                         } else if (viewModel.getLevelNumber() == 4) {
                             c = 3;
-                            texture = assetProvider.sheepTexture;
-                            selectedTexture = assetProvider.sheepTexture_selected;
+                            texture = assetProvider.getSheepTexture();
+                            selectedTexture = assetProvider.getSheepTexture();
                         }
                         if (tile.isSelected()) {
                             batch.draw(selectedTexture, tile.getX(), tile.getY(), texture.getWidth() * c, texture.getHeight() * c);
@@ -109,20 +109,19 @@ public class FarmRenderer {
                     case QUEST:
                         c = 3;
                         if (tile.isSelected()) {
-                            batch.draw(assetProvider.geeseTexture_selected, tile.getX(), tile.getY(), assetProvider.geeseTexture_selected.getHeight() * c, assetProvider.geeseTexture_selected.getWidth() * c);
+                            batch.draw(assetProvider.getGeeseTextureSelected(), tile.getX(), tile.getY(), assetProvider.getGeeseTextureSelected().getHeight() * c, assetProvider.getGeeseTextureSelected().getWidth() * c);
 
                         } else {
-                            batch.draw(assetProvider.geeseTexture, tile.getX(), tile.getY(), assetProvider.geeseTexture_selected.getHeight() * c, assetProvider.geeseTexture_selected.getWidth() * c);
+                            batch.draw(assetProvider.getGeeseTexture(), tile.getX(), tile.getY(), assetProvider.getGeeseTextureSelected().getHeight() * c, assetProvider.getGeeseTextureSelected().getWidth() * c);
                         }
                         break;
                     case WATER:
-                        //todo zrobić offset
                         c = 3;
                         if (tile.isSelected()) {
-                            batch.draw(assetProvider.bridgeTexture_selected, tile.getX(), tile.getY(), assetProvider.bridgeTexture_selected.getWidth() * c, assetProvider.bridgeTexture_selected.getHeight() * c);
+                            batch.draw(assetProvider.getBridgeTextureSelected(), tile.getX(), tile.getY(), assetProvider.getBridgeTextureSelected().getWidth() * c, assetProvider.getBridgeTextureSelected().getHeight() * c);
 
                         } else {
-                            batch.draw(assetProvider.bridgeTexture, tile.getX(), tile.getY(), assetProvider.bridgeTexture_selected.getWidth() * c, assetProvider.bridgeTexture_selected.getHeight() * c);
+                            batch.draw(assetProvider.getBridgeTexture(), tile.getX(), tile.getY(), assetProvider.getBridgeTextureSelected().getWidth() * c, assetProvider.getBridgeTextureSelected().getHeight() * c);
                         }
                         break;
                 }
@@ -161,19 +160,19 @@ public class FarmRenderer {
         shapeRenderer.end();*/
 
         int c = 2;
-        Texture texture = assetProvider.playerFrontTexture;
+        Texture texture = assetProvider.getPlayerFrontTexture();
         switch (direction) {
             case DOWN:
-                texture = assetProvider.playerFrontTexture;
+                texture = assetProvider.getPlayerBackTexture();
                 break;
             case UP:
-                texture = assetProvider.playerBackTexture;
+                texture = assetProvider.getPlayerFrontTexture();
                 break;
             case LEFT:
-                texture = assetProvider.playerleftTexture;
+                texture = assetProvider.getPlayerLeftTexture();
                 break;
             case RIGHT:
-                texture = assetProvider.playerrightTexture;
+                texture = assetProvider.getPlayerRightTexture();
                 break;
         }
 
