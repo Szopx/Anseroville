@@ -12,6 +12,11 @@ import java.util.Map;
 
 public class AssetProvider {
     private final Texture backgroundTexture;
+     final Texture springBackgroundTexture;
+     final Texture winterBackgroundTexture;
+     final Texture autumnBackgroundTexture;
+
+
     private final Map<ItemType, Map<GrowingState, Texture>> plantTextures;
     private final Map<ItemType, Texture> itemTextures;
     private final Texture fieldTexture;
@@ -90,6 +95,10 @@ public class AssetProvider {
         this.sheepTexture_selected= new Texture("npcs/sheep_selected.png");
         this.frogTexture= new Texture("npcs/frog.png");
         this.frogTexture_selected= new Texture("npcs/frog_selected.png");
+
+        this.springBackgroundTexture = new Texture("springbg.png");
+        this.winterBackgroundTexture = new Texture("winterbg.png");
+        this.autumnBackgroundTexture = new Texture("autumnbg.png");
 
         if (Gdx.files.internal("ivy_corner.png").exists()) {
             this.ivyCornerTexture = new Texture("ivy_corner.png");

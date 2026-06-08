@@ -47,7 +47,10 @@ public class FarmRenderer {
 
     private void renderBackground() {
         batch.begin();
-        batch.draw(assetProvider.getBackgroundTexture(), 0, 0, camera.viewportWidth, camera.viewportHeight);
+        if (viewModel.getLevelNumber() ==1){ batch.draw(assetProvider.getBackgroundTexture(), 0, 0, camera.viewportWidth, camera.viewportHeight);}
+        else if (viewModel.getLevelNumber() ==2){ batch.draw(assetProvider.springBackgroundTexture, 0, 0, camera.viewportWidth, camera.viewportHeight);}
+        else if (viewModel.getLevelNumber() ==3){ batch.draw(assetProvider.winterBackgroundTexture, 0, 0, camera.viewportWidth, camera.viewportHeight);}
+        else { batch.draw(assetProvider.autumnBackgroundTexture, 0, 0, camera.viewportWidth, camera.viewportHeight);}
         batch.end();
     }
 
