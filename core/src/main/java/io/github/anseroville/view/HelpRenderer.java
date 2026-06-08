@@ -36,11 +36,9 @@ public class HelpRenderer {
     private static final Color PAPER_INNER = new Color(0.95f, 0.84f, 0.58f, 0.96f);
 
     private static final Color GREEN_DARK = new Color(0.04f, 0.14f, 0.06f, 0.95f);
-    private static final Color GREEN = new Color(0.12f, 0.34f, 0.13f, 0.96f);
 
     private static final Color TEXT_DARK = new Color(0.14f, 0.08f, 0.035f, 1f);
     private static final Color TEXT_LIGHT = new Color(0.98f, 0.95f, 0.83f, 1f);
-    private static final Color TEXT_MUTED = new Color(0.62f, 0.46f, 0.24f, 1f);
 
     private final FarmViewModel viewModel;
     private final OrthographicCamera camera;
@@ -129,7 +127,6 @@ public class HelpRenderer {
 
         endShapes();
 
-        renderIvyCorners(panelX, panelY);
     }
 
     private void renderWoodTexture(float panelX, float panelY) {
@@ -139,40 +136,6 @@ public class HelpRenderer {
 
         batch.setColor(WOOD_TINT);
         batch.draw(woodTexture, panelX, panelY, PANEL_WIDTH, PANEL_HEIGHT);
-
-        batch.setColor(Color.WHITE);
-
-        batch.end();
-    }
-
-    private void renderIvyCorners(float panelX, float panelY) {
-        Texture ivyTexture = assetProvider.getIvyCornerTexture();
-
-        if (ivyTexture == null) {
-            return;
-        }
-
-        float size = 130f;
-
-        batch.begin();
-
-        batch.setColor(1f, 1f, 1f, 0.94f);
-
-        batch.draw(
-                ivyTexture,
-                panelX + 18f,
-                panelY + PANEL_HEIGHT - size - 18f,
-                size,
-                size
-        );
-
-        batch.draw(
-                ivyTexture,
-                panelX + PANEL_WIDTH - size - 18f,
-                panelY + PANEL_HEIGHT - size - 18f,
-                size,
-                size
-        );
 
         batch.setColor(Color.WHITE);
 
