@@ -64,16 +64,16 @@ public class FarmRenderer {
                 switch (activityHere) {
                     case SHOP:
                         if (tile.isSelected()) {
-                            batch.draw(assetProvider.getSelectedShopTexture(), tile.getX() - 560 / 2 + 30, tile.getY(), 560, 400);
+                            batch.draw(assetProvider.getSelectedShopTexture(), tile.getX() - 560 / 2 + 50, tile.getY(), 560, 400);
 
                         } else {
-                            batch.draw(assetProvider.getShopTexture(), tile.getX() - 560 / 2 + 30, tile.getY(), 560, 400);
+                            batch.draw(assetProvider.getShopTexture(), tile.getX() - 560 / 2 + 50, tile.getY(), 560, 400);
                         }
                         break;
                     case GAMBLING:
-                        batch.draw(assetProvider.getGamblingTexture(), tile.getX() - 30, tile.getY(), 150, 200);
+                        batch.draw(assetProvider.getGamblingTexture(), tile.getX() - 15, tile.getY(), 150, 200);
                         if (tile.isSelected()) {
-                            batch.draw(assetProvider.getSelectedFieldTexture(), tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
+                            batch.draw(assetProvider.gamblingTextureSelected, tile.getX()-15, tile.getY(), 150, 200);
 
                         }
                         break;
@@ -109,31 +109,34 @@ public class FarmRenderer {
                     case QUEST:
                         c = 3;
                         if (tile.isSelected()) {
-                            batch.draw(assetProvider.geeseTexture_selected, tile.getX(), tile.getY(), assetProvider.geeseTexture_selected.getHeight() * c, assetProvider.geeseTexture_selected.getWidth() * c);
+                            batch.draw(assetProvider.geeseTexture_selected, tile.getX(), tile.getY(), assetProvider.geeseTexture_selected.getWidth() * c, assetProvider.geeseTexture_selected.getHeight() * c);
 
                         } else {
-                            batch.draw(assetProvider.geeseTexture, tile.getX(), tile.getY(), assetProvider.geeseTexture_selected.getHeight() * c, assetProvider.geeseTexture_selected.getWidth() * c);
+                            batch.draw(assetProvider.geeseTexture, tile.getX(), tile.getY(), assetProvider.geeseTexture_selected.getWidth() * c, assetProvider.geeseTexture_selected.getHeight() * c);
                         }
                         break;
                     case WATER:
                         //todo zrobić offset
                         c = 3;
+                        int offset=100;
                         if (tile.isSelected()) {
-                            batch.draw(assetProvider.bridgeTexture_selected, tile.getX(), tile.getY(), assetProvider.bridgeTexture_selected.getWidth() * c, assetProvider.bridgeTexture_selected.getHeight() * c);
+                            batch.draw(assetProvider.bridgeTexture_selected, tile.getX()-offset, tile.getY(), assetProvider.bridgeTexture_selected.getWidth() * c, assetProvider.bridgeTexture_selected.getHeight() * c);
 
                         } else {
-                            batch.draw(assetProvider.bridgeTexture, tile.getX(), tile.getY(), assetProvider.bridgeTexture_selected.getWidth() * c, assetProvider.bridgeTexture_selected.getHeight() * c);
+                            batch.draw(assetProvider.bridgeTexture, tile.getX()-offset, tile.getY(), assetProvider.bridgeTexture_selected.getWidth() * c, assetProvider.bridgeTexture_selected.getHeight() * c);
                         }
                         break;
                 }
 
             } else {
-                if (tile.isSelected()) { //todo inny selected dla podlanego musi byc
-                    batch.draw(assetProvider.getSelectedFieldTexture(), tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
-                } else if (tile.isWatered()) {
+
+                if (tile.isWatered()) {
                     batch.draw(assetProvider.getWateredFieldTexture(), tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
                 } else {
                     batch.draw(assetProvider.getFieldTexture(), tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
+                }
+                if (tile.isSelected()) { //todo inny selected dla podlanego musi byc
+                    batch.draw(assetProvider.getSelectedFieldTexture(), tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
                 }
 
                 ItemType plantType = tile.whatGrows();
@@ -153,7 +156,7 @@ public class FarmRenderer {
 
     private void renderPlayer() {
         Direction direction = viewModel.getPlayerViewState().getDirection();
-        System.out.println(viewModel.getPlayerViewState().getDirection());
+        //System.out.println(viewModel.getPlayerViewState().getDirection());
         PlayerViewState player = viewModel.getPlayerViewState();
         /*shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.BLUE);

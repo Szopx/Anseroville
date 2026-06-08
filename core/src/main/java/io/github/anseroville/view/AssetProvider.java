@@ -33,6 +33,7 @@ public class AssetProvider {
     private final BitmapFont smallFont;
     private final Texture lobbyBackgroundTexture;
 
+
     private final Texture shopTexture;
     private final Texture shopTexture_selected;
     private final Texture gamblingTexture;
@@ -47,6 +48,7 @@ public class AssetProvider {
      final Texture playerBackTexture;
      final Texture playerrightTexture;
      final Texture playerleftTexture;
+     final Texture gamblingTextureSelected;
 
      final Texture chickenTexture;
      final Texture chickenTexture_selected;
@@ -60,45 +62,61 @@ public class AssetProvider {
      final Texture frogTexture_selected;
 
     public AssetProvider() {
-        this.backgroundTexture = new Texture("background.png");
+        //backgrounds
+        this.backgroundTexture = new Texture("backgrounds/background.png");
+        this.inventoryTexture = new Texture("backgrounds/inventory.png");
+        this.shopInsideTexture = new Texture("backgrounds/shop.png");
+        this.lobbyBackgroundTexture = new Texture("backgrounds/lobby_farm.jpg");
+        this.springBackgroundTexture = new Texture("backgrounds/springbg.png");
+        this.winterBackgroundTexture = new Texture("backgrounds/winterbg.png");
+        this.autumnBackgroundTexture = new Texture("backgrounds/autumnbg.png");
+
+        //lists
         this.plantTextures = new EnumMap<>(ItemType.class);
         this.itemTextures = new EnumMap<>(ItemType.class);
-        this.fieldTexture = new Texture("tiles/field.png");
-        this.wateredFieldTexture = new Texture("tiles/wateredtile.png");
-        this.selectedFieldTexture = new Texture("tiles/field_selected.png");
-        this.inventoryTexture = new Texture("inventory.png");
-        this.questBackgroundTexture = new Texture("quests.png");
-        this.coinTexture = new Texture("coin.png");
-        this.shopInsideTexture = new Texture("shop.png");
-        this.lobbyBackgroundTexture = new Texture("lobby_farm.jpg");
 
+        //tiles
+        this.fieldTexture = new Texture("tiles/field.png");
+        this.wateredFieldTexture = new Texture("tiles/wateredfield.png");
+        this.selectedFieldTexture = new Texture("tiles/field_selected.png");
         this.shopTexture = new Texture("tiles/geeseShop.png");
         this.shopTexture_selected = new Texture("tiles/geeseShop_selected.png");
-        this.gamblingTexture = new Texture("npcs/pidgeon.png");
-
-        this.helpWoodTexture = new Texture("help_wood.png");
-
         this.bridgeTexture= new Texture("tiles/bridge.png");
         this.bridgeTexture_selected= new Texture("tiles/bridge_selected.png");;
-        this.playerFrontTexture = new Texture("player_front.png");;
-        this.playerBackTexture= new Texture("player_back.png");;
-        this.playerrightTexture = new Texture("player_right.png");;
-        this.playerleftTexture = new Texture("player_left.png");;
 
-        this.chickenTexture = new Texture("npcs/baby_chick.png");
-        this.chickenTexture_selected = new Texture("npcs/babychick_selected.png");;
-        this.geeseTexture= new Texture("npcs/geese.png");
-        this.geeseTexture_selected= new Texture("npcs/geese_selected.png");
-        this.hedgehogTexture= new Texture("npcs/hedgehog.png");
-        this.hedgehogTexture_selected= new Texture("npcs/hedgehog_selected.png");
-        this.sheepTexture= new Texture("npcs/sheep.png");
-        this.sheepTexture_selected= new Texture("npcs/sheep_selected.png");
-        this.frogTexture= new Texture("npcs/frog.png");
-        this.frogTexture_selected= new Texture("npcs/frog_selected.png");
 
-        this.springBackgroundTexture = new Texture("springbg.png");
-        this.winterBackgroundTexture = new Texture("winterbg.png");
-        this.autumnBackgroundTexture = new Texture("autumnbg.png");
+
+        //npcs
+        this.gamblingTexture = new Texture("npcs/pidgeon/0.png");
+        this.gamblingTextureSelected = new Texture("npcs/pidgeon/selected.png");
+        this.chickenTexture = new Texture("npcs/chicken/0.png");
+        this.chickenTexture_selected = new Texture("npcs/chicken/selected.png");;
+        this.geeseTexture= new Texture("npcs/geese/0.png");
+        this.geeseTexture_selected= new Texture("npcs/geese/selected.png");
+        this.hedgehogTexture= new Texture("npcs/hedgehog/0.png");
+        this.hedgehogTexture_selected= new Texture("npcs/hedgehog/selected.png");
+        this.sheepTexture= new Texture("npcs/sheep/0.png");
+        this.sheepTexture_selected= new Texture("npcs/sheep/selected.png");
+        this.frogTexture= new Texture("npcs/frog/0.png");
+        this.frogTexture_selected= new Texture("npcs/frog/selected.png");
+
+
+        //loose
+        this.questBackgroundTexture = new Texture("quests.png");
+        this.coinTexture = new Texture("coin.png");
+        this.helpWoodTexture = new Texture("help_wood.png");
+
+
+        //player
+        this.playerFrontTexture = new Texture("player/front/0.png");;
+        this.playerBackTexture= new Texture("player/back/0.png");;
+        this.playerrightTexture = new Texture("player/right/0.png");;
+        this.playerleftTexture = new Texture("player/left/0.png");;
+
+
+
+
+
 
         if (Gdx.files.internal("ivy_corner.png").exists()) {
             this.ivyCornerTexture = new Texture("ivy_corner.png");
@@ -137,21 +155,21 @@ public class AssetProvider {
     }
 
     private void loadAllPlants() {
-        registerPlant(ItemType.CARROT, "plants/carrot_0.png", "plants/carrot_1.png", "plants/carrot_3.png");
-        registerPlant(ItemType.CORN, "plants/corn_0.png", "plants/corn_1.png", "plants/corn_3.png");
-        registerPlant(ItemType.WHEAT, "plants/wheat_0.png", "plants/wheat_1.png", "plants/wheat_3.png");
-        registerPlant(ItemType.POTATO, "plants/potato_0.png", "plants/potato_1.png", "plants/potato_3.png");}
+        registerPlant(ItemType.CARROT, "plants/carrot/0.png", "plants/carrot/1.png", "plants/carrot/3.png");
+        registerPlant(ItemType.CORN, "plants/corn/0.png", "plants/corn/1.png", "plants/corn/3.png");
+        registerPlant(ItemType.WHEAT, "plants/wheat/0.png", "plants/wheat/1.png", "plants/wheat/3.png");
+        registerPlant(ItemType.POTATO, "plants/potato/0.png", "plants/potato/1.png", "plants/potato/3.png");}
     //z jakiegoś powodu wheat jest niższy niż powinien, zamknę ten problem później
 
     private void loadAllItems() {
-        itemTextures.put(ItemType.CARROT, new Texture("plants/carrot.png"));
-        itemTextures.put(ItemType.CORN, new Texture("plants/corn.png"));
-        itemTextures.put(ItemType.WHEAT, new Texture("plants/wheat.png"));
-        itemTextures.put(ItemType.POTATO, new Texture("plants/potato.png"));
-        itemTextures.put(ItemType.CARROT_SEED, new Texture("plants/carrot_seed.png"));
-        itemTextures.put(ItemType.CORN_SEED, new Texture("plants/corn_seed.png"));
-        itemTextures.put(ItemType.WHEAT_SEED, new Texture("plants/wheat_seed.png"));
-        itemTextures.put(ItemType.POTATO_SEED, new Texture("plants/potato_seed.png"));
+        itemTextures.put(ItemType.CARROT, new Texture("plants/carrot/item.png"));
+        itemTextures.put(ItemType.CORN, new Texture("plants/corn/item.png"));
+        itemTextures.put(ItemType.WHEAT, new Texture("plants/wheat/item.png"));
+        itemTextures.put(ItemType.POTATO, new Texture("plants/potato/item.png"));
+        itemTextures.put(ItemType.CARROT_SEED, new Texture("plants/carrot/seed.png"));
+        itemTextures.put(ItemType.CORN_SEED, new Texture("plants/corn/seed.png"));
+        itemTextures.put(ItemType.WHEAT_SEED, new Texture("plants/wheat/seed.png"));
+        itemTextures.put(ItemType.POTATO_SEED, new Texture("plants/potato/seed.png"));
         itemTextures.put(ItemType.SHIELD, new Texture("shield.png"));
         itemTextures.put(ItemType.TORCH, new Texture("lamp.png"));
         itemTextures.put(ItemType.WATERING_CAN, new Texture("wateringcan.png"));
