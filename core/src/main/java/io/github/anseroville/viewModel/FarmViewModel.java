@@ -310,7 +310,7 @@ public class FarmViewModel {
 
         questManager.resetSideQuestProgress();
 
-        selectedTile = null;
+        //selectedTile = null;
         updateSelectedTile();
 
         System.out.println("start levelu " + levelManager.getActiveLevelNumber());
