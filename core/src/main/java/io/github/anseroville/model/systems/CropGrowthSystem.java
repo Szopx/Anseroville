@@ -14,10 +14,11 @@ public class CropGrowthSystem {
         this.levelManager = levelManager;
     }
 
-    public void update(float delta) {
+    public void update(float delta, float growingModifier) {
         for (InteractableTile tile : worldState.getTiles()) {
             if(tile instanceof GroundTile)
-                ((GroundTile) tile).update(delta, levelManager.getActiveLevelGrowingModifier(),
+                ((GroundTile) tile).update(delta,
+                        levelManager.getActiveLevelGrowingModifier()*growingModifier,
                         levelManager.getActiveLevelWateringModifier());
         }
     }

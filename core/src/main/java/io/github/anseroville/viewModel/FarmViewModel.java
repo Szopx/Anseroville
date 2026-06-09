@@ -228,9 +228,7 @@ public class FarmViewModel {
             return;
         }
 
-        float plantGrowthDelta = delta * gameSettings.getPlantGrowthMultiplier();
-
-        cropGrowthSystem.update(plantGrowthDelta);
+        cropGrowthSystem.update(delta,gameSettings.getPlantGrowthMultiplier());
 
         if (gameSettings.isNightCycleEnabled()) {
             nightManager.update(delta);
