@@ -161,6 +161,18 @@ public class FarmInputController {
             viewModel.addItemToInventory(ItemType.CORN, 10);
         }
 
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
+            viewModel.getItemsForMainQuest();
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)) {
+            viewModel.skipLevel();
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_4)) {
+            viewModel.cycleMovementSpeed();
+        }
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.U)) {
             viewModel.interactWithTile();
         }
