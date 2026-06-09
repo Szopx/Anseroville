@@ -172,7 +172,7 @@ public class LevelData {
                 QuestManager.requirement(ItemType.WHEAT, 5)
         );
 
-        return new Level(1, createLevelOneStartState(), sideQuests, mainQuest);
+        return new Level(1, createLevelOneStartState(), sideQuests, mainQuest, 0f, 1f);
     }
 
     private static Level createLevelTwo() {
@@ -194,7 +194,7 @@ public class LevelData {
                 QuestManager.requirement(ItemType.POTATO, 10)
         );
 
-        return new Level(2, createLevelTwoStartState(), sideQuests, mainQuest);
+        return new Level(2, createLevelTwoStartState(), sideQuests, mainQuest, 1.3f, 1.3f);
     }
 
     private static Level createLevelThree() {
@@ -218,7 +218,7 @@ public class LevelData {
                 QuestManager.requirement(ItemType.CORN, 12)
         );
 
-        return new Level(3, createLevelThreeStartState(), sideQuests, mainQuest);
+        return new Level(3, createLevelThreeStartState(), sideQuests, mainQuest, 1f, 1f);
     }
 
     private static Level createLevelFour() {
@@ -244,6 +244,6 @@ public class LevelData {
                 QuestManager.requirement(ItemType.CORN, 20)
         );
 
-        return new Level(4, createLevelFourStartState(), sideQuests, mainQuest);
+        return new Level(4, createLevelFourStartState(), sideQuests, mainQuest, 1f, 0.7f);
     }
 }

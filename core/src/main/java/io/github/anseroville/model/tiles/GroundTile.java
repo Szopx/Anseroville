@@ -42,9 +42,9 @@ public class GroundTile extends InteractableTile {
         return true;
     }
 
-    public void update(float delta) {
+    public void update(float delta, float growingModifier, float wateringModifier) {
         if (wateredTimer > 0) {
-            wateredTimer -= delta;
+            wateredTimer -= delta * wateringModifier;
             if (wateredTimer < 0) {
                 wateredTimer = 0;
             }
@@ -54,7 +54,7 @@ public class GroundTile extends InteractableTile {
             return;
         }
 
-        crop.update(delta, isWatered());
+        crop.update(delta * growingModifier, isWatered());
     }
 
     public boolean canBeCollected() {
@@ -77,8 +77,8 @@ public class GroundTile extends InteractableTile {
         crop = null;
     }
 
-    public void clearWatered() {
-        wateredTimer = 0.0f;
+    public void setWatered(float watered) {
+        wateredTimer = watered;
     }
 
     public Crop getCrop() {

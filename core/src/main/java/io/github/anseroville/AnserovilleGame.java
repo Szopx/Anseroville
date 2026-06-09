@@ -50,22 +50,19 @@ public class AnserovilleGame extends ApplicationAdapter {
         GameSettings gameSettings = new GameSettings();
 
         NightManager nightManager = new NightManager(gameState.getInventory(), gameState.getWorldState());
-        CropGrowthSystem cropGrowthSystem = new CropGrowthSystem(gameState.getWorldState());
+        ShopManager shopManager = new ShopManager(
+                gameState.getWallet(),
+                gameState.getInventory()
+        );
+        LevelManager levelManager = new LevelManager(gameState, shopManager);
+
+        CropGrowthSystem cropGrowthSystem = new CropGrowthSystem(gameState.getWorldState(), levelManager);
         CollectingManager collectingManager = new CollectingManager(gameState.getInventory());
         PlantingManager plantingManager = new PlantingManager(
                 gameState.getHand(),
                 gameState.getInventory()
         );
-
-        ShopManager shopManager = new ShopManager(
-                gameState.getWallet(),
-                gameState.getInventory()
-        );
-
-        LevelManager levelManager = new LevelManager(gameState, shopManager);
-
         QuestManager questManager = new QuestManager(gameState, levelManager);
-
         CollisionManager collisionManager = new CollisionManager();
 
         camera = new OrthographicCamera();
