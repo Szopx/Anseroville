@@ -64,6 +64,8 @@ public class AssetProvider {
     private final Texture sheepTextureSelected;
     private final Texture frogTexture;
     private final Texture frogTextureSelected;
+    private final Texture nightWithLampTexture;
+    private final Texture nightWithoutLampTexture;
 
     public AssetProvider() {
         //backgrounds todo dispose wszystko
@@ -78,6 +80,8 @@ public class AssetProvider {
         this.springBackgroundTexture = new Texture("backgrounds/springbg.png");
         this.winterBackgroundTexture = new Texture("backgrounds/winterbg.png");
         this.autumnBackgroundTexture = new Texture("backgrounds/autumnbg.png");
+        this.nightWithLampTexture = new Texture("backgrounds/nightWithlamp.png");
+        this.nightWithoutLampTexture = new Texture("backgrounds/nightnolamp.png");
 
         //lists
         this.plantTextures = new EnumMap<>(ItemType.class);
@@ -332,6 +336,14 @@ public class AssetProvider {
     public Texture getSidePanelTexture() { return sidePanelTexture; }  // side.png
     public Texture getButtonTexture()    { return buttonTexture;    }  // button.png
 
+    public Texture getNightWithLampTexture(){
+        return nightWithLampTexture;
+    }
+
+    public Texture getNightWithoutLampTexture() {
+        return nightWithoutLampTexture;
+    }
+
     public void dispose(){
         backgroundTexture.dispose();
         fieldTexture.dispose();
@@ -342,6 +354,8 @@ public class AssetProvider {
         coinTexture.dispose();
         shopInsideTexture.dispose();
         lobbyBackgroundTexture.dispose();
+        nightWithLampTexture.dispose();
+        nightWithoutLampTexture.dispose();
 
         for (Map<GrowingState, Texture> stateMap : plantTextures.values()) {
             for (Texture texture : stateMap.values()) {
