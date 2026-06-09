@@ -41,7 +41,7 @@ public class StatusBarRenderer {
         batch.setColor(Color.WHITE);
         batch.draw(assetProvider.getCoinTexture(), startX, startY+5, 70f, 70f);
         bigFont.draw(batch, String.valueOf(moneyAmount), startX+70, startY+52);
-        mediumFont.draw(batch, "Press Esc for help", 25, startY+47.5f);
+        mediumFont.draw(batch, "H - Help    U - Interact", 25, startY + 47.5f);
         float levelStartX=camera.viewportWidth/2-75;
         bigFont.draw(batch, "LEVEL " + state.getActiveLevelNumber() + "/" + state.getMaxLevelNumber(), levelStartX, startY+50f);
         batch.end();

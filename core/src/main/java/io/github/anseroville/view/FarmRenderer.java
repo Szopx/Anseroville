@@ -81,50 +81,49 @@ public class FarmRenderer {
 
                         //todo z jakiegoś powodu zwierzęta na wyższych levelach zaczynają z selected
                         int c = 1;
-                        Texture textura = assetProvider.geeseTexture;
-                        Texture textura_selected = assetProvider.geeseTexture_selected;
+                        Texture texture = assetProvider.getGeeseTexture();
+                        Texture selectedTexture = assetProvider.getGeeseTexture();
                         if (viewModel.getLevelNumber() == 1) {
                             c = 3;
-                            textura = assetProvider.chickenTexture;
-                            textura_selected = assetProvider.chickenTexture_selected;
+                            texture = assetProvider.getChickenTexture();
+                            selectedTexture = assetProvider.getChickenTexture();
                         } else if (viewModel.getLevelNumber() == 2) {
                             c = 3;
-                            textura = assetProvider.hedgehogTexture;
-                            textura_selected = assetProvider.hedgehogTexture_selected;
+                            texture = assetProvider.getHedgehogTexture();
+                            selectedTexture = assetProvider.getHedgehogTexture();
                         } else if (viewModel.getLevelNumber() == 3) {
                             c = 3;
-                            textura = assetProvider.frogTexture;
-                            textura_selected = assetProvider.frogTexture_selected;
+                            texture = assetProvider.getFrogTexture();
+                            selectedTexture = assetProvider.getFrogTexture();
                         } else if (viewModel.getLevelNumber() == 4) {
                             c = 3;
-                            textura = assetProvider.sheepTexture;
-                            textura_selected = assetProvider.sheepTexture_selected;
+                            texture = assetProvider.getSheepTexture();
+                            selectedTexture = assetProvider.getSheepTexture();
                         }
                         if (tile.isSelected()) {
-                            batch.draw(textura_selected, tile.getX(), tile.getY(), textura.getWidth() * c, textura.getHeight() * c);
+                            batch.draw(selectedTexture, tile.getX(), tile.getY(), texture.getWidth() * c, texture.getHeight() * c);
                         } else {
-                            batch.draw(textura, tile.getX(), tile.getY(), textura.getWidth() * c, textura.getHeight() * c);
+                            batch.draw(texture, tile.getX(), tile.getY(), texture.getWidth() * c, texture.getHeight() * c);
                         }
                         break;
                     case QUEST:
                         c = 3;
                         if (tile.isSelected()) {
-                            batch.draw(assetProvider.geeseTexture_selected, tile.getX(), tile.getY(), assetProvider.geeseTexture_selected.getWidth() * c, assetProvider.geeseTexture_selected.getHeight() * c);
+                            batch.draw(assetProvider.getGeeseTextureSelected(), tile.getX(), tile.getY(), assetProvider.getGeeseTextureSelected().getWidth() * c, assetProvider.getGeeseTextureSelected().getHeight() * c);
 
                         } else {
-                            batch.draw(assetProvider.geeseTexture, tile.getX(), tile.getY(), assetProvider.geeseTexture_selected.getWidth() * c, assetProvider.geeseTexture_selected.getHeight() * c);
+                            batch.draw(assetProvider.getGeeseTexture(), tile.getX(), tile.getY(), assetProvider.getGeeseTextureSelected().getWidth() * c, assetProvider.getGeeseTextureSelected().getHeight() * c);
                         }
                         break;
                     case WATER:
-                        //todo zrobić offset
                         c = 3;
                         int offset=140;
                         int offsety=50;
                         if (tile.isSelected()) {
-                            batch.draw(assetProvider.bridgeTexture_selected, tile.getX()-offset, tile.getY()-offsety, assetProvider.bridgeTexture_selected.getWidth() * c, assetProvider.bridgeTexture_selected.getHeight() * c);
+                            batch.draw(assetProvider.getBridgeTextureSelected(), tile.getX()-offset, tile.getY()-offsety, assetProvider.getBridgeTextureSelected().getWidth() * c, assetProvider.getBridgeTextureSelected().getHeight() * c);
 
                         } else {
-                            batch.draw(assetProvider.bridgeTexture, tile.getX()-offset, tile.getY()-offsety, assetProvider.bridgeTexture_selected.getWidth() * c, assetProvider.bridgeTexture_selected.getHeight() * c);
+                            batch.draw(assetProvider.getBridgeTexture(), tile.getX()-offset, tile.getY()-offsety, assetProvider.getBridgeTextureSelected().getWidth() * c, assetProvider.getBridgeTextureSelected().getHeight() * c);
                         }
                         break;
                 }
@@ -165,26 +164,26 @@ public class FarmRenderer {
         shapeRenderer.end();*/
 
         int c = 2;
-        Texture textura = assetProvider.playerFrontTexture;
+        Texture texture = assetProvider.getPlayerFrontTexture();
         switch (direction) {
             case DOWN:
-                textura = assetProvider.playerFrontTexture;
+                texture = assetProvider.getPlayerBackTexture();
                 break;
             case UP:
-                textura = assetProvider.playerBackTexture;
+                texture = assetProvider.getPlayerFrontTexture();
                 break;
             case LEFT:
-                textura = assetProvider.playerleftTexture;
+                texture = assetProvider.getPlayerLeftTexture();
                 break;
             case RIGHT:
-                textura = assetProvider.playerrightTexture;
+                texture = assetProvider.getPlayerRightTexture();
                 break;
         }
 
 
         batch.begin();
-        batch.draw(textura, player.getX()-25, player.getY()-25,
-                textura.getWidth() * c, textura.getHeight() * c);
+        batch.draw(texture, player.getX()-25, player.getY()-25,
+                texture.getWidth() * c, texture.getHeight() * c);
         batch.end();
     }
 

@@ -126,6 +126,32 @@ public class QuestManager {
         return true;
     }
 
+    public boolean getItemsForMainQuest() {
+        Quest activeMainQuest = getActiveMainQuest();
+
+        if (activeMainQuest == null) {
+            return false;
+        }
+
+        activeMainQuest.getItemsToComplete(gameState.getInventory());
+
+        return true;
+    }
+
+    public boolean skipMainQuest() {
+        Quest activeMainQuest = getActiveMainQuest();
+
+        if (activeMainQuest == null) {
+            return false;
+        }
+
+        activeMainQuest.getItemsToComplete(gameState.getInventory());
+        activeMainQuest.complete(gameState.getInventory());
+        gameState.getWallet().add(activeMainQuest.getRewardMoney());
+
+        return true;
+    }
+
     public void resetSideQuestProgress() {
         activeSideQuestIndex = 0;
     }

@@ -116,15 +116,42 @@ public class LevelManager {
     }
 
     private void resetWorld() {
+        float watered=0.0f;
+        if (activeLevelIndex == 0) {
+            watered = 1.0f;
+        }
+
         for (Map.Entry<GridPosition, InteractableTile> tile : gameState.getWorldState().getTilesView().entrySet()) {
             if (tile.getValue() instanceof GroundTile) {
                 ((GroundTile) tile.getValue()).clearCrop();
-                ((GroundTile) tile.getValue()).clearWatered();
+                ((GroundTile) tile.getValue()).setWatered(watered);
             }
         }
     }
 
     private void resetPlayer() {
         gameState.getPlayer().teleportToStart();
+    }
+
+    public void resetActiveLevelIndex() {
+        this.activeLevelIndex = 0;
+        this.gameFinished = false;
+        this.initialized = false;
+    }
+
+    public float getActiveLevelWateringModifier() {
+        if (gameFinished || activeLevelIndex >= levels.size()) {
+            return 0;
+        }
+
+        return levels.get(activeLevelIndex).getWateringModifier();
+    }
+
+    public float getActiveLevelGrowingModifier() {
+        if (gameFinished || activeLevelIndex >= levels.size()) {
+            return 0;
+        }
+
+        return levels.get(activeLevelIndex).getGrowingModifier();
     }
 }

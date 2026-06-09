@@ -9,7 +9,6 @@ import io.github.anseroville.model.systems.*;
 import io.github.anseroville.model.GameState;
 import io.github.anseroville.model.shop.ShopManager;
 import io.github.anseroville.model.quest.QuestManager;
-import io.github.anseroville.model.tiles.TileData;
 import io.github.anseroville.model.settings.GameSettings;
 import io.github.anseroville.view.*;
 import io.github.anseroville.viewModel.FarmViewModel;
@@ -51,22 +50,19 @@ public class AnserovilleGame extends ApplicationAdapter {
         GameSettings gameSettings = new GameSettings();
 
         NightManager nightManager = new NightManager(gameState.getInventory(), gameState.getWorldState());
-        CropGrowthSystem cropGrowthSystem = new CropGrowthSystem(gameState.getWorldState());
+        ShopManager shopManager = new ShopManager(
+                gameState.getWallet(),
+                gameState.getInventory()
+        );
+        LevelManager levelManager = new LevelManager(gameState, shopManager);
+
+        CropGrowthSystem cropGrowthSystem = new CropGrowthSystem(gameState.getWorldState(), levelManager);
         CollectingManager collectingManager = new CollectingManager(gameState.getInventory());
         PlantingManager plantingManager = new PlantingManager(
                 gameState.getHand(),
                 gameState.getInventory()
         );
-
-        ShopManager shopManager = new ShopManager(
-                gameState.getWallet(),
-                gameState.getInventory()
-        );
-
-        LevelManager levelManager = new LevelManager(gameState, shopManager);
-
         QuestManager questManager = new QuestManager(gameState, levelManager);
-
         CollisionManager collisionManager = new CollisionManager();
 
         camera = new OrthographicCamera();
@@ -124,8 +120,8 @@ public class AnserovilleGame extends ApplicationAdapter {
         }
         if(farmViewModel.isNightWithoutTorch()){
             farmRenderer.render();
-        } //nieoptymalne, chodzi o to że musi być wakaźnik czy jest noc w trakcie otwatrego inventory albo żeby inventory nie liczyło czasu bo noc odbiera ruszanie sie todo do poprawy
-        statusBarRenderer.render(); //zakladam ze to moze byc caly czas widoczne, correct me if i'm wrong
+        }
+        statusBarRenderer.render();
         handRenderer.render(farmViewModel.getInventoryViewState());
         nightRenderer.render();
         settingsRenderer.render();

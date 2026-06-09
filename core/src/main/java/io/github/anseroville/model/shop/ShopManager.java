@@ -16,7 +16,7 @@ public class ShopManager {
     public ShopManager(Wallet wallet, Inventory inventory) {
         this.wallet = wallet;
         this.inventory = inventory;
-        this.currentShop = ShopData.createDefaultShop();
+        this.currentShop = new Shop(Collections.emptyMap(),Collections.emptyMap());
     }
 
     public Shop getCurrentShop() {

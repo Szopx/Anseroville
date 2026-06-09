@@ -228,9 +228,7 @@ public class FarmViewModel {
             return;
         }
 
-        float plantGrowthDelta = delta * gameSettings.getPlantGrowthMultiplier();
-
-        cropGrowthSystem.update(plantGrowthDelta);
+        cropGrowthSystem.update(delta,gameSettings.getPlantGrowthMultiplier());
 
         if (gameSettings.isNightCycleEnabled()) {
             nightManager.update(delta);
@@ -310,7 +308,6 @@ public class FarmViewModel {
 
         questManager.resetSideQuestProgress();
 
-        //selectedTile = null;
         updateSelectedTile();
 
         System.out.println("start levelu " + levelManager.getActiveLevelNumber());
@@ -371,10 +368,6 @@ public class FarmViewModel {
         gameState.getHand().toggleHand(itemType);
     }
 
-    public void playMachine() {
-        gameState.getMachine().play();
-    }
-
     public void sellItem(ItemType type) {
         shopManager.sellItem(type);
     }
@@ -383,9 +376,6 @@ public class FarmViewModel {
         shopManager.buyItem(type);
     }
 
-    //mozna zmienic nazwe, ogolnie to jest tylko dla activity tile
-    // docelowo ma byc zamiennikiem playMachine(), completeMainQuest() itp
-    // mozna przekopiowac kod a mozna dac tamte jako prywatne
     public boolean interactWithTile() {
         if (!(selectedTile instanceof ActivityTile)) return false;
 
@@ -501,15 +491,32 @@ public class FarmViewModel {
     public void backToLobbyAfterGameEnd() {
         isGameEndOpen = false;
         missionCompleteOpen = false;
-        completedLevelNumber = 0;
+        resetLevelCount();
         isLobbyOpen = true;
 
         selectedTile = null;
         closeGameplayOverlays();
     }
 
-    //todo sprawdzić czy to tu ma być
     public int getLevelNumber() {
-        return completedLevelNumber+1;
+        return levelManager.getActiveLevelNumber();
+    }
+
+    public void skipLevel() {
+        int currentLevelNumber = levelManager.getActiveLevelNumber();
+        questManager.skipMainQuest();
+
+        completedLevelNumber = currentLevelNumber;
+        missionCompleteOpen = true;
+    }
+
+    public void getItemsForMainQuest() {
+        questManager.getItemsForMainQuest();
+    }
+
+    public void resetLevelCount() {
+        completedLevelNumber = 0;
+        levelManager.resetActiveLevelIndex();
+        levelManager.initializeCurrentLevel();
     }
 }

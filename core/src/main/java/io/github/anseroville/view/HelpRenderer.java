@@ -198,18 +198,17 @@ public class HelpRenderer {
         drawCentered(sectionFont, "QUESTS & MENUS", rightCardX, cardY + CARD_HEIGHT - 36f, CARD_WIDTH);
 
         drawPaperRow(leftCardX, cardY + 178f, "ARROWS", "Move around the farm");
-        drawPaperRow(leftCardX, cardY + 132f, "H", "Plant selected seed");
+        drawPaperRow(leftCardX, cardY + 132f, "P", "Plant selected seed");
         drawPaperRow(leftCardX, cardY + 86f, "W", "Water planted crop");
         drawPaperRow(leftCardX, cardY + 40f, "C", "Collect grown crop");
 
-        drawPaperRow(rightCardX, cardY + 178f, "I", "Open inventory");
-        drawPaperRow(rightCardX, cardY + 132f, "E", "Complete side quest");
-        drawPaperRow(rightCardX, cardY + 86f, "M", "Complete main quest");
-        drawPaperRow(rightCardX, cardY + 40f, "O", "Open settings");
+        drawPaperRow(rightCardX, cardY + 178f, "U", "Interact with selected structure");
+        drawPaperRow(rightCardX, cardY + 132f, "I", "Open inventory");
+        drawPaperRow(rightCardX, cardY + 86f, "O", "Open settings");
+        drawPaperRow(rightCardX, cardY + 40f, "H", "Open help");
 
         textFont.setColor(TEXT_LIGHT);
-        drawCentered(textFont, "ESC  -  open or close this help screen", footerX, footerY + 35f, footerWidth);
-
+        drawCentered(textFont, "Use U near shop, quests, gambling and water structures.", footerX, footerY + 35f, footerWidth);
         textFont.setColor(GOLD);
         drawCentered(textFont, "Tip: crops appear after planting, but they grow only after watering.", panelX, panelY + 34f, PANEL_WIDTH);
 

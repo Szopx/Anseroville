@@ -36,6 +36,15 @@ public class Quest {
         return true;
     }
 
+    public void getItemsToComplete (Inventory inventory) {
+        for (Map.Entry<ItemType, Integer> requirement : requiredItems.entrySet()) {
+            ItemType itemType = requirement.getKey();
+            int requiredAmount = requirement.getValue();
+
+            inventory.add(itemType, requiredAmount);
+        }
+    }
+
     public boolean complete(Inventory inventory) {
         if (!canComplete(inventory)) {
             return false;

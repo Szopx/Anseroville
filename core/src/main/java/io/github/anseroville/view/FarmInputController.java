@@ -32,16 +32,13 @@ public class FarmInputController {
             return;
         }
 
-        if (handleGlobalInput()) {
-            return;
-        }
-
         if (viewModel.isMissionCompleteOpen()) {
             handleMissionCompleteInput();
             return;
         }
 
         if (viewModel.isHelpOpen()) {
+            handleHelpInput();
             return;
         }
 
@@ -50,15 +47,17 @@ public class FarmInputController {
             return;
         }
 
-        handleInventoryInput();
-
         if (viewModel.isInventoryOpen()) {
+            handleInventoryInput();
             return;
         }
 
-        handleShopInput();
-
         if (viewModel.isShopOpen()) {
+            handleShopInput();
+            return;
+        }
+
+        if (handleOverlayOpenInput()) {
             return;
         }
 
@@ -70,8 +69,8 @@ public class FarmInputController {
         handleGameActions();
     }
 
-    private boolean handleGlobalInput() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+    private boolean handleOverlayOpenInput() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.H)) {
             viewModel.toggleHelp();
             return true;
         }
@@ -81,10 +80,28 @@ public class FarmInputController {
             return true;
         }
 
+        if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
+            viewModel.toggleInventory();
+            return true;
+        }
+
         return false;
     }
 
+    private void handleHelpInput() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.H)
+                || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            viewModel.toggleHelp();
+        }
+    }
+
     private void handleSettingsInput() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)
+                || Gdx.input.isKeyJustPressed(Input.Keys.O)) {
+            viewModel.toggleSettings();
+            return;
+        }
+
         if (!Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
             return;
         }
@@ -94,12 +111,9 @@ public class FarmInputController {
     }
 
     private void handleInventoryInput() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)
+                || Gdx.input.isKeyJustPressed(Input.Keys.I)) {
             viewModel.toggleInventory();
-            return;
-        }
-
-        if (!viewModel.isInventoryOpen()) {
             return;
         }
 
@@ -110,12 +124,9 @@ public class FarmInputController {
     }
 
     private void handleShopInput() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)
+                || Gdx.input.isKeyJustPressed(Input.Keys.S)) {
             viewModel.toggleShop();
-            return;
-        }
-
-        if (!viewModel.isShopOpen()) {
             return;
         }
 
@@ -150,12 +161,25 @@ public class FarmInputController {
             viewModel.addItemToInventory(ItemType.POTATO, 10);
             viewModel.addItemToInventory(ItemType.CORN, 10);
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.U)) {
-            viewModel.interactWithTile();
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
+            viewModel.getItemsForMainQuest();
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.G)) {
-            viewModel.playMachine();
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)) {
+            viewModel.skipLevel();
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_4)) {
+            viewModel.cycleMovementSpeed();
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_5)) {
+            viewModel.resetLevelCount();
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.U)) {
+            viewModel.interactWithTile();
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
@@ -166,30 +190,12 @@ public class FarmInputController {
             viewModel.teleportPlayer();
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.H)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
             viewModel.plant();
         }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.C)) {
             viewModel.collect();
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-            viewModel.completeActiveQuest();
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.M)) {
-            viewModel.completeMainQuest();
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.T)) {
-            viewModel.addItemToInventory(ItemType.TORCH, 1);
-            System.out.println("Dodano pochodnie");
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.Y)) {
-            viewModel.addItemToInventory(ItemType.SHIELD, 1);
-            System.out.println("Dodano tarcze");
         }
     }
 
@@ -360,19 +366,14 @@ public class FarmInputController {
 
     private void handleLobbyInput() {
         if (viewModel.isHelpOpen()) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.H)
+                    || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
                 viewModel.toggleHelp();
             }
-
             return;
         }
 
         if (viewModel.isSettingsOpen()) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.O)) {
-                viewModel.toggleSettings();
-                return;
-            }
-
             handleSettingsInput();
             return;
         }
@@ -382,7 +383,7 @@ public class FarmInputController {
             return;
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.H)) {
             viewModel.toggleHelp();
             return;
         }

@@ -16,7 +16,7 @@ public class TileViewState {
     public TileViewState(int x, int y, boolean selected, GrowingState growingstate,
                          ItemType grows, boolean watered, ActivityTileType activityTileType) {
         this.x = x*75;
-        this.y = y*75; //todo
+        this.y = y*75;
         this.selected = selected;
         this.growingState = growingstate;
         this.grows = grows;

@@ -41,10 +41,9 @@ public class LevelData {
 
     private static LevelStartState createLevelTwoStartState() {
         Map<ItemType, Integer> inventoryItems = new EnumMap<>(ItemType.class);
-        inventoryItems.put(ItemType.CARROT_SEED, 5);
         inventoryItems.put(ItemType.WHEAT_SEED, 10);
         inventoryItems.put(ItemType.POTATO_SEED, 5);
-        inventoryItems.put(ItemType.TORCH, 1);
+        inventoryItems.put(ItemType.TORCH, 2);
 
         return new LevelStartState(
                 35,
@@ -56,6 +55,7 @@ public class LevelData {
 
     private static LevelStartState createLevelThreeStartState() {
         Map<ItemType, Integer> inventoryItems = new EnumMap<>(ItemType.class);
+        inventoryItems.put(ItemType.CARROT_SEED, 5);
         inventoryItems.put(ItemType.POTATO_SEED, 10);
         inventoryItems.put(ItemType.CORN_SEED, 8);
         inventoryItems.put(ItemType.TORCH, 2);
@@ -71,11 +71,9 @@ public class LevelData {
     private static LevelStartState createLevelFourStartState() {
         Map<ItemType, Integer> inventoryItems = new EnumMap<>(ItemType.class);
         inventoryItems.put(ItemType.CARROT_SEED, 8);
-        inventoryItems.put(ItemType.WHEAT_SEED, 8);
         inventoryItems.put(ItemType.POTATO_SEED, 8);
         inventoryItems.put(ItemType.CORN_SEED, 8);
-        inventoryItems.put(ItemType.TORCH, 3);
-        inventoryItems.put(ItemType.SHIELD, 1);
+        inventoryItems.put(ItemType.TORCH, 2);
 
         return new LevelStartState(
                 75,
@@ -90,6 +88,7 @@ public class LevelData {
         prices.put(ItemType.CARROT_SEED, 2);
         prices.put(ItemType.WHEAT_SEED, 3);
         prices.put(ItemType.TORCH, 8);
+        prices.put(ItemType.SHIELD, 20);
         return prices;
     }
 
@@ -102,44 +101,44 @@ public class LevelData {
 
     private static Map<ItemType, Integer> createLevelTwoBuyPrices() {
         Map<ItemType, Integer> prices = new EnumMap<>(ItemType.class);
-        prices.put(ItemType.CARROT_SEED, 2);
-        prices.put(ItemType.WHEAT_SEED, 3);
+        prices.put(ItemType.WHEAT_SEED, 4);
         prices.put(ItemType.POTATO_SEED, 5);
         prices.put(ItemType.TORCH, 8);
+        prices.put(ItemType.SHIELD, 10);
         return prices;
     }
 
     private static Map<ItemType, Integer> createLevelTwoSellPrices() {
         Map<ItemType, Integer> prices = new EnumMap<>(ItemType.class);
-        prices.put(ItemType.CARROT, 4);
-        prices.put(ItemType.WHEAT, 6);
-        prices.put(ItemType.POTATO, 9);
+        prices.put(ItemType.WHEAT, 8);
+        prices.put(ItemType.POTATO, 10);
         return prices;
     }
 
     private static Map<ItemType, Integer> createLevelThreeBuyPrices() {
         Map<ItemType, Integer> prices = new EnumMap<>(ItemType.class);
-        prices.put(ItemType.WHEAT_SEED, 3);
-        prices.put(ItemType.POTATO_SEED, 5);
-        prices.put(ItemType.CORN_SEED, 6);
+        prices.put(ItemType.CARROT_SEED, 5);
+        prices.put(ItemType.POTATO_SEED, 6);
+        prices.put(ItemType.CORN_SEED, 7);
         prices.put(ItemType.TORCH, 8);
+        prices.put(ItemType.SHIELD, 20);
         return prices;
     }
 
     private static Map<ItemType, Integer> createLevelThreeSellPrices() {
         Map<ItemType, Integer> prices = new EnumMap<>(ItemType.class);
-        prices.put(ItemType.WHEAT, 6);
-        prices.put(ItemType.POTATO, 9);
-        prices.put(ItemType.CORN, 11);
+        prices.put(ItemType.CARROT, 10);
+        prices.put(ItemType.POTATO, 12);
+        prices.put(ItemType.CORN, 14);
         return prices;
     }
 
     private static Map<ItemType, Integer> createLevelFourBuyPrices() {
         Map<ItemType, Integer> prices = new EnumMap<>(ItemType.class);
-        prices.put(ItemType.CARROT_SEED, 2);
-        prices.put(ItemType.WHEAT_SEED, 3);
-        prices.put(ItemType.POTATO_SEED, 5);
-        prices.put(ItemType.CORN_SEED, 6);
+        prices.put(ItemType.CARROT_SEED, 6);
+        prices.put(ItemType.WHEAT_SEED, 7);
+        prices.put(ItemType.POTATO_SEED, 8);
+        prices.put(ItemType.CORN_SEED, 9);
         prices.put(ItemType.TORCH, 8);
         prices.put(ItemType.SHIELD, 20);
         return prices;
@@ -147,10 +146,10 @@ public class LevelData {
 
     private static Map<ItemType, Integer> createLevelFourSellPrices() {
         Map<ItemType, Integer> prices = new EnumMap<>(ItemType.class);
-        prices.put(ItemType.CARROT, 4);
-        prices.put(ItemType.WHEAT, 6);
-        prices.put(ItemType.POTATO, 9);
-        prices.put(ItemType.CORN, 11);
+        prices.put(ItemType.CARROT, 12);
+        prices.put(ItemType.WHEAT, 14);
+        prices.put(ItemType.POTATO, 16);
+        prices.put(ItemType.CORN, 18);
         return prices;
     }
 
@@ -158,7 +157,7 @@ public class LevelData {
         List<Quest> sideQuests = new ArrayList<>();
 
         sideQuests.add(QuestManager.createQuest(
-                15,
+                20,
                 QuestManager.requirement(ItemType.CARROT, 3)
         ));
 
@@ -168,19 +167,19 @@ public class LevelData {
         ));
 
         Quest mainQuest = QuestManager.createQuest(
-                100,
+                0,
                 QuestManager.requirement(ItemType.CARROT, 10),
                 QuestManager.requirement(ItemType.WHEAT, 5)
         );
 
-        return new Level(1, createLevelOneStartState(), sideQuests, mainQuest);
+        return new Level(1, createLevelOneStartState(), sideQuests, mainQuest, 0f, 1f);
     }
 
     private static Level createLevelTwo() {
         List<Quest> sideQuests = new ArrayList<>();
 
         sideQuests.add(QuestManager.createQuest(
-                60,
+                80,
                 QuestManager.requirement(ItemType.WHEAT, 8)
         ));
 
@@ -190,12 +189,12 @@ public class LevelData {
         ));
 
         Quest mainQuest = QuestManager.createQuest(
-                180,
+                0,
                 QuestManager.requirement(ItemType.WHEAT, 12),
                 QuestManager.requirement(ItemType.POTATO, 10)
         );
 
-        return new Level(2, createLevelTwoStartState(), sideQuests, mainQuest);
+        return new Level(2, createLevelTwoStartState(), sideQuests, mainQuest, 1.3f, 1.3f);
     }
 
     private static Level createLevelThree() {
@@ -207,44 +206,44 @@ public class LevelData {
         ));
 
         sideQuests.add(QuestManager.createQuest(
-                150,
+                250,
                 QuestManager.requirement(ItemType.POTATO, 12),
                 QuestManager.requirement(ItemType.CORN, 6)
         ));
 
         Quest mainQuest = QuestManager.createQuest(
-                300,
+                0,
                 QuestManager.requirement(ItemType.CARROT, 15),
                 QuestManager.requirement(ItemType.POTATO, 15),
                 QuestManager.requirement(ItemType.CORN, 12)
         );
 
-        return new Level(3, createLevelThreeStartState(), sideQuests, mainQuest);
+        return new Level(3, createLevelThreeStartState(), sideQuests, mainQuest, 1f, 1f);
     }
 
     private static Level createLevelFour() {
         List<Quest> sideQuests = new ArrayList<>();
 
         sideQuests.add(QuestManager.createQuest(
-                200,
+                550,
                 QuestManager.requirement(ItemType.CARROT, 20),
                 QuestManager.requirement(ItemType.WHEAT, 15)
         ));
 
         sideQuests.add(QuestManager.createQuest(
-                250,
+                520,
                 QuestManager.requirement(ItemType.POTATO, 18),
                 QuestManager.requirement(ItemType.CORN, 18)
         ));
 
         Quest mainQuest = QuestManager.createQuest(
-                500,
+                0,
                 QuestManager.requirement(ItemType.CARROT, 25),
                 QuestManager.requirement(ItemType.WHEAT, 20),
                 QuestManager.requirement(ItemType.POTATO, 20),
                 QuestManager.requirement(ItemType.CORN, 20)
         );
 
-        return new Level(4, createLevelFourStartState(), sideQuests, mainQuest);
+        return new Level(4, createLevelFourStartState(), sideQuests, mainQuest, 1f, 0.7f);
     }
 }

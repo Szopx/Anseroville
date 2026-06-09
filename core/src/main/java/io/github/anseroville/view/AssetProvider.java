@@ -43,13 +43,7 @@ public class AssetProvider {
     private final Texture helpWoodTexture;
     private final Texture ivyCornerTexture;
     //todo zamienić to na private i zrobić gettery
-     final Texture bridgeTexture;
-    final Texture bridgeTexture_selected;
-     final Texture playerFrontTexture;
-     final Texture playerBackTexture;
-     final Texture playerrightTexture;
-     final Texture playerleftTexture;
-     final Texture gamblingTextureSelected;
+    final Texture gamblingTextureSelected;
 
      final Texture chickenTexture;
      final Texture chickenTexture_selected;
@@ -64,6 +58,22 @@ public class AssetProvider {
      Texture titleTexture;
      Texture sidePanelTexture;
      Texture buttonTexture;
+    private final Texture bridgeTexture;
+    private final Texture bridgeTextureSelected;
+    private final Texture playerFrontTexture;
+    private final Texture playerBackTexture;
+    private final Texture playerRightTexture;
+    private final Texture playerLeftTexture;
+    private final Texture chickenTexture;
+    private final Texture chickenTextureSelected;
+    private final Texture geeseTexture;
+    private final Texture geeseTextureSelected;
+    private final Texture hedgehogTexture;
+    private final Texture hedgehogTextureSelected;
+    private final Texture sheepTexture;
+    private final Texture sheepTextureSelected;
+    private final Texture frogTexture;
+    private final Texture frogTextureSelected;
 
     public AssetProvider() {
         //backgrounds
@@ -90,7 +100,7 @@ public class AssetProvider {
         this.shopTexture = new Texture("tiles/geeseShop.png");
         this.shopTexture_selected = new Texture("tiles/geeseShop_selected.png");
         this.bridgeTexture= new Texture("tiles/bridge.png");
-        this.bridgeTexture_selected= new Texture("tiles/bridge_selected.png");;
+        this.bridgeTextureSelected= new Texture("tiles/bridge_selected.png");;
 
 
 
@@ -98,15 +108,15 @@ public class AssetProvider {
         this.gamblingTexture = new Texture("npcs/pidgeon/0.png");
         this.gamblingTextureSelected = new Texture("npcs/pidgeon/selected.png");
         this.chickenTexture = new Texture("npcs/chicken/0.png");
-        this.chickenTexture_selected = new Texture("npcs/chicken/selected.png");;
+        this.chickenTextureSelected = new Texture("npcs/chicken/selected.png");;
         this.geeseTexture= new Texture("npcs/geese/0.png");
-        this.geeseTexture_selected= new Texture("npcs/geese/selected.png");
+        this.geeseTextureSelected= new Texture("npcs/geese/selected.png");
         this.hedgehogTexture= new Texture("npcs/hedgehog/0.png");
-        this.hedgehogTexture_selected= new Texture("npcs/hedgehog/selected.png");
+        this.hedgehogTextureSelected= new Texture("npcs/hedgehog/selected.png");
         this.sheepTexture= new Texture("npcs/sheep/0.png");
-        this.sheepTexture_selected= new Texture("npcs/sheep/selected.png");
+        this.sheepTextureSelected= new Texture("npcs/sheep/selected.png");
         this.frogTexture= new Texture("npcs/frog/0.png");
-        this.frogTexture_selected= new Texture("npcs/frog/selected.png");
+        this.frogTextureSelected= new Texture("npcs/frog/selected.png");
 
 
         //loose
@@ -118,8 +128,8 @@ public class AssetProvider {
         //player
         this.playerFrontTexture = new Texture("player/front/0.png");;
         this.playerBackTexture= new Texture("player/back/0.png");;
-        this.playerrightTexture = new Texture("player/right/0.png");;
-        this.playerleftTexture = new Texture("player/left/0.png");;
+        this.playerRightTexture = new Texture("player/right/0.png");;
+        this.playerLeftTexture = new Texture("player/left/0.png");;
 
 
 
@@ -152,6 +162,70 @@ public class AssetProvider {
 
         loadAllPlants();
         loadAllItems();
+    }
+
+    public Texture getBridgeTexture() {
+        return bridgeTexture;
+    }
+
+    public Texture getBridgeTextureSelected() {
+        return bridgeTextureSelected;
+    }
+
+    public Texture getPlayerFrontTexture() {
+        return playerFrontTexture;
+    }
+
+    public Texture getPlayerBackTexture() {
+        return playerBackTexture;
+    }
+
+    public Texture getPlayerRightTexture() {
+        return playerRightTexture;
+    }
+
+    public Texture getPlayerLeftTexture() {
+        return playerLeftTexture;
+    }
+
+    public Texture getChickenTexture() {
+        return chickenTexture;
+    }
+
+    public Texture getChickenTextureSelected() {
+        return chickenTextureSelected;
+    }
+
+    public Texture getGeeseTexture() {
+        return geeseTexture;
+    }
+
+    public Texture getGeeseTextureSelected() {
+        return geeseTextureSelected;
+    }
+
+    public Texture getHedgehogTexture() {
+        return hedgehogTexture;
+    }
+
+    public Texture getHedgehogTextureSelected() {
+        return hedgehogTextureSelected;
+    }
+
+    public Texture getSheepTexture() {
+        return sheepTexture;
+    }
+
+    public Texture getSheepTextureSelected() {
+        return sheepTextureSelected;
+    }
+
+    public Texture getFrogTexture() {
+        return frogTexture;
+    }
+
+    public Texture getFrogTextureSelected() {
+        return frogTextureSelected;
     }
 
     private void registerPlant(ItemType type, String smallPath, String mediumPath, String largePath) {
