@@ -13,10 +13,12 @@ public class TileViewState {
     private final boolean watered;
     private final ActivityTileType activityTileType;
 
+    private final int SCALE = 75;
+
     public TileViewState(int x, int y, boolean selected, GrowingState growingstate,
                          ItemType grows, boolean watered, ActivityTileType activityTileType) {
-        this.x = x*75;
-        this.y = y*75;
+        this.x = x * SCALE;
+        this.y = y * SCALE;
         this.selected = selected;
         this.growingState = growingstate;
         this.grows = grows;
@@ -31,6 +33,7 @@ public class TileViewState {
     public int getY() {
         return y;
     }
+
     public ItemType whatGrows(){
         return grows;
     }
@@ -38,7 +41,10 @@ public class TileViewState {
     public boolean isSelected() {
         return selected;
     }
+
     public GrowingState getGrowingState() { return growingState; }
+
     public boolean isWatered() { return watered;}
+
     public ActivityTileType getActivityTileType() { return activityTileType; }
 }

@@ -4,7 +4,7 @@ import io.github.anseroville.enums.ItemType;
 
 public class Hand {
     private ItemType type;
-    private Inventory inventory;
+    private final Inventory inventory;
 
     public Hand(Inventory inventory) {
         this.inventory = inventory;

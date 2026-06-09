@@ -22,8 +22,6 @@ public class Machine {
         int newMoney = random.nextInt(maxPossibleMoney + 1);
 
         changeWalletMoney(currentMoney, newMoney);
-
-        System.out.println("Money changed from " + currentMoney + " to " + newMoney);
     }
 
     private int calculateMaxPossibleMoney(int currentMoney) {

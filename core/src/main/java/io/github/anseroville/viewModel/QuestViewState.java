@@ -11,11 +11,8 @@ public class QuestViewState {
     private final Map<ItemType, Integer> mainQuest;
     private final boolean activeQuestAvailable;
     private final int activeQuestReward;
-    private final int mainQuestReward;
     private final int activeLevelNumber;
     private final int maxLevelNumber;
-    private final int activeSideQuestNumber;
-    private final int sideQuestsCount;
     private final boolean gameFinished;
 
     public QuestViewState(
@@ -23,22 +20,16 @@ public class QuestViewState {
             Map<ItemType, Integer> requiredItems,
             Map<ItemType, Integer> mainQuest,
             int activeQuestReward,
-            int mainQuestReward,
             int activeLevelNumber,
             int maxLevelNumber,
-            int activeSideQuestNumber,
-            int sideQuestsCount,
             boolean gameFinished
     ) {
         this.activeQuestAvailable = activeQuestAvailable;
         this.requiredItems = copyMap(requiredItems);
         this.mainQuest = copyMap(mainQuest);
         this.activeQuestReward = activeQuestReward;
-        this.mainQuestReward = mainQuestReward;
         this.activeLevelNumber = activeLevelNumber;
         this.maxLevelNumber = maxLevelNumber;
-        this.activeSideQuestNumber = activeSideQuestNumber;
-        this.sideQuestsCount = sideQuestsCount;
         this.gameFinished = gameFinished;
     }
 
@@ -64,24 +55,12 @@ public class QuestViewState {
         return activeQuestReward;
     }
 
-    public int getMainQuestRewardMoney() {
-        return mainQuestReward;
-    }
-
     public int getActiveLevelNumber() {
         return activeLevelNumber;
     }
 
     public int getMaxLevelNumber() {
         return maxLevelNumber;
-    }
-
-    public int getActiveSideQuestNumber() {
-        return activeSideQuestNumber;
-    }
-
-    public int getSideQuestsCount() {
-        return sideQuestsCount;
     }
 
     public boolean isGameFinished() {

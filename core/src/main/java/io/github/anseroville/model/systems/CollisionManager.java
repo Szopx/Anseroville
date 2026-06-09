@@ -20,10 +20,6 @@ public class CollisionManager {
 
         Rectangle playerRect = new Rectangle(targetX, targetY, PLAYER_WIDTH, PLAYER_HEIGHT);
 
-        if (playerRect.overlaps(forestBounds)) {
-            return false;
-        }
-
-        return true;
+        return !playerRect.overlaps(forestBounds);
     }
 }

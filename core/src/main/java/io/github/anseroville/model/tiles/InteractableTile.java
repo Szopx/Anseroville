@@ -18,6 +18,7 @@ public abstract class InteractableTile {
     public boolean isSelected() {
         return selected;
     }
+
     public void select() {
         selected = true;
     }

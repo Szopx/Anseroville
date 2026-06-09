@@ -1,7 +1,6 @@
 package io.github.anseroville.model;
 
 import io.github.anseroville.model.gambling.Machine;
-import io.github.anseroville.model.inventory.InventoryData;
 import io.github.anseroville.model.inventory.Wallet;
 import io.github.anseroville.model.inventory.Hand;
 import io.github.anseroville.model.inventory.Inventory;

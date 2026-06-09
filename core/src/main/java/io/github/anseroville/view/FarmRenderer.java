@@ -164,21 +164,12 @@ public class FarmRenderer {
         PlayerViewState player = viewModel.getPlayerViewState();
 
         int c = 2;
-        Texture texture = assetProvider.getPlayerFrontTexture();
-        switch (direction) {
-            case DOWN:
-                texture = assetProvider.getPlayerFrontTexture();
-                break;
-            case UP:
-                texture = assetProvider.getPlayerBackTexture();
-                break;
-            case LEFT:
-                texture = assetProvider.getPlayerLeftTexture();
-                break;
-            case RIGHT:
-                texture = assetProvider.getPlayerRightTexture();
-                break;
-        }
+        Texture texture = switch (direction) {
+            case DOWN -> assetProvider.getPlayerFrontTexture();
+            case UP -> assetProvider.getPlayerBackTexture();
+            case LEFT -> assetProvider.getPlayerLeftTexture();
+            case RIGHT -> assetProvider.getPlayerRightTexture();
+        };
 
 
         batch.begin();
@@ -186,7 +177,4 @@ public class FarmRenderer {
                 texture.getWidth() * c, texture.getHeight() * c);
         batch.end();
     }
-
-
-
 }
