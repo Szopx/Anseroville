@@ -30,10 +30,6 @@ public class Level {
         this.wateringModifier = wateringModifier;
     }
 
-    public int getNumber() {
-        return number;
-    }
-
     public LevelStartState getStartState() {
         return startState;
     }

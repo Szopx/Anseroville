@@ -1,6 +1,5 @@
 package io.github.anseroville.enums;
 
-import io.github.anseroville.enums.ItemType;
 
 public enum CropType {
     CARROT(ItemType.CARROT_SEED, ItemType.CARROT, new float[] {5f, 4f}),

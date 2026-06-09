@@ -121,8 +121,8 @@ public class SettingsRenderer {
         font.draw(
                 batch,
                 "FPS: " + Gdx.graphics.getFramesPerSecond(),
-                camera.viewportWidth - 160f,
-                camera.viewportHeight - 25f
+                camera.viewportWidth - 370f,
+                camera.viewportHeight - 30f
         );
         batch.end();
     }

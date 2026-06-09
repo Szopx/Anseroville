@@ -54,40 +54,38 @@ public class ShopManager {
         }
     }
 
-    public boolean buyItem(ItemType type) {
+    public void buyItem(ItemType type) {
         if (currentShop == null || type == null) {
-            return false;
+            return;
         }
 
         int price = currentShop.getBuyPrice(type);
         if (price == -1) {
-            return false;
+            return;
         }
 
         if (wallet.getMoney() < price) {
-            return false;
+            return;
         }
 
         if (!inventory.add(type, 1)) {
-            return false;
+            return;
         }
 
         wallet.sub(price);
-        return true;
     }
 
-    public boolean sellItem(ItemType type) {
+    public void sellItem(ItemType type) {
         if (currentShop == null || type == null) {
-            return false;
+            return;
         }
 
         int price = currentShop.getSellPrice(type);
         if (price == -1 || !inventory.has(type, 1)) {
-            return false;
+            return;
         }
 
         inventory.remove(type, 1);
         wallet.add(price);
-        return true;
     }
 }

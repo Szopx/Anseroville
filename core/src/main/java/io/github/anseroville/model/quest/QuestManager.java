@@ -43,22 +43,6 @@ public class QuestManager {
         return getActiveSideQuest() != null;
     }
 
-    public int getActiveSideQuestNumber() {
-        if (!isActiveQuestAvailable()) {
-            return 0;
-        }
-
-        return activeSideQuestIndex + 1;
-    }
-
-    public int getSideQuestsCount() {
-        if (levelManager.getActiveLevel() == null) {
-            return 0;
-        }
-
-        return levelManager.getActiveLevel().getSideQuestsCount();
-    }
-
     public Map<ItemType, Integer> getActiveQuestRequiredItems() {
         Quest activeSideQuest = getActiveSideQuest();
 
@@ -89,16 +73,6 @@ public class QuestManager {
         return activeSideQuest.getRewardMoney();
     }
 
-    public int getMainQuestRewardMoney() {
-        Quest activeMainQuest = getActiveMainQuest();
-
-        if (activeMainQuest == null) {
-            return 0;
-        }
-
-        return activeMainQuest.getRewardMoney();
-    }
-
     public boolean completeActiveQuest() {
         Quest activeSideQuest = getActiveSideQuest();
 
@@ -126,30 +100,28 @@ public class QuestManager {
         return true;
     }
 
-    public boolean getItemsForMainQuest() {
+    public void getItemsForMainQuest() {
         Quest activeMainQuest = getActiveMainQuest();
 
         if (activeMainQuest == null) {
-            return false;
+            return;
         }
 
         activeMainQuest.getItemsToComplete(gameState.getInventory());
 
-        return true;
     }
 
-    public boolean skipMainQuest() {
+    public void skipMainQuest() {
         Quest activeMainQuest = getActiveMainQuest();
 
         if (activeMainQuest == null) {
-            return false;
+            return;
         }
 
         activeMainQuest.getItemsToComplete(gameState.getInventory());
         activeMainQuest.complete(gameState.getInventory());
         gameState.getWallet().add(activeMainQuest.getRewardMoney());
 
-        return true;
     }
 
     public void resetSideQuestProgress() {

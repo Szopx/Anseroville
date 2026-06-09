@@ -53,7 +53,6 @@ public class TileData {
 
     private static void addWaterTiles(Map<GridPosition, InteractableTile> tiles) {
         int[][] waterSources = {
-                //todo wyznaczyc reszte jeziorka
                 {0,17}
         };
 

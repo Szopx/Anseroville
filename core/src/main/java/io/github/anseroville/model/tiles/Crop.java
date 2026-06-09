@@ -40,16 +40,8 @@ public class Crop {
         return type.getHarvestItem();
     }
 
-    public ItemType getPlantItem() {
-        return type.getSeedItem();
-    }
-
     public GrowingState getGrowingState() {
         return growingState;
-    }
-
-    public CropType getType() {
-        return type;
     }
 
     private float getCurrentGrowthDuration() {

@@ -15,13 +15,12 @@ public class Wallet {
         money += amount;
     }
 
-    public boolean sub(int amount) {
+    public void sub(int amount) {
         if (amount <= 0 || money < amount) {
-            return false;
+            return;
         }
 
         money -= amount;
-        return true;
     }
 
     public void setMoney(int money) {

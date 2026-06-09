@@ -12,10 +12,10 @@ import java.util.Map;
 
 public class AssetProvider {
     private final Texture backgroundTexture;
-     final Texture springBackgroundTexture;
-     final Texture winterBackgroundTexture;
-     final Texture autumnBackgroundTexture;
 
+    final Texture springBackgroundTexture;
+    final Texture winterBackgroundTexture;
+    final Texture autumnBackgroundTexture;
 
     private final Map<ItemType, Map<GrowingState, Texture>> plantTextures;
     private final Map<ItemType, Texture> itemTextures;
@@ -41,23 +41,22 @@ public class AssetProvider {
 
 
     private final Texture helpWoodTexture;
-    private final Texture ivyCornerTexture;
-    //todo zamienić to na private i zrobić gettery
     final Texture gamblingTextureSelected;
 
-     final Texture chickenTexture;
-     //final Texture chickenTexture_selected;
-     final Texture geeseTexture;
-     //final Texture geeseTexture_selected;
-     final Texture hedgehogTexture;
-     //final Texture hedgehogTexture_selected;
-     final Texture sheepTexture;
-     //final Texture sheepTexture_selected;
-     final Texture frogTexture;
-     //final Texture frogTexture_selected;
-     Texture titleTexture;
-     Texture sidePanelTexture;
-     Texture buttonTexture;
+    final Texture chickenTexture;
+    //final Texture chickenTexture_selected;
+    final Texture geeseTexture;
+    //final Texture geeseTexture_selected;
+    final Texture hedgehogTexture;
+    //final Texture hedgehogTexture_selected;
+    final Texture sheepTexture;
+    //final Texture sheepTexture_selected;
+    final Texture frogTexture;
+    //final Texture frogTexture_selected;
+    Texture titleTexture;
+    Texture sidePanelTexture;
+    Texture buttonTexture;
+
     private final Texture bridgeTexture;
     private final Texture bridgeTextureSelected;
     private final Texture playerFrontTexture;
@@ -133,17 +132,6 @@ public class AssetProvider {
         this.playerBackTexture= new Texture("player/back/0.png");;
         this.playerRightTexture = new Texture("player/right/0.png");;
         this.playerLeftTexture = new Texture("player/left/0.png");;
-
-
-
-
-
-
-        if (Gdx.files.internal("ivy_corner.png").exists()) {
-            this.ivyCornerTexture = new Texture("ivy_corner.png");
-        } else {
-            this.ivyCornerTexture = null;
-        }
 
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
         pixmap.setColor(Color.WHITE);
@@ -336,9 +324,6 @@ public class AssetProvider {
         return helpWoodTexture;
     }
 
-    public Texture getIvyCornerTexture() {
-        return ivyCornerTexture;
-    }
     public Texture getSelectedShopTexture() {
         return shopTexture_selected;
     }
@@ -383,9 +368,5 @@ public class AssetProvider {
         mediumFont.dispose();
         smallFont.dispose();
         helpWoodTexture.dispose();
-
-        if (ivyCornerTexture != null) {
-            ivyCornerTexture.dispose();
-        }
     }
 }

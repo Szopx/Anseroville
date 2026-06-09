@@ -123,8 +123,6 @@ public class HelpRenderer {
 
         drawRoundedRect(footerX, footerY, footerWidth, 54f, 0f, GREEN_DARK);
 
-        //renderSmallGoldOrnaments(panelX, panelY);
-
         endShapes();
 
     }

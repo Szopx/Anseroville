@@ -36,7 +36,7 @@ public class Quest {
         return true;
     }
 
-    public void getItemsToComplete (Inventory inventory) {
+    public void getItemsToComplete(Inventory inventory) {
         for (Map.Entry<ItemType, Integer> requirement : requiredItems.entrySet()) {
             ItemType itemType = requirement.getKey();
             int requiredAmount = requirement.getValue();
@@ -45,9 +45,9 @@ public class Quest {
         }
     }
 
-    public boolean complete(Inventory inventory) {
+    public void complete(Inventory inventory) {
         if (!canComplete(inventory)) {
-            return false;
+            return;
         }
 
         for (Map.Entry<ItemType, Integer> requirement : requiredItems.entrySet()) {
@@ -58,7 +58,6 @@ public class Quest {
         }
 
         completed = true;
-        return true;
     }
 
     public int getRewardMoney() {
@@ -67,9 +66,5 @@ public class Quest {
 
     public Map<ItemType, Integer> getRequiredItems() {
         return Collections.unmodifiableMap(requiredItems);
-    }
-
-    public boolean isCompleted() {
-        return completed;
     }
 }

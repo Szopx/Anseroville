@@ -103,21 +103,13 @@ public class FarmViewModel {
     }
 
     public void plant() {
-        if (plantingManager.plant(selectedTile)) {
-            System.out.println("posadzono rosline");
-        }
-        else {
-            System.out.println("nie udalo sie posadzic");
-        }
+       plantingManager.plant(selectedTile);
         updateSelectedTile();
     }
 
     public void water() {
-        if (gameState.getHand().getType() == ItemType.WATERING_CAN && plantingManager.water(selectedTile)) {
-            System.out.println("udało się podlac");
-        }
-        else {
-            System.out.println("nie udalo sie podlac");
+        if (gameState.getHand().getType() == ItemType.WATERING_CAN) {
+            plantingManager.water(selectedTile);
         }
     }
 
@@ -236,21 +228,11 @@ public class FarmViewModel {
     }
 
     public void collect() {
-        if(!collectingManager.collect(selectedTile)) {
-            System.out.println("nie udało się zebrać warzywa");
-        } else {
-            System.out.println("udało się zebrać warzywa");
-        }
+        collectingManager.collect(selectedTile);
     }
 
     public void completeActiveQuest() {
-        boolean completed = questManager.completeActiveQuest();
-
-        if (!completed) {
-            System.out.println("nie udało się zrobic questa");
-        } else {
-            System.out.println("udało się zrobic questa");
-        }
+        questManager.completeActiveQuest();
     }
 
     public void completeMainQuest() {
@@ -259,14 +241,11 @@ public class FarmViewModel {
         boolean completed = questManager.completeMainQuest();
 
         if (!completed) {
-            System.out.println("nie udało się zrobic main questa");
             return;
         }
 
         completedLevelNumber = currentLevelNumber;
         missionCompleteOpen = true;
-
-        System.out.println("ukończono level " + completedLevelNumber);
     }
 
     public boolean isMissionCompleteOpen() {
@@ -302,15 +281,12 @@ public class FarmViewModel {
             selectedTile = null;
             closeGameplayOverlays();
 
-            System.out.println("ukończono wszystkie poziomy");
             return;
         }
 
         questManager.resetSideQuestProgress();
 
         updateSelectedTile();
-
-        System.out.println("start levelu " + levelManager.getActiveLevelNumber());
     }
 
     public int getMoney() {
@@ -323,11 +299,8 @@ public class FarmViewModel {
                 Collections.unmodifiableMap(questManager.getActiveQuestRequiredItems()),
                 Collections.unmodifiableMap(questManager.getMainQuestRequiredItems()),
                 questManager.getActiveQuestRewardMoney(),
-                questManager.getMainQuestRewardMoney(),
                 levelManager.getActiveLevelNumber(),
                 levelManager.getMaxLevelNumber(),
-                questManager.getActiveSideQuestNumber(),
-                questManager.getSideQuestsCount(),
                 levelManager.isGameFinished()
         );
     }
@@ -376,10 +349,9 @@ public class FarmViewModel {
         shopManager.buyItem(type);
     }
 
-    public boolean interactWithTile() {
-        if (!(selectedTile instanceof ActivityTile)) return false;
+    public void interactWithTile() {
+        if (!(selectedTile instanceof ActivityTile activityTile)) return;
 
-        ActivityTile activityTile = (ActivityTile) selectedTile;
         ActivityTileType activityTileType = activityTile.getActivityTileType();
 
         switch (activityTileType)
@@ -402,7 +374,6 @@ public class FarmViewModel {
         }
 
         updateSelectedTile();
-        return true;
     }
 
     public void toggleSettings() {

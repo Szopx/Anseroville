@@ -9,11 +9,11 @@ public class QuestRequirement {
 
     public QuestRequirement(ItemType itemType, int amount) {
         if (itemType == null) {
-            throw new IllegalArgumentException("lipa z tym ze item jest null");
+            throw new IllegalArgumentException("Item type cannot be null");
         }
 
         if (amount <= 0) {
-            throw new IllegalArgumentException("liczba <= 0");
+            throw new IllegalArgumentException("Number of quest requirement cannot be less than zero");
         }
 
         this.itemType = itemType;

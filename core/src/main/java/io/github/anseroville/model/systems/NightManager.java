@@ -73,12 +73,7 @@ public class NightManager {
     private void handleNightStart() {
         torchThisNight = inventory.remove(ItemType.TORCH, 1);
 
-        if (torchThisNight) {
-            System.out.println("Pochodnia zostala zuzyta na te noc.");
-        }
-
         if (inventory.has(ItemType.SHIELD, 1)) {
-            System.out.println("Masz tarcze - uprawy sa bezpieczne.");
             inventory.remove(ItemType.SHIELD, 1);
             return;
         }
@@ -102,6 +97,5 @@ public class NightManager {
             tile.clearCrop();
         }
 
-        System.out.println("Noc zniszczyla uprawy: " + positionsToClear.size());
     }
 }
