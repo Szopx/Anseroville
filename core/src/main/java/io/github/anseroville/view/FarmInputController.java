@@ -165,10 +165,6 @@ public class FarmInputController {
             viewModel.interactWithTile();
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.G)) {
-            viewModel.playMachine();
-        }
-
         if (Gdx.input.isKeyJustPressed(Input.Keys.W)) {
             viewModel.water();
         }
@@ -183,14 +179,6 @@ public class FarmInputController {
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.C)) {
             viewModel.collect();
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-            viewModel.completeActiveQuest();
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.M)) {
-            viewModel.completeMainQuest();
         }
     }
 
