@@ -3,26 +3,18 @@
 1780850690415.png
 1780850704908.png
 1780850713647.png
+1780916658684.png
+1780942696699.png
+1780942711612.png
+1780942823478.png
+1780942833791.png
+1780944113394.png
+1780944158844.png
+1780944221388.png
+1780944307499.png
+autumnbg.png
 background.png
-carrot.png
-carrot_0.png
-carrot_1.png
-carrot_2.png
-carrot_3.png
-carrot_seed.png
 coin.png
-corn.png
-corn_0.png
-corn_1.png
-corn_2.png
-corn_3.png
-corn_seed.png
-field.png
-field_selected.png
-geese.png
-geese1.png
-geese2.png
-geeseShop.png
 help_wood.png
 inventory.png
 ivy_corner.png
@@ -33,22 +25,76 @@ lvl3.png
 lvl4.png
 nightWithlamp.png
 nightnolamp.png
-pidgeon.png
-potato.png
-potato_0.png
-potato_1.png
-potato_2.png
-potato_3.png
-potato_seed.png
+npcs/1780916394579.png
+npcs/baby_chick.png
+npcs/babychick_selected.png
+npcs/frog.png
+npcs/frog_selected.png
+npcs/geese.png
+npcs/geese1.png
+npcs/geese2.png
+npcs/geese_selected.png
+npcs/hedgehog.png
+npcs/hedgehog_selected.png
+npcs/pidgeon.png
+npcs/row-1-column-1 (5).png
+npcs/row-1-column-2 (4).png
+npcs/row-1-column-2 (5).png
+npcs/row-1-column-3 (1).png
+npcs/row-1-column-3 (5).png
+npcs/row-1-column-3.png
+npcs/row-1-column-4 (1).png
+npcs/row-1-column-4 (5).png
+npcs/row-1-column-5 (3).png
+npcs/row-1-column-6 (2).png
+npcs/row-1-column-6 (3).png
+npcs/row-1-column-7.png
+npcs/sheep.png
+npcs/sheep_selected.png
+plants/carrot.png
+plants/carrot_0.png
+plants/carrot_1.png
+plants/carrot_2.png
+plants/carrot_3.png
+plants/carrot_seed.png
+plants/corn.png
+plants/corn_0.png
+plants/corn_1.png
+plants/corn_2.png
+plants/corn_3.png
+plants/corn_seed.png
+plants/potato.png
+plants/potato_0.png
+plants/potato_1.png
+plants/potato_2.png
+plants/potato_3.png
+plants/potato_seed.png
+plants/wheat.png
+plants/wheat_0.png
+plants/wheat_1.png
+plants/wheat_2.png
+plants/wheat_3.png
+plants/wheat_seed.png
+player_back.png
+player_front.png
+player_left.png
+player_right.png
+player_side.png
 quests.png
+row-1-column-2 (3).png
+row-1-column-3 (2).png
+row-1-column-3 (3).png
+row-1-column-4 (2).png
 shield.png
 shop.png
+springbg.png
+tiles/bridge.png
+tiles/bridge_selected.png
+tiles/field.png
+tiles/field_selected.png
+tiles/geeseShop.png
+tiles/geeseShop_selected.png
+tiles/wateredtile.png
 todo.txt
-wateredtile.png
 wateringcan.png
-wheat.png
-wheat_0.png
-wheat_1.png
-wheat_2.png
-wheat_3.png
-wheat_seed.png
+winterbg.png

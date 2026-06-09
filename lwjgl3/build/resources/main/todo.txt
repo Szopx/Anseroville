@@ -1,12 +1,25 @@
-inventory poprawić
-GUI grafiki
-levele
-Player grafika
-final win
-poprawić questy
--gambling gołąb animacja
-mostek
-GUI POPRAWIĆ
+--- inventory poprawić
+--- shop poprawić
 
+??czy chcemy zmniejszyć inventory i shop
+??selected npece
+
+ruszanie się gęsi
+GUI POPRAWIĆ
+PSZENICA POPRAWIĆ
+
+animacje!! zaimplementować
 zrobić .json
+:komiksy wygenerować
+posprzątać
+
+
+Grafiki: grafiki nasion mają tetegi
+grafika lampy
+grafika tarczy
+bg gry ()
+gołąb selected
+zaznaczony watered tile
+
+
 
