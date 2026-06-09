@@ -45,16 +45,6 @@ public class AssetProvider {
     //todo zamienić to na private i zrobić gettery
     final Texture gamblingTextureSelected;
 
-     final Texture chickenTexture;
-     final Texture chickenTexture_selected;
-     final Texture geeseTexture;
-     final Texture geeseTexture_selected;
-     final Texture hedgehogTexture;
-     final Texture hedgehogTexture_selected;
-     final Texture sheepTexture;
-     final Texture sheepTexture_selected;
-     final Texture frogTexture;
-     final Texture frogTexture_selected;
      Texture titleTexture;
      Texture sidePanelTexture;
      Texture buttonTexture;
@@ -76,7 +66,7 @@ public class AssetProvider {
     private final Texture frogTextureSelected;
 
     public AssetProvider() {
-        //backgrounds
+        //backgrounds todo dispose wszystko
         this.titleTexture = new Texture("lamp.png");
         this.lobbyTitleTexture = new Texture("lamp.png");
         this.sidePanelTexture = new Texture("shield.png");
@@ -101,8 +91,6 @@ public class AssetProvider {
         this.shopTexture_selected = new Texture("tiles/geeseShop_selected.png");
         this.bridgeTexture= new Texture("tiles/bridge.png");
         this.bridgeTextureSelected= new Texture("tiles/bridge_selected.png");;
-
-
 
         //npcs
         this.gamblingTexture = new Texture("npcs/pidgeon/0.png");

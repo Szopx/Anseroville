@@ -82,23 +82,23 @@ public class FarmRenderer {
                         //todo z jakiegoś powodu zwierzęta na wyższych levelach zaczynają z selected
                         int c = 1;
                         Texture texture = assetProvider.getGeeseTexture();
-                        Texture selectedTexture = assetProvider.getGeeseTexture();
+                        Texture selectedTexture = assetProvider.getGeeseTextureSelected();
                         if (viewModel.getLevelNumber() == 1) {
                             c = 3;
                             texture = assetProvider.getChickenTexture();
-                            selectedTexture = assetProvider.getChickenTexture();
+                            selectedTexture = assetProvider.getChickenTextureSelected();
                         } else if (viewModel.getLevelNumber() == 2) {
                             c = 3;
                             texture = assetProvider.getHedgehogTexture();
-                            selectedTexture = assetProvider.getHedgehogTexture();
+                            selectedTexture = assetProvider.getHedgehogTextureSelected();
                         } else if (viewModel.getLevelNumber() == 3) {
                             c = 3;
                             texture = assetProvider.getFrogTexture();
-                            selectedTexture = assetProvider.getFrogTexture();
+                            selectedTexture = assetProvider.getFrogTextureSelected();
                         } else if (viewModel.getLevelNumber() == 4) {
                             c = 3;
                             texture = assetProvider.getSheepTexture();
-                            selectedTexture = assetProvider.getSheepTexture();
+                            selectedTexture = assetProvider.getSheepTextureSelected();
                         }
                         if (tile.isSelected()) {
                             batch.draw(selectedTexture, tile.getX(), tile.getY(), texture.getWidth() * c, texture.getHeight() * c);
@@ -156,21 +156,16 @@ public class FarmRenderer {
 
     private void renderPlayer() {
         Direction direction = viewModel.getPlayerViewState().getDirection();
-        //System.out.println(viewModel.getPlayerViewState().getDirection());
         PlayerViewState player = viewModel.getPlayerViewState();
-        /*shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.setColor(Color.BLUE);
-        shapeRenderer.rect(player.getX(), player.getY(), PLAYER_SIZE, PLAYER_SIZE);
-        shapeRenderer.end();*/
 
         int c = 2;
         Texture texture = assetProvider.getPlayerFrontTexture();
         switch (direction) {
             case DOWN:
-                texture = assetProvider.getPlayerBackTexture();
+                texture = assetProvider.getPlayerFrontTexture();
                 break;
             case UP:
-                texture = assetProvider.getPlayerFrontTexture();
+                texture = assetProvider.getPlayerBackTexture();
                 break;
             case LEFT:
                 texture = assetProvider.getPlayerLeftTexture();
