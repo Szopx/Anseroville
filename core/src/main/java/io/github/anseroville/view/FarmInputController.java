@@ -2,7 +2,6 @@ package io.github.anseroville.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import io.github.anseroville.enums.Direction;
@@ -12,6 +11,13 @@ import io.github.anseroville.viewModel.FarmViewModel;
 public class FarmInputController {
     private static final float SETTINGS_PANEL_WIDTH = 700f;
     private static final float SETTINGS_PANEL_HEIGHT = 610f;
+    private static final float SHOP_START_X_BUY_RATIO = 0.11f;
+    private static final float SHOP_START_X_SELL_RATIO = 0.59f;
+    private static final float SHOP_START_Y_RATIO = 0.523f;
+    private static final float SHOP_OFFSET_X = 117f;
+    private static final float SHOP_OFFSET_Y = 140f;
+    private static final int SHOP_COLUMNS = 5;
+    private static final float SHOP_ICON_SIZE = 85f;
 
     private final FarmViewModel viewModel;
     private final Viewport viewport;
@@ -296,48 +302,39 @@ public class FarmInputController {
     }
 
     private void handleShopClick(float clickX, float clickY) {
-        float startX = viewport.getWorldWidth() * 0.1f;
-        float startY = viewport.getWorldHeight() * 0.545f;
-        float offsetX = 127f;
-        float offsetY = 140f;
-        int columns = 5;
-        int iconSize = 85;
+        float width = viewport.getWorldWidth();
+        float height = viewport.getWorldHeight();
+        float startY = height * SHOP_START_Y_RATIO;
 
+        float startXBuy = width * SHOP_START_X_BUY_RATIO;
+        if (handleShopSectionClick(clickX, clickY, startXBuy, startY, viewModel.getShopViewState().getBuyPrices().keySet(), true)) {
+            return;
+        }
+        float startXSell = width * SHOP_START_X_SELL_RATIO;
+        handleShopSectionClick(clickX, clickY, startXSell, startY, viewModel.getShopViewState().getSellPrices().keySet(), false);
+    }
+
+    private boolean handleShopSectionClick(float clickX, float clickY, float startX, float startY, Iterable<ItemType> items, boolean isBuying) {
         int index = 0;
 
-        for (ItemType itemType : viewModel.getShopViewState().getBuyPrices().keySet()) {
-            int col = index % columns;
-            int row = index / columns;
+        for (ItemType itemType : items) {
+            int col = index % SHOP_COLUMNS;
+            int row = index / SHOP_COLUMNS;
 
-            float drawX = startX + (col * offsetX);
-            float drawY = startY - (row * offsetY);
+            float hitBoxX = startX + (col * SHOP_OFFSET_X);
+            float hitBoxY = startY - (row * SHOP_OFFSET_Y);
 
-            if (isInside(clickX, clickY, drawX, drawY, iconSize, iconSize)) {
-                viewModel.buyItem(itemType);
-                break;
+            if (isInside(clickX, clickY, hitBoxX, hitBoxY, SHOP_ICON_SIZE, SHOP_ICON_SIZE)) {
+                if (isBuying) {
+                    viewModel.buyItem(itemType);
+                } else {
+                    viewModel.sellItem(itemType);
+                }
+                return true;
             }
-
             index++;
         }
-
-        startX = viewport.getWorldWidth() * 0.59f;
-        offsetX = 135f;
-        index = 0;
-
-        for (ItemType itemType : viewModel.getShopViewState().getSellPrices().keySet()) {
-            int col = index % columns;
-            int row = index / columns;
-
-            float drawX = startX + (col * offsetX);
-            float drawY = startY - (row * offsetY);
-
-            if (isInside(clickX, clickY, drawX, drawY, iconSize, iconSize)) {
-                viewModel.sellItem(itemType);
-                break;
-            }
-
-            index++;
-        }
+        return false;
     }
 
     private void handleGameEndInput() {
