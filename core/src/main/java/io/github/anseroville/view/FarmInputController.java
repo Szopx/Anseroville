@@ -173,6 +173,10 @@ public class FarmInputController {
             viewModel.cycleMovementSpeed();
         }
 
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_5)) {
+            viewModel.resetLevelCount();
+        }
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.U)) {
             viewModel.interactWithTile();
         }

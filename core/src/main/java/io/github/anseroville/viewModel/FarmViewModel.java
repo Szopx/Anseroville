@@ -493,7 +493,7 @@ public class FarmViewModel {
     public void backToLobbyAfterGameEnd() {
         isGameEndOpen = false;
         missionCompleteOpen = false;
-        completedLevelNumber = 0;
+        resetLevelCount();
         isLobbyOpen = true;
 
         selectedTile = null;
@@ -514,5 +514,11 @@ public class FarmViewModel {
 
     public void getItemsForMainQuest() {
         questManager.getItemsForMainQuest();
+    }
+
+    public void resetLevelCount() {
+        completedLevelNumber = 0;
+        levelManager.resetActiveLevelIndex();
+        levelManager.initializeCurrentLevel();
     }
 }

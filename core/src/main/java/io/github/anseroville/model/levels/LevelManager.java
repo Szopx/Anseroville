@@ -127,4 +127,10 @@ public class LevelManager {
     private void resetPlayer() {
         gameState.getPlayer().teleportToStart();
     }
+
+    public void resetActiveLevelIndex() {
+        this.activeLevelIndex = 0;
+        this.gameFinished = false;
+        this.initialized = false;
+    }
 }
