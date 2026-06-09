@@ -292,6 +292,11 @@ public class FarmViewModel {
         if (!missionCompleteOpen) {
             return;
         }
+        if (completedLevelNumber==-1){
+            missionCompleteOpen = false;
+            completedLevelNumber = 0;
+            return;
+        }
 
         missionCompleteOpen = false;
 
@@ -351,9 +356,10 @@ public class FarmViewModel {
 
     public NightViewState getNightViewState() {
         if (!gameSettings.isNightCycleEnabled())
-            return new NightViewState(false, true, 0f);
+            return new NightViewState(false, true, 0f, false);
 
-        return new NightViewState(nightManager.isNight(), nightManager.hasTorch(), nightManager.getNightRemainingTime());
+        return new NightViewState(nightManager.isNight(), nightManager.hasTorch(),
+                nightManager.getNightRemainingTime(), nightManager.hasShield());
     }
 
     public boolean isNightWithoutTorch() {
@@ -473,8 +479,8 @@ public class FarmViewModel {
     public void startGame() {
         isLobbyOpen = false;
         isGameEndOpen = false;
-        missionCompleteOpen = false;
-        completedLevelNumber = 0;
+        missionCompleteOpen = true;
+        completedLevelNumber = -1;
 
         closeGameplayOverlays();
         updateSelectedTile();
@@ -500,6 +506,9 @@ public class FarmViewModel {
 
     public int getLevelNumber() {
         return levelManager.getActiveLevelNumber();
+    }
+    public int getCompletedLevelNumber() {
+        return completedLevelNumber;
     }
 
     public void skipLevel() {

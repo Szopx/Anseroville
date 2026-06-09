@@ -29,12 +29,12 @@ public class GameEndRenderer {
     private static final Color WOOD_MID = new Color(0.30f, 0.16f, 0.06f, 0.94f);
     private static final Color PANEL_GREEN = new Color(0.045f, 0.13f, 0.06f, 0.96f);
     private static final Color PANEL_GREEN_INNER = new Color(0.075f, 0.20f, 0.09f, 0.96f);
-
-    private static final Color GOLD = new Color(0.96f, 0.72f, 0.22f, 1f);
-    private static final Color GOLD_DARK = new Color(0.55f, 0.32f, 0.08f, 1f);
-    private static final Color GREEN = new Color(0.18f, 0.48f, 0.20f, 0.98f);
-    private static final Color GREEN_DARK = new Color(0.06f, 0.22f, 0.08f, 0.98f);
-    private static final Color GREEN_LIGHT = new Color(0.28f, 0.62f, 0.25f, 0.96f);
+    static float p = -0.30f;
+    private static final Color GOLD = new Color(0.96f+p, 0.72f+p, 0.22f+p, 1f);
+    private static final Color GOLD_DARK = new Color(0.55f+p, 0.32f+p, 0.08f+p, 1f);
+    private static final Color GREEN = new Color(0.18f+p, 0.48f+p, 0.20f+p, 0.98f);
+    private static final Color GREEN_DARK = new Color(0.06f+p, 0.22f+p, 0.08f+p, 0.98f);
+    private static final Color GREEN_LIGHT = new Color(0.28f+p, 0.62f+p, 0.25f+p, 0.96f);
 
     private static final Color TEXT = new Color(0.98f, 0.96f, 0.88f, 1f);
     private static final Color TEXT_MUTED = new Color(0.78f, 0.86f, 0.72f, 1f);
@@ -48,6 +48,7 @@ public class GameEndRenderer {
     private final BitmapFont titleFont;
     private final BitmapFont textFont;
     private final BitmapFont smallFont;
+    private final AssetProvider assetProvider;
 
     public GameEndRenderer(
             FarmViewModel viewModel,
@@ -65,6 +66,7 @@ public class GameEndRenderer {
         this.titleFont = assetProvider.getBigFont();
         this.textFont = assetProvider.getMediumFont();
         this.smallFont = assetProvider.getSmallestFont();
+        this.assetProvider = assetProvider;
     }
 
     public void render() {
@@ -73,7 +75,9 @@ public class GameEndRenderer {
         if (!state.isOpen()) {
             return;
         }
-
+        batch.begin();
+        batch.draw(assetProvider.comix6, 0, 0, camera.viewportWidth, camera.viewportHeight);
+        batch.end();
         shapeRenderer.setProjectionMatrix(camera.combined);
         batch.setProjectionMatrix(camera.combined);
 
@@ -89,20 +93,9 @@ public class GameEndRenderer {
 
         beginShapes();
 
-        shapeRenderer.setColor(SCREEN_OVERLAY);
-        shapeRenderer.rect(0, 0, camera.viewportWidth, camera.viewportHeight);
-
-        drawRoundedRect(panelX + 14f, panelY - 14f, PANEL_WIDTH, PANEL_HEIGHT, CORNER_RADIUS, SHADOW);
-
-        drawRoundedRect(panelX, panelY, PANEL_WIDTH, PANEL_HEIGHT, CORNER_RADIUS, GOLD_DARK);
-        drawRoundedRect(panelX + 7f, panelY + 7f, PANEL_WIDTH - 14f, PANEL_HEIGHT - 14f, CORNER_RADIUS - 4f, WOOD_DARK);
-        drawRoundedRect(panelX + 26f, panelY + 26f, PANEL_WIDTH - 52f, PANEL_HEIGHT - 52f, CORNER_RADIUS - 8f, PANEL_GREEN);
-
-        drawRoundedRect(panelX + 74f, panelY + 250f, PANEL_WIDTH - 148f, 106f, 22f, PANEL_GREEN_INNER);
-
         renderButton(getButtonX(), getButtonY());
 
-        renderOrnaments(panelX, panelY);
+        //renderOrnaments(panelX, panelY);
 
         endShapes();
     }
@@ -142,35 +135,11 @@ public class GameEndRenderer {
 
         batch.begin();
 
-        titleFont.setColor(TEXT);
-        drawCentered(titleFont, "CONGRATULATIONS!", panelX, panelY + PANEL_HEIGHT - 58f, PANEL_WIDTH);
-
-        textFont.setColor(GOLD);
-        drawCentered(textFont, "YOU COMPLETED ANSEROVILLE", panelX, panelY + 315f, PANEL_WIDTH);
-
-        smallFont.setColor(TEXT_MUTED);
-        drawCentered(
-                smallFont,
-                "Your farm survived every challenge and all levels are complete.",
-                panelX,
-                panelY + 224f,
-                PANEL_WIDTH
-        );
-
-        smallFont.setColor(TEXT);
-        drawCentered(
-                smallFont,
-                "Thank you for playing!",
-                panelX,
-                panelY + 186f,
-                PANEL_WIDTH
-        );
-
         textFont.setColor(TEXT);
         drawCentered(textFont, "BACK TO LOBBY", getButtonX(), getButtonY() + 46f, BUTTON_WIDTH);
 
-        smallFont.setColor(TEXT_MUTED);
-        drawCentered(smallFont, "Press ENTER or click the button.", panelX, panelY + 42f, PANEL_WIDTH);
+        //smallFont.setColor(TEXT_MUTED);
+        //drawCentered(smallFont, "Press ENTER or click the button.", panelX, panelY + 42f, PANEL_WIDTH);
 
         batch.end();
     }
@@ -226,11 +195,11 @@ public class GameEndRenderer {
     }
 
     public static float getButtonX(float viewportWidth) {
-        return getPanelX(viewportWidth) + (PANEL_WIDTH - BUTTON_WIDTH) / 2f;
+        return getPanelX(viewportWidth) + (PANEL_WIDTH - BUTTON_WIDTH) / 2f-340;
     }
 
     public static float getButtonY(float viewportHeight) {
-        return getPanelY(viewportHeight) + BUTTON_Y_OFFSET;
+        return getPanelY(viewportHeight) + BUTTON_Y_OFFSET-340;
     }
 
     private float getPanelX() {

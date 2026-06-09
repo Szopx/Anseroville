@@ -24,6 +24,7 @@ public class NightManager {
 
     private boolean nightEffectApplied = false;
     private boolean torchThisNight = false;
+    private boolean shieldThisNight = false;
 
     public NightManager(
             Inventory inventory, WorldState worldState
@@ -48,6 +49,7 @@ public class NightManager {
 
         nightEffectApplied = false;
         torchThisNight = false;
+        shieldThisNight = false;
     }
 
     public boolean isNight() {
@@ -78,11 +80,12 @@ public class NightManager {
         }
 
         if (inventory.has(ItemType.SHIELD, 1)) {
+            shieldThisNight = true;
             System.out.println("Masz tarcze - uprawy sa bezpieczne.");
             inventory.remove(ItemType.SHIELD, 1);
             return;
         }
-
+        shieldThisNight = false;
         removeRandomCrops();
     }
 
@@ -103,5 +106,8 @@ public class NightManager {
         }
 
         System.out.println("Noc zniszczyla uprawy: " + positionsToClear.size());
+    }
+    public boolean hasShield(){
+        return shieldThisNight;
     }
 }

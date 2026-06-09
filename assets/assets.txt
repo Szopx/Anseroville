@@ -10,8 +10,15 @@ backgrounds/shop.png
 backgrounds/springbg.png
 backgrounds/winterbg.png
 button.png
+cchicken.png
+cfrog.png
+chedgehog.png
 close_button.png
 coin.png
+csheep.png
+end.png
+final.png
+help.png
 help_wood.png
 ivy_corner.png
 lamp.png
@@ -83,6 +90,7 @@ player/right/0.png
 player/right/1.png
 player/right/2.png
 quests.png
+rabus.png
 shield.png
 smallpanel.png
 tiles/bridge.png

@@ -75,13 +75,11 @@ public class HelpRenderer {
             return;
         }
 
-        shapeRenderer.setProjectionMatrix(camera.combined);
-        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        float c =0.75f;
+        batch.draw(assetProvider.help, 400, 160, assetProvider.help.getWidth()*c, assetProvider.help.getHeight()*c);
 
-        renderBoard();
-        renderText();
-
-        resetFontColors();
+        batch.end();
     }
 
     private void renderBoard() {

@@ -58,6 +58,13 @@ public class AssetProvider {
      Texture titleTexture;
      Texture sidePanelTexture;
      Texture buttonTexture;
+    Texture comix1;
+    Texture comix2;
+    Texture comix3;
+    Texture comix4;
+    Texture comix5;
+    Texture comix6;
+    Texture help;
     private final Texture bridgeTexture;
     private final Texture bridgeTextureSelected;
     private final Texture playerFrontTexture;
@@ -76,6 +83,7 @@ public class AssetProvider {
     private final Texture frogTextureSelected;
     private final Texture nightWithLampTexture;
     private final Texture nightWithoutLampTexture;
+    Texture rabus;
 
     public AssetProvider() {
         //backgrounds todo dispose wszystko
@@ -97,6 +105,14 @@ public class AssetProvider {
         //lists
         this.plantTextures = new EnumMap<>(ItemType.class);
         this.itemTextures = new EnumMap<>(ItemType.class);
+        this.rabus = new Texture("rabus.png");
+        this.comix1 = new Texture("cfrog.png");
+        this.comix2 = new Texture("cchicken.png");
+        this.comix3 = new Texture("chedgehog.png");
+        this.comix4 = new Texture("csheep.png");
+        this.comix5 = new Texture("final.png");
+        this.comix6 = new Texture("end.png");
+        this.help = new Texture("help.png");
 
         //tiles
         this.fieldTexture = new Texture("tiles/field.png");

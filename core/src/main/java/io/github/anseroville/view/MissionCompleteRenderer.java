@@ -15,7 +15,7 @@ public class MissionCompleteRenderer {
 
     public static final float CONTINUE_BUTTON_WIDTH = 260f;
     public static final float CONTINUE_BUTTON_HEIGHT = 64f;
-    public static final float CONTINUE_BUTTON_Y_OFFSET = 72f;
+    public static final float CONTINUE_BUTTON_Y_OFFSET = 72f-370f;
 
     private static final Color OVERLAY_COLOR = new Color(0f, 0f, 0f, 0.72f);
     private static final Color PANEL_BACKGROUND_COLOR = new Color(0.04f, 0.07f, 0.05f, 1f);
@@ -30,6 +30,7 @@ public class MissionCompleteRenderer {
     private final SpriteBatch batch;
     private final ShapeRenderer shapeRenderer;
     private final GlyphLayout glyphLayout;
+    AssetProvider assetProvider;
 
     private final BitmapFont titleFont;
     private final BitmapFont textFont;
@@ -47,6 +48,7 @@ public class MissionCompleteRenderer {
         this.batch = batch;
         this.shapeRenderer = shapeRenderer;
         this.glyphLayout = new GlyphLayout();
+        this.assetProvider = assetProvider;
 
         this.titleFont = assetProvider.getBigFont();
         this.textFont = assetProvider.getMediumFont();
@@ -59,10 +61,27 @@ public class MissionCompleteRenderer {
         if (!state.isOpen()) {
             return;
         }
+        batch.begin();
+        System.out.println(viewModel.getCompletedLevelNumber());
+        if (viewModel.getCompletedLevelNumber() == -1) {
+            batch.draw(assetProvider.comix1, 0, 0, camera.viewportWidth, camera.viewportHeight);
+        }
+        else if(viewModel.getCompletedLevelNumber() == 1){
+            batch.draw(assetProvider.comix2, 0, 0, camera.viewportWidth, camera.viewportHeight);
 
-        shapeRenderer.setProjectionMatrix(camera.combined);
-        batch.setProjectionMatrix(camera.combined);
+        }
+        else if(viewModel.getCompletedLevelNumber() ==2){
+            batch.draw(assetProvider.comix3, 0, 0, camera.viewportWidth, camera.viewportHeight);
 
+        }
+        else if(viewModel.getCompletedLevelNumber() == 3){
+            batch.draw(assetProvider.comix4, 0, 0, camera.viewportWidth, camera.viewportHeight);
+
+        }
+        else{
+            batch.draw(assetProvider.comix5, 0, 0, camera.viewportWidth, camera.viewportHeight);
+        }
+        batch.end();
         renderBackground();
         renderText(state);
     }
@@ -76,26 +95,7 @@ public class MissionCompleteRenderer {
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
-        shapeRenderer.setColor(OVERLAY_COLOR);
-        shapeRenderer.rect(0, 0, camera.viewportWidth, camera.viewportHeight);
 
-        shapeRenderer.setColor(new Color(0f, 0f, 0f, 0.45f));
-        shapeRenderer.rect(panelX + 10f, panelY - 10f, PANEL_WIDTH, PANEL_HEIGHT);
-
-        shapeRenderer.setColor(PANEL_BACKGROUND_COLOR);
-        shapeRenderer.rect(panelX, panelY, PANEL_WIDTH, PANEL_HEIGHT);
-
-        shapeRenderer.setColor(GOLD_COLOR);
-        shapeRenderer.rect(panelX, panelY + PANEL_HEIGHT - 10f, PANEL_WIDTH, 10f);
-        shapeRenderer.rect(panelX, panelY, PANEL_WIDTH, 8f);
-        shapeRenderer.rect(panelX, panelY, 8f, PANEL_HEIGHT);
-        shapeRenderer.rect(panelX + PANEL_WIDTH - 8f, panelY, 8f, PANEL_HEIGHT);
-
-        shapeRenderer.setColor(PANEL_INNER_COLOR);
-        shapeRenderer.rect(panelX + 24f, panelY + 24f, PANEL_WIDTH - 48f, PANEL_HEIGHT - 48f);
-
-        shapeRenderer.setColor(new Color(0.12f, 0.30f, 0.14f, 1f));
-        shapeRenderer.rect(panelX + 70f, panelY + 250f, PANEL_WIDTH - 140f, 86f);
 
         shapeRenderer.setColor(GREEN_COLOR);
         shapeRenderer.rect(buttonX, buttonY, CONTINUE_BUTTON_WIDTH, CONTINUE_BUTTON_HEIGHT);
@@ -112,44 +112,6 @@ public class MissionCompleteRenderer {
 
         batch.begin();
 
-        titleFont.setColor(TEXT_COLOR);
-        drawCentered(
-                titleFont,
-                "LEVEL " + state.getCompletedLevelNumber() + " COMPLETED",
-                panelX,
-                panelY + PANEL_HEIGHT - 92f,
-                PANEL_WIDTH
-        );
-
-        textFont.setColor(GOLD_COLOR);
-        drawCentered(
-                textFont,
-                "MAIN QUEST COMPLETED!",
-                panelX,
-                panelY + 298f,
-                PANEL_WIDTH
-        );
-
-        smallFont.setColor(MUTED_TEXT_COLOR);
-
-        if (state.isFinalLevel()) {
-            drawCentered(
-                    smallFont,
-                    "You completed the last level. Great job!",
-                    panelX,
-                    panelY + 220f,
-                    PANEL_WIDTH
-            );
-        } else {
-            drawCentered(
-                    smallFont,
-                    "Click continue to start level " + state.getNextLevelNumber() + ".",
-                    panelX,
-                    panelY + 220f,
-                    PANEL_WIDTH
-            );
-        }
-
         textFont.setColor(TEXT_COLOR);
         drawCentered(
                 textFont,
@@ -159,14 +121,6 @@ public class MissionCompleteRenderer {
                 CONTINUE_BUTTON_WIDTH
         );
 
-        smallFont.setColor(MUTED_TEXT_COLOR);
-        drawCentered(
-                smallFont,
-                "You can also press ENTER.",
-                panelX,
-                panelY + 42f,
-                PANEL_WIDTH
-        );
 
         resetFontColors();
 

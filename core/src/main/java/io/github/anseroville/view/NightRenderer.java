@@ -36,6 +36,11 @@ public class NightRenderer {
         } else {
             batch.draw(assetProvider.getNightWithoutLampTexture(), 0, 0, camera.viewportWidth, camera.viewportHeight);
         }
+        if (!nightViewState.hasShield()){
+            //System.out.println("EO");
+            float c = 0.5f;
+            batch.draw(assetProvider.rabus, 0,0, assetProvider.rabus.getWidth()*c, assetProvider.rabus.getHeight()*c);
+        }
         batch.end();
     }
 

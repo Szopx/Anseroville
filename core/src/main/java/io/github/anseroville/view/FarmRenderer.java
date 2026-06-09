@@ -2,6 +2,7 @@ package io.github.anseroville.view;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.PolygonBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -83,15 +84,15 @@ public class FarmRenderer {
                         int c = 1;
                         Texture texture = assetProvider.getGeeseTexture();
                         Texture selectedTexture = assetProvider.getGeeseTextureSelected();
-                        if (viewModel.getLevelNumber() == 1) {
+                        if (viewModel.getLevelNumber() == 2) {
                             c = 3;
                             texture = assetProvider.getChickenTexture();
                             selectedTexture = assetProvider.getChickenTextureSelected();
-                        } else if (viewModel.getLevelNumber() == 2) {
+                        } else if (viewModel.getLevelNumber() == 3) {
                             c = 3;
                             texture = assetProvider.getHedgehogTexture();
                             selectedTexture = assetProvider.getHedgehogTextureSelected();
-                        } else if (viewModel.getLevelNumber() == 3) {
+                        } else if (viewModel.getLevelNumber() == 1) {
                             c = 3;
                             texture = assetProvider.getFrogTexture();
                             selectedTexture = assetProvider.getFrogTextureSelected();
@@ -135,22 +136,26 @@ public class FarmRenderer {
                 } else {
                     batch.draw(assetProvider.getFieldTexture(), tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
                 }
-                if (tile.isSelected()) { //todo inny selected dla podlanego musi byc
+                if (tile.isSelected()) {
                     batch.draw(assetProvider.getSelectedFieldTexture(), tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
                 }
 
-                ItemType plantType = tile.whatGrows();
-                GrowingState state = tile.getGrowingState();
 
-                if (plantType != null && state != null && state != GrowingState.ZERO) {
-                    Texture plantTexture = assetProvider.getPlantTexture(plantType, state);
-
-                    if (plantTexture != null) {
-                        batch.draw(plantTexture, tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
-                    }
-                }
             }
         }
+
+        for (TileViewState tile : viewModel.getTileViewStates())
+        {ItemType plantType = tile.whatGrows();
+        GrowingState state = tile.getGrowingState();
+
+        if (plantType != null && state != null && state != GrowingState.ZERO) {
+            Texture plantTexture = assetProvider.getPlantTexture(plantType, state);
+            int sizey= TILE_SIZE;
+            if (plantType!= ItemType.POTATO && plantType!= ItemType.CARROT) {sizey*=2;}
+            if (plantTexture != null) {
+                batch.draw(plantTexture, tile.getX(), tile.getY(), TILE_SIZE, sizey);
+            }
+        }}
         batch.end();
     }
 
