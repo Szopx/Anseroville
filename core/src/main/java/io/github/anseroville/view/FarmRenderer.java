@@ -47,9 +47,9 @@ public class FarmRenderer {
 
     private void renderBackground() {
         batch.begin();
-        if (viewModel.getLevelNumber() ==1){ batch.draw(assetProvider.getBackgroundTexture(), 0, 0, camera.viewportWidth, camera.viewportHeight);}
-        else if (viewModel.getLevelNumber() ==2){ batch.draw(assetProvider.springBackgroundTexture, 0, 0, camera.viewportWidth, camera.viewportHeight);}
-        else if (viewModel.getLevelNumber() ==3){ batch.draw(assetProvider.winterBackgroundTexture, 0, 0, camera.viewportWidth, camera.viewportHeight);}
+        if (viewModel.getLevelNumber() ==2){ batch.draw(assetProvider.getBackgroundTexture(), 0, 0, camera.viewportWidth, camera.viewportHeight);}
+        else if (viewModel.getLevelNumber() ==1){ batch.draw(assetProvider.springBackgroundTexture, 0, 0, camera.viewportWidth, camera.viewportHeight);}
+        else if (viewModel.getLevelNumber() ==4){ batch.draw(assetProvider.winterBackgroundTexture, 0, 0, camera.viewportWidth, camera.viewportHeight);}
         else { batch.draw(assetProvider.autumnBackgroundTexture, 0, 0, camera.viewportWidth, camera.viewportHeight);}
         batch.end();
     }
@@ -82,23 +82,23 @@ public class FarmRenderer {
                         //todo z jakiegoś powodu zwierzęta na wyższych levelach zaczynają z selected
                         int c = 1;
                         Texture texture = assetProvider.getGeeseTexture();
-                        Texture selectedTexture = assetProvider.getGeeseTexture();
-                        if (viewModel.getLevelNumber() == 1) {
+                        Texture selectedTexture = assetProvider.getGeeseTextureSelected();
+                        if (viewModel.getLevelNumber() == 2) {
                             c = 3;
                             texture = assetProvider.getChickenTexture();
-                            selectedTexture = assetProvider.getChickenTexture();
-                        } else if (viewModel.getLevelNumber() == 2) {
-                            c = 3;
-                            texture = assetProvider.getHedgehogTexture();
-                            selectedTexture = assetProvider.getHedgehogTexture();
+                            selectedTexture = assetProvider.getChickenTextureSelected();
                         } else if (viewModel.getLevelNumber() == 3) {
                             c = 3;
+                            texture = assetProvider.getHedgehogTexture();
+                            selectedTexture = assetProvider.getHedgehogTextureSelected();
+                        } else if (viewModel.getLevelNumber() == 1) {
+                            c = 3;
                             texture = assetProvider.getFrogTexture();
-                            selectedTexture = assetProvider.getFrogTexture();
+                            selectedTexture = assetProvider.getFrogTextureSelected();
                         } else if (viewModel.getLevelNumber() == 4) {
                             c = 3;
                             texture = assetProvider.getSheepTexture();
-                            selectedTexture = assetProvider.getSheepTexture();
+                            selectedTexture = assetProvider.getSheepTextureSelected();
                         }
                         if (tile.isSelected()) {
                             batch.draw(selectedTexture, tile.getX(), tile.getY(), texture.getWidth() * c, texture.getHeight() * c);

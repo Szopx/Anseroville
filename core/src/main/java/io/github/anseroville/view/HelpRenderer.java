@@ -19,8 +19,8 @@ public class HelpRenderer {
     private static final float CARD_HEIGHT = 280f;
     private static final float CARD_GAP = 42f;
 
-    private static final float CORNER_RADIUS = 26f;
-    private static final float CARD_RADIUS = 18f;
+    private static final float CORNER_RADIUS = 1f;
+    private static final float CARD_RADIUS = 1f;
 
     private static final Color SCREEN_OVERLAY = new Color(0f, 0f, 0f, 0.66f);
 
@@ -67,7 +67,7 @@ public class HelpRenderer {
 
         this.titleFont = assetProvider.getBigFont();
         this.sectionFont = assetProvider.getMediumFont();
-        this.textFont = assetProvider.getSmallestFont();
+        this.textFont = assetProvider.getSmallFont();
     }
 
     public void render() {
@@ -114,16 +114,16 @@ public class HelpRenderer {
         beginShapes();
 
         drawRoundedRect(panelX, panelY, PANEL_WIDTH, PANEL_HEIGHT, CORNER_RADIUS, GOLD_DARK);
-        drawRoundedRect(panelX + 7f, panelY + 7f, PANEL_WIDTH - 14f, PANEL_HEIGHT - 14f, CORNER_RADIUS - 4f, WOOD_DARK_OVERLAY);
+        drawRoundedRect(panelX + 7f, panelY + 7f, PANEL_WIDTH - 14f, PANEL_HEIGHT - 14f, CORNER_RADIUS , WOOD_DARK_OVERLAY);
 
-        drawRoundedRect(introX, introY, introWidth, 96f, CARD_RADIUS, GREEN_DARK);
+        drawRoundedRect(introX+80, introY+20, introWidth-160, 96f, CARD_RADIUS, GREEN_DARK);
 
         renderPaperCard(leftCardX, cardY, CARD_WIDTH, CARD_HEIGHT);
         renderPaperCard(rightCardX, cardY, CARD_WIDTH, CARD_HEIGHT);
 
-        drawRoundedRect(footerX, footerY, footerWidth, 54f, 18f, GREEN_DARK);
+        drawRoundedRect(footerX, footerY, footerWidth, 54f, 0f, GREEN_DARK);
 
-        renderSmallGoldOrnaments(panelX, panelY);
+        //renderSmallGoldOrnaments(panelX, panelY);
 
         endShapes();
 
@@ -188,10 +188,10 @@ public class HelpRenderer {
         drawCentered(titleFont, "HOW TO PLAY", panelX, panelY + PANEL_HEIGHT - 56f, PANEL_WIDTH);
 
         textFont.setColor(TEXT_LIGHT);
-        drawCentered(textFont, "Grow crops, complete quests and unlock new levels.", introX, introY + 62f, introWidth);
+        drawCentered(textFont, "Grow crops, complete quests and unlock new levels.", introX, introY + 92f, introWidth);
 
         textFont.setColor(new Color(0.80f, 0.88f, 0.72f, 1f));
-        drawCentered(textFont, "Plant seeds, water them, harvest crops and move through the story.", introX, introY + 34f, introWidth);
+        drawCentered(textFont, "Plant seeds, water them, harvest crops and move through the story.", introX, introY + 64f, introWidth);
 
         sectionFont.setColor(TEXT_DARK);
         drawCentered(sectionFont, "FARMING", leftCardX, cardY + CARD_HEIGHT - 36f, CARD_WIDTH);

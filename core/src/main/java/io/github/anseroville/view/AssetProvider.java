@@ -46,15 +46,15 @@ public class AssetProvider {
     final Texture gamblingTextureSelected;
 
      final Texture chickenTexture;
-     final Texture chickenTexture_selected;
+     //final Texture chickenTexture_selected;
      final Texture geeseTexture;
-     final Texture geeseTexture_selected;
+     //final Texture geeseTexture_selected;
      final Texture hedgehogTexture;
-     final Texture hedgehogTexture_selected;
+     //final Texture hedgehogTexture_selected;
      final Texture sheepTexture;
-     final Texture sheepTexture_selected;
+     //final Texture sheepTexture_selected;
      final Texture frogTexture;
-     final Texture frogTexture_selected;
+     //final Texture frogTexture_selected;
      Texture titleTexture;
      Texture sidePanelTexture;
      Texture buttonTexture;
@@ -64,23 +64,23 @@ public class AssetProvider {
     private final Texture playerBackTexture;
     private final Texture playerRightTexture;
     private final Texture playerLeftTexture;
-    private final Texture chickenTexture;
+    //private final Texture chickenTexture;
     private final Texture chickenTextureSelected;
-    private final Texture geeseTexture;
+    //private final Texture geeseTexture;
     private final Texture geeseTextureSelected;
-    private final Texture hedgehogTexture;
+    //private final Texture hedgehogTexture;
     private final Texture hedgehogTextureSelected;
-    private final Texture sheepTexture;
+    //private final Texture sheepTexture;
     private final Texture sheepTextureSelected;
-    private final Texture frogTexture;
+    //private final Texture frogTexture;
     private final Texture frogTextureSelected;
 
     public AssetProvider() {
         //backgrounds
-        this.titleTexture = new Texture("lamp.png");
-        this.lobbyTitleTexture = new Texture("lamp.png");
-        this.sidePanelTexture = new Texture("shield.png");
-        this.buttonTexture = new Texture("wateringcan.png");
+        this.titleTexture = new Texture("logo.png");
+        this.lobbyTitleTexture = new Texture("logo.png");
+        this.sidePanelTexture = new Texture("longpanel.png");
+        this.buttonTexture = new Texture("button.png");
         this.backgroundTexture = new Texture("backgrounds/background.png");
         this.inventoryTexture = new Texture("backgrounds/inventory.png");
         this.shopInsideTexture = new Texture("backgrounds/shop.png");

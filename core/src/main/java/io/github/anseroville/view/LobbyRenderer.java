@@ -13,16 +13,16 @@ public class LobbyRenderer {
     // ── Layout ────────────────────────────────────────────────────────────────
 
     // Title image (title.png) drawn centered near the top
-    private static final float TITLE_W = 520f;
-    private static final float TITLE_H = 160f;   // adjust to match your asset's aspect ratio
+    private static final float TITLE_W = 1000f;
+    private static final float TITLE_H = 400f;   // adjust to match your asset's aspect ratio
 
     // Side panel (side.png) on the left
-    private static final float PANEL_W = 290f;
-    private static final float PANEL_H = 410f;
+    private static final float PANEL_W = 400f;
+    private static final float PANEL_H = 610f;
 
     // Button (button.png) — each button is one copy of this texture
-    public static final float BUTTON_WIDTH = 400f;
-    public static final float BUTTON_HEIGHT = 68f;
+    public static final float BUTTON_WIDTH = 600f;
+    public static final float BUTTON_HEIGHT = 120f;
     public static final float BUTTON_GAP = 14f;
 
     // ── Text colours ──────────────────────────────────────────────────────────
@@ -58,6 +58,19 @@ public class LobbyRenderer {
         this.smallFont     = assetProvider.getSmallestFont();
     }
 
+    private boolean isInside(
+            float clickX,
+            float clickY,
+            float x,
+            float y,
+            float width,
+            float height
+    ) {
+        return clickX >= x
+                && clickX <= x + width
+                && clickY >= y
+                && clickY <= y + height;
+    }
     // ── Public entry point ────────────────────────────────────────────────────
     public void render() {
         if (!viewModel.isLobbyOpen()) return;
@@ -101,7 +114,7 @@ public class LobbyRenderer {
         Texture title = assetProvider.getTitleTexture();   // title.png
 
         float x = (camera.viewportWidth - TITLE_W) / 2f;
-        float y = camera.viewportHeight - TITLE_H - 10f;  // 10px gap from top
+        float y = camera.viewportHeight - TITLE_H - 40f;  // 10px gap from top
 
         batch.draw(title, x, y, TITLE_W, TITLE_H);
     }
@@ -144,28 +157,29 @@ public class LobbyRenderer {
 
         // ── Panel: header ────────────────────────────────────────────────────
         textFont.setColor(TEXT);
-        drawCentered(textFont, "WELCOME, FARMER!", px, py + PANEL_H - 28f, PANEL_W);
+        drawCentered(textFont, "WELCOME, FARMER!", px, py + PANEL_H - 130f, PANEL_W);
 
         // ── Panel: description ────────────────────────────────────────────────
         smallFont.setColor(TEXT_MUTED);
         float descX = px + 24f;
-        smallFont.draw(batch, "Build your farm step by step.", descX, py + PANEL_H - 80f);
-        smallFont.draw(batch, "Plant seeds, water crops and",  descX, py + PANEL_H - 102f);
-        smallFont.draw(batch, "harvest them.",                  descX, py + PANEL_H - 124f);
-        smallFont.draw(batch, "Complete quests to help",        descX, py + PANEL_H - 146f);
-        smallFont.draw(batch, "your goose friends.",            descX, py + PANEL_H - 168f);
+        smallFont.draw(batch, "Build your farm step by step.", descX+30, py + PANEL_H - 180f);
+        smallFont.draw(batch, "Plant seeds, water crops and",  descX+30, py + PANEL_H - 200f);
+        smallFont.draw(batch, "harvest them.",                  descX+30, py + PANEL_H - 220f);
+        smallFont.draw(batch, "Complete quests to help",        descX+30, py + PANEL_H - 240f);
+        smallFont.draw(batch, "your goose friends.",            descX+30, py + PANEL_H - 260f);
 
         // ── Panel: bullet list ────────────────────────────────────────────────
         smallFont.setColor(TEXT);
         float[] bys    = getBulletYs(py);
+        float offset = - 150f;
         String[] items = { "GROW CROPS", "WATER AND CARE", "HARVEST CROPS", "COMPLETE QUESTS", "UNLOCK NEW AREAS" };
         for (int i = 0; i < items.length; i++) {
-            smallFont.draw(batch, items[i], px + 46f, bys[i] + 6f);
+            smallFont.draw(batch, items[i], px + +30, bys[i] + 6f+offset);
         }
 
         // ── Panel: footer note ────────────────────────────────────────────────
         smallFont.setColor(TEXT_GOLD);
-        drawCentered(smallFont, "Main quests move you forward.", px, py + 26f, PANEL_W);
+        drawCentered(smallFont, "Main quests move you forward.", px, py + 46f, PANEL_W);
 
         // ── Button labels (centered in each button) ───────────────────────────
         textFont.setColor(TEXT);
@@ -209,11 +223,11 @@ public class LobbyRenderer {
     // Layout — static overloads kept public for the input handler
     // ─────────────────────────────────────────────────────────────────────────
     private float getPanelX() {
-        return Math.max(40f, camera.viewportWidth * 0.055f);
+        return Math.max(40f, camera.viewportWidth * 0.75f);
     }
 
     private float getPanelY() {
-        return (camera.viewportHeight - PANEL_H) / 2f - 10f;
+        return (camera.viewportHeight - PANEL_H) / 2f - 100f;
     }
 
     public static float getButtonX(float viewportWidth) {

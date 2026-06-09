@@ -1,4 +1,5 @@
-1780944113394.png
+S_button.png
+S_close_button.png
 backgrounds/autumnbg.png
 backgrounds/background.png
 backgrounds/inventory.png
@@ -8,11 +9,15 @@ backgrounds/nightnolamp.png
 backgrounds/shop.png
 backgrounds/springbg.png
 backgrounds/winterbg.png
+button.png
+close_button.png
 coin.png
 help_wood.png
 ivy_corner.png
 lamp.png
 libgdx.png
+logo.png
+longpanel.png
 npcs/chicken/0.png
 npcs/chicken/1.png
 npcs/chicken/selected.png
@@ -79,12 +84,14 @@ player/right/1.png
 player/right/2.png
 quests.png
 shield.png
+smallpanel.png
 tiles/bridge.png
 tiles/bridge_selected.png
 tiles/field.png
 tiles/field_selected.png
 tiles/geeseShop.png
 tiles/geeseShop_selected.png
+tiles/selectedTile.png
 tiles/wateredfield.png
 todo.txt
 wateringcan.png

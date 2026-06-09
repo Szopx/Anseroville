@@ -21,6 +21,10 @@ animacje!! zaimplementować
 GUI
 
 
+
+HELPA GUI
+zaznaczony pidgeon
+zaznaczanie się przycisków
 zrobić .json
 :komiksy wygenerować
 posprzątać
