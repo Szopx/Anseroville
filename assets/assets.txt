@@ -2,7 +2,7 @@
 backgrounds/autumnbg.png
 backgrounds/background.png
 backgrounds/inventory.png
-backgrounds/lobby_farm.jpg
+backgrounds/lobby_farm.png
 backgrounds/nightWithlamp.png
 backgrounds/nightnolamp.png
 backgrounds/shop.png

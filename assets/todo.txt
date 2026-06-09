@@ -8,11 +8,13 @@ spacja zamiast u
 strzałki
 
 
+GUI ANIMACJE PSZENICA
+
 
 
 
 ruszanie się gęsi
-GUI POPRAWIĆ
+GUI POPRAWIĆ KOMIKSY
 PSZENICA POPRAWIĆ
 
 animacje!! zaimplementować
@@ -28,8 +30,7 @@ posprzątać
 
 
 Grafiki: grafiki nasion mają tetegi
-grafika lampy
-grafika tarczy
+
 bg gry ()
 gołąb selected
 zaznaczony watered tile #ok

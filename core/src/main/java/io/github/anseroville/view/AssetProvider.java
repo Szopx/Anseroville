@@ -37,6 +37,7 @@ public class AssetProvider {
     private final Texture shopTexture;
     private final Texture shopTexture_selected;
     private final Texture gamblingTexture;
+    final Texture lobbyTitleTexture;
 
 
     private final Texture helpWoodTexture;
@@ -60,13 +61,20 @@ public class AssetProvider {
      final Texture sheepTexture_selected;
      final Texture frogTexture;
      final Texture frogTexture_selected;
+     Texture titleTexture;
+     Texture sidePanelTexture;
+     Texture buttonTexture;
 
     public AssetProvider() {
         //backgrounds
+        this.titleTexture = new Texture("lamp.png");
+        this.lobbyTitleTexture = new Texture("lamp.png");
+        this.sidePanelTexture = new Texture("shield.png");
+        this.buttonTexture = new Texture("wateringcan.png");
         this.backgroundTexture = new Texture("backgrounds/background.png");
         this.inventoryTexture = new Texture("backgrounds/inventory.png");
         this.shopInsideTexture = new Texture("backgrounds/shop.png");
-        this.lobbyBackgroundTexture = new Texture("backgrounds/lobby_farm.jpg");
+        this.lobbyBackgroundTexture = new Texture("backgrounds/lobby_farm.png");
         this.springBackgroundTexture = new Texture("backgrounds/springbg.png");
         this.winterBackgroundTexture = new Texture("backgrounds/winterbg.png");
         this.autumnBackgroundTexture = new Texture("backgrounds/autumnbg.png");
@@ -159,7 +167,7 @@ public class AssetProvider {
         registerPlant(ItemType.CORN, "plants/corn/0.png", "plants/corn/1.png", "plants/corn/3.png");
         registerPlant(ItemType.WHEAT, "plants/wheat/0.png", "plants/wheat/1.png", "plants/wheat/3.png");
         registerPlant(ItemType.POTATO, "plants/potato/0.png", "plants/potato/1.png", "plants/potato/3.png");}
-    //z jakiegoś powodu wheat jest niższy niż powinien, zamknę ten problem później
+    //z jakiegoś powodu wheat jest niższy niż powinien, zamknę ten problem później todo wiem jak
 
     private void loadAllItems() {
         itemTextures.put(ItemType.CARROT, new Texture("plants/carrot/item.png"));
@@ -257,6 +265,10 @@ public class AssetProvider {
     public Texture getSelectedShopTexture() {
         return shopTexture_selected;
     }
+
+    public Texture getTitleTexture()     { return titleTexture;     }  // title.png
+    public Texture getSidePanelTexture() { return sidePanelTexture; }  // side.png
+    public Texture getButtonTexture()    { return buttonTexture;    }  // button.png
 
     public void dispose(){
         backgroundTexture.dispose();

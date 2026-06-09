@@ -88,7 +88,7 @@ public class AnserovilleGame extends ApplicationAdapter {
         helpRenderer = new HelpRenderer(farmViewModel, camera, batch, shapeRenderer, assetProvider);
         shopRenderer = new ShopRenderer(assetProvider, camera, batch);
         missionCompleteRenderer = new MissionCompleteRenderer(farmViewModel, camera, batch, shapeRenderer, assetProvider);
-        lobbyRenderer = new LobbyRenderer(farmViewModel, camera, batch, shapeRenderer, assetProvider);
+        lobbyRenderer = new LobbyRenderer(farmViewModel, camera, batch, assetProvider);
         gameEndRenderer = new GameEndRenderer(farmViewModel, camera, batch, shapeRenderer, assetProvider);
     }
 
