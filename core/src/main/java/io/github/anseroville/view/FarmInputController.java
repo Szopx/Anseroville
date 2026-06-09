@@ -31,16 +31,13 @@ public class FarmInputController {
             return;
         }
 
-        if (handleGlobalInput()) {
-            return;
-        }
-
         if (viewModel.isMissionCompleteOpen()) {
             handleMissionCompleteInput();
             return;
         }
 
         if (viewModel.isHelpOpen()) {
+            handleHelpInput();
             return;
         }
 
@@ -49,15 +46,17 @@ public class FarmInputController {
             return;
         }
 
-        handleInventoryInput();
-
         if (viewModel.isInventoryOpen()) {
+            handleInventoryInput();
             return;
         }
 
-        handleShopInput();
-
         if (viewModel.isShopOpen()) {
+            handleShopInput();
+            return;
+        }
+
+        if (handleOverlayOpenInput()) {
             return;
         }
 
@@ -69,8 +68,8 @@ public class FarmInputController {
         handleGameActions();
     }
 
-    private boolean handleGlobalInput() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+    private boolean handleOverlayOpenInput() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.H)) {
             viewModel.toggleHelp();
             return true;
         }
@@ -80,10 +79,28 @@ public class FarmInputController {
             return true;
         }
 
+        if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
+            viewModel.toggleInventory();
+            return true;
+        }
+
         return false;
     }
 
+    private void handleHelpInput() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.H)
+                || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            viewModel.toggleHelp();
+        }
+    }
+
     private void handleSettingsInput() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)
+                || Gdx.input.isKeyJustPressed(Input.Keys.O)) {
+            viewModel.toggleSettings();
+            return;
+        }
+
         if (!Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)) {
             return;
         }
@@ -93,12 +110,9 @@ public class FarmInputController {
     }
 
     private void handleInventoryInput() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)
+                || Gdx.input.isKeyJustPressed(Input.Keys.I)) {
             viewModel.toggleInventory();
-            return;
-        }
-
-        if (!viewModel.isInventoryOpen()) {
             return;
         }
 
@@ -109,12 +123,9 @@ public class FarmInputController {
     }
 
     private void handleShopInput() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)
+                || Gdx.input.isKeyJustPressed(Input.Keys.S)) {
             viewModel.toggleShop();
-            return;
-        }
-
-        if (!viewModel.isShopOpen()) {
             return;
         }
 
@@ -166,7 +177,7 @@ public class FarmInputController {
             viewModel.teleportPlayer();
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.H)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
             viewModel.plant();
         }
 
@@ -350,19 +361,14 @@ public class FarmInputController {
 
     private void handleLobbyInput() {
         if (viewModel.isHelpOpen()) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.H)
+                    || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
                 viewModel.toggleHelp();
             }
-
             return;
         }
 
         if (viewModel.isSettingsOpen()) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.O)) {
-                viewModel.toggleSettings();
-                return;
-            }
-
             handleSettingsInput();
             return;
         }
@@ -372,7 +378,7 @@ public class FarmInputController {
             return;
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.H)) {
             viewModel.toggleHelp();
             return;
         }

@@ -286,7 +286,7 @@ public class LobbyRenderer {
         smallFont.setColor(TEXT_MUTED);
         drawCentered(
                 smallFont,
-                "ENTER - Start    ESC - Help    O - Settings",
+                "ENTER - Start    H - Help    O - Settings",
                 0,
                 38f,
                 camera.viewportWidth
