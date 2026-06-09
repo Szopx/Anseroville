@@ -1,20 +1,19 @@
 package io.github.anseroville.view;
 
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.PolygonBatch;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import io.github.anseroville.enums.ActivityTileType;
 import io.github.anseroville.enums.Direction;
 import io.github.anseroville.enums.GrowingState;
 import io.github.anseroville.enums.ItemType;
-import io.github.anseroville.model.tiles.GroundTile;
 import io.github.anseroville.viewModel.FarmViewModel;
 import io.github.anseroville.viewModel.PlayerViewState;
 import io.github.anseroville.viewModel.TileViewState;
-import io.github.anseroville.enums.Direction;
 
 public class FarmRenderer {
     private static final int TILE_SIZE = 75; //integrate tilesizes
@@ -25,6 +24,12 @@ public class FarmRenderer {
     private final AssetProvider assetProvider;
     private final SpriteBatch batch;
     private final ShapeRenderer shapeRenderer;
+    private float stateTime = 0f;
+    private float playerStateTime = 0f;
+    private int lastPlayerX = -999;
+    private int lastPlayerY = -999;
+    private float animalOffsetX = 0f;
+    private int lastLevelNumber = -1;
 
     public FarmRenderer(FarmViewModel viewModel,
                         OrthographicCamera camera,
@@ -39,24 +44,44 @@ public class FarmRenderer {
     }
 
     public void render() {
+        float delta = Gdx.graphics.getDeltaTime();
+        stateTime += delta;
+        PlayerViewState player = viewModel.getPlayerViewState();
+        if (player.getX() != lastPlayerX || player.getY() != lastPlayerY) {
+            playerStateTime += delta;
+            lastPlayerX = player.getX();
+            lastPlayerY = player.getY();
+        } else {
+            playerStateTime = 0f;
+        }
+        if (viewModel.getLevelNumber() != lastLevelNumber) {
+            animalOffsetX = camera.viewportWidth;
+            lastLevelNumber = viewModel.getLevelNumber();
+        }
+
+        if (animalOffsetX > 0) {
+            animalOffsetX -= 200f * delta;
+            if (animalOffsetX < 0) {
+                animalOffsetX = 0f;
+            }
+        }
+        batch.begin();
         batch.setProjectionMatrix(camera.combined);
         shapeRenderer.setProjectionMatrix(camera.combined);
         renderBackground();
         renderTiles();
         renderPlayer();
+        batch.end();
     }
 
     private void renderBackground() {
-        batch.begin();
         if (viewModel.getLevelNumber() ==2){ batch.draw(assetProvider.getBackgroundTexture(), 0, 0, camera.viewportWidth, camera.viewportHeight);}
         else if (viewModel.getLevelNumber() ==1){ batch.draw(assetProvider.springBackgroundTexture, 0, 0, camera.viewportWidth, camera.viewportHeight);}
         else if (viewModel.getLevelNumber() ==4){ batch.draw(assetProvider.winterBackgroundTexture, 0, 0, camera.viewportWidth, camera.viewportHeight);}
         else { batch.draw(assetProvider.autumnBackgroundTexture, 0, 0, camera.viewportWidth, camera.viewportHeight);}
-        batch.end();
     }
 
     private void renderTiles() {
-        batch.begin();
 
         for (TileViewState tile : viewModel.getTileViewStates()) {
             ActivityTileType activityHere = tile.getActivityTileType();
@@ -72,48 +97,53 @@ public class FarmRenderer {
                         }
                         break;
                     case GAMBLING:
-                        batch.draw(assetProvider.getGamblingTexture(), tile.getX() - 15, tile.getY(), 150, 200);
-                        if (tile.isSelected()) {
-                            batch.draw(assetProvider.gamblingTextureSelected, tile.getX()-15, tile.getY(), 150, 200);
+                        TextureRegion pidgeonFrame = assetProvider.getPidgeonAnim().getKeyFrame(stateTime, true);
+                        batch.draw(pidgeonFrame, tile.getX() - 15, tile.getY(), 150, 200);
 
+                        if (tile.isSelected()) {
+                            batch.draw(assetProvider.gamblingTextureSelected, tile.getX() - 15, tile.getY(), 150, 200);
                         }
                         break;
                     case MAIN_QUEST:
 
                         //todo z jakiegoś powodu zwierzęta na wyższych levelach zaczynają z selected
                         int c = 1;
-                        Texture texture = assetProvider.getGeeseTexture();
+                        Animation<TextureRegion> anim;
+                        anim = assetProvider.getGeeseAnim();
                         Texture selectedTexture = assetProvider.getGeeseTextureSelected();
                         if (viewModel.getLevelNumber() == 2) {
                             c = 3;
-                            texture = assetProvider.getChickenTexture();
+                            anim = assetProvider.getChickenAnim();
                             selectedTexture = assetProvider.getChickenTextureSelected();
                         } else if (viewModel.getLevelNumber() == 3) {
                             c = 3;
-                            texture = assetProvider.getHedgehogTexture();
+                            anim = assetProvider.getHedgehogAnim();
                             selectedTexture = assetProvider.getHedgehogTextureSelected();
                         } else if (viewModel.getLevelNumber() == 1) {
                             c = 3;
-                            texture = assetProvider.getFrogTexture();
+                            anim = assetProvider.getFrogAnim();
                             selectedTexture = assetProvider.getFrogTextureSelected();
                         } else if (viewModel.getLevelNumber() == 4) {
                             c = 3;
-                            texture = assetProvider.getSheepTexture();
+                            anim = assetProvider.getSheepAnim();
                             selectedTexture = assetProvider.getSheepTextureSelected();
                         }
                         if (tile.isSelected()) {
-                            batch.draw(selectedTexture, tile.getX(), tile.getY(), texture.getWidth() * c, texture.getHeight() * c);
+                            batch.draw(selectedTexture, tile.getX(), tile.getY(), selectedTexture.getWidth() * c, selectedTexture.getHeight() * c);
                         } else {
-                            batch.draw(texture, tile.getX(), tile.getY(), texture.getWidth() * c, texture.getHeight() * c);
+                            TextureRegion frame = anim.getKeyFrame(stateTime, true);
+                            batch.draw(frame, tile.getX(), tile.getY(), frame.getRegionWidth() * c, frame.getRegionHeight() * c);;
                         }
                         break;
                     case QUEST:
                         c = 3;
                         if (tile.isSelected()) {
-                            batch.draw(assetProvider.getGeeseTextureSelected(), tile.getX(), tile.getY(), assetProvider.getGeeseTextureSelected().getWidth() * c, assetProvider.getGeeseTextureSelected().getHeight() * c);
-
+                            Texture sel = assetProvider.getGeeseTextureSelected();
+                            batch.draw(sel, tile.getX() + animalOffsetX, tile.getY(), sel.getWidth() * c, sel.getHeight() * c);
                         } else {
-                            batch.draw(assetProvider.getGeeseTexture(), tile.getX(), tile.getY(), assetProvider.getGeeseTextureSelected().getWidth() * c, assetProvider.getGeeseTextureSelected().getHeight() * c);
+                            float timeToUse = (animalOffsetX > 0) ? stateTime : 0f;
+                            TextureRegion frame = assetProvider.getGeeseAnim().getKeyFrame(timeToUse, true);
+                            batch.draw(frame, tile.getX() + animalOffsetX, tile.getY(), frame.getRegionWidth() * c, frame.getRegionHeight() * c);
                         }
                         break;
                     case WATER:
@@ -145,36 +175,32 @@ public class FarmRenderer {
         }
 
         for (TileViewState tile : viewModel.getTileViewStates())
-        {ItemType plantType = tile.whatGrows();
-        GrowingState state = tile.getGrowingState();
+            {ItemType plantType = tile.whatGrows();
+            GrowingState state = tile.getGrowingState();
 
-        if (plantType != null && state != null && state != GrowingState.ZERO) {
-            Texture plantTexture = assetProvider.getPlantTexture(plantType, state);
-            int sizey= TILE_SIZE;
-            if (plantType!= ItemType.POTATO && plantType!= ItemType.CARROT) {sizey*=2;}
-            if (plantTexture != null) {
-                batch.draw(plantTexture, tile.getX(), tile.getY(), TILE_SIZE, sizey);
+            if (plantType != null && state != null && state != GrowingState.ZERO) {
+                Texture plantTexture = assetProvider.getPlantTexture(plantType, state);
+                int sizey= TILE_SIZE;
+                if (plantType!= ItemType.POTATO && plantType!= ItemType.CARROT) {sizey*=2;}
+                if (plantTexture != null) {
+                    batch.draw(plantTexture, tile.getX(), tile.getY(), TILE_SIZE, sizey);
+                }
             }
-        }}
-        batch.end();
+        }
     }
 
     private void renderPlayer() {
         Direction direction = viewModel.getPlayerViewState().getDirection();
         PlayerViewState player = viewModel.getPlayerViewState();
-
+        Animation<TextureRegion> anim;
         int c = 2;
-        Texture texture = switch (direction) {
-            case DOWN -> assetProvider.getPlayerFrontTexture();
-            case UP -> assetProvider.getPlayerBackTexture();
-            case LEFT -> assetProvider.getPlayerLeftTexture();
-            case RIGHT -> assetProvider.getPlayerRightTexture();
+        anim = switch (direction) {
+            case DOWN -> assetProvider.getPlayerFrontAnim();
+            case UP -> assetProvider.getPlayerBackAnim();
+            case LEFT -> assetProvider.getPlayerLeftAnim();
+            case RIGHT -> assetProvider.getPlayerRightAnim();
         };
-
-
-        batch.begin();
-        batch.draw(texture, player.getX()-25, player.getY()-25,
-                texture.getWidth() * c, texture.getHeight() * c);
-        batch.end();
+        TextureRegion frame = anim.getKeyFrame(playerStateTime, true);
+        batch.draw(frame, player.getX()-25, player.getY()-25, frame.getRegionWidth() * c, frame.getRegionHeight() * c);
     }
 }
