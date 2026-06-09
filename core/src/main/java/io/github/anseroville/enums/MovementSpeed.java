@@ -1,9 +1,9 @@
 package io.github.anseroville.enums;
 
 public enum MovementSpeed {
-    SLOW("SLOW", 1),
-    NORMAL("NORMAL", 2),
-    FAST("FAST", 4);
+    SLOW("SLOW", 2),
+    NORMAL("NORMAL", 4),
+    FAST("FAST", 8);
 
     private final String label;
     private final int playerSpeed;

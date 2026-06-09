@@ -62,11 +62,7 @@ public class NightManager {
         return isNight() && !hasTorch();
     }
 
-    public float getNightRemainingTime() {
-        if (!isNight()) {
-            return 0f;
-        }
-
+    public float getRemainingTime() {
         return dayNightCycle.getRemainingTime();
     }
 

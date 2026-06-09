@@ -326,7 +326,7 @@ public class FarmViewModel {
         if (!gameSettings.isNightCycleEnabled())
             return new NightViewState(false, true, 0f);
 
-        return new NightViewState(nightManager.isNight(), nightManager.hasTorch(), nightManager.getNightRemainingTime());
+        return new NightViewState(nightManager.isNight(), nightManager.hasTorch(), nightManager.getRemainingTime());
     }
 
     public boolean isNightWithoutTorch() {
