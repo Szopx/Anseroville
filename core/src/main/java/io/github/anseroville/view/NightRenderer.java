@@ -31,7 +31,7 @@ public class NightRenderer {
             return;
         }
 
-        batch.begin(); // todo: przesunac to wszystko w jedno miejsce
+        batch.begin();
         batch.setProjectionMatrix(camera.combined);
 
         if (nightViewState.hasTorch()) {
@@ -53,7 +53,6 @@ public class NightRenderer {
             bigFont.draw(batch, countdownText, centerX, adjustedY, 0, Align.center, false);
         }
         if (!nightViewState.hasShield()){
-            //System.out.println("EO");
             float c = 0.5f;
             batch.draw(assetProvider.rabus, 0,0, assetProvider.rabus.getWidth()*c, assetProvider.rabus.getHeight()*c);
         }

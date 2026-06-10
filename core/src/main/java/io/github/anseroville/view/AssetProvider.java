@@ -137,7 +137,6 @@ public class AssetProvider {
         this.sheepTextureSelected= new Texture("npcs/sheep/selected.png");
         this.frogTextureSelected= new Texture("npcs/frog/selected.png");
 
-
         //loose
         this.questBackgroundTexture = new Texture("quests.png");
         this.coinTexture = new Texture("coin.png");
@@ -228,7 +227,6 @@ public class AssetProvider {
         registerPlant(ItemType.CORN, "plants/corn/0.png", "plants/corn/1.png", "plants/corn/3.png");
         registerPlant(ItemType.WHEAT, "plants/wheat/0.png", "plants/wheat/1.png", "plants/wheat/3.png");
         registerPlant(ItemType.POTATO, "plants/potato/0.png", "plants/potato/1.png", "plants/potato/3.png");}
-    //z jakiegoś powodu wheat jest niższy niż powinien, zamknę ten problem później todo wiem jak
 
     private void loadAllItems() {
         itemTextures.put(ItemType.CARROT, new Texture("plants/carrot/item.png"));
@@ -323,9 +321,17 @@ public class AssetProvider {
         return shopTexture_selected;
     }
 
-    public Texture getTitleTexture()     { return titleTexture;     }  // title.png
-    public Texture getSidePanelTexture() { return sidePanelTexture; }  // side.png
-    public Texture getButtonTexture()    { return buttonTexture;    }  // button.png
+    public Texture getTitleTexture() {
+        return titleTexture;
+    }
+
+    public Texture getSidePanelTexture() {
+        return sidePanelTexture;
+    }
+
+    public Texture getButtonTexture() {
+        return buttonTexture;
+    }
 
     public Texture getNightWithLampTexture(){
         return nightWithLampTexture;
