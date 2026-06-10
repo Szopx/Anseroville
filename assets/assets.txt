@@ -27,12 +27,11 @@ csheep.png
 end.png
 final.png
 help.png
-help_wood.png
-ivy_corner.png
 lamp.png
 libgdx.png
 logo.png
 longpanel.png
+npcs/1781040798820.png
 npcs/chicken/0.png
 npcs/chicken/1.png
 npcs/chicken/selected.png

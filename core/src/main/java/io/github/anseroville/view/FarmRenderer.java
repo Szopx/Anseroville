@@ -16,8 +16,7 @@ import io.github.anseroville.viewModel.PlayerViewState;
 import io.github.anseroville.viewModel.TileViewState;
 
 public class FarmRenderer {
-    private static final int TILE_SIZE = 75; //integrate tilesizes
-    private static final int PLAYER_SIZE = 20;
+    private static final int TILE_SIZE = 75;
 
     private final FarmViewModel viewModel;
     private final OrthographicCamera camera;
@@ -90,10 +89,10 @@ public class FarmRenderer {
                 switch (activityHere) {
                     case SHOP:
                         if (tile.isSelected()) {
-                            batch.draw(assetProvider.getSelectedShopTexture(), tile.getX() - 560 / 2 + 50, tile.getY(), 560, 400);
+                            batch.draw(assetProvider.getSelectedShopTexture(), tile.getX() - 560/2f + 50, tile.getY(), 560, 400);
 
                         } else {
-                            batch.draw(assetProvider.getShopTexture(), tile.getX() - 560 / 2 + 50, tile.getY(), 560, 400);
+                            batch.draw(assetProvider.getShopTexture(), tile.getX() - 560/2f + 50, tile.getY(), 560, 400);
                         }
                         break;
                     case GAMBLING:
@@ -108,8 +107,6 @@ public class FarmRenderer {
                         }
                         break;
                     case MAIN_QUEST:
-
-                        //todo z jakiegoś powodu zwierzęta na wyższych levelach zaczynają z selected
                         int c = 1;
                         Animation<TextureRegion> anim;
                         anim = assetProvider.getGeeseAnim();
@@ -172,8 +169,6 @@ public class FarmRenderer {
                 if (tile.isSelected()) {
                     batch.draw(assetProvider.getSelectedFieldTexture(), tile.getX(), tile.getY(), TILE_SIZE, TILE_SIZE);
                 }
-
-
             }
         }
 
@@ -203,6 +198,7 @@ public class FarmRenderer {
             case LEFT -> assetProvider.getPlayerLeftAnim();
             case RIGHT -> assetProvider.getPlayerRightAnim();
         };
+        System.out.println("Gracz X: " + player.getX() + ", Y: " + player.getY());
         TextureRegion frame = anim.getKeyFrame(playerStateTime, true);
         batch.draw(frame, player.getX()-25, player.getY()-25, frame.getRegionWidth() * c, frame.getRegionHeight() * c);
     }

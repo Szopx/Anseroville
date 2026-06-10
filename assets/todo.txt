@@ -1,19 +1,11 @@
 ANIMACJE
-
-
+deszcz jak wyjdzie jak robimy animaje,
+revisit głomba
 
 
 
 Grafiki: grafiki nasion mają tetegi
 
-bg gry ()
-gołąb selected
-rozjaśnić wateredtile
-lis
-deszcz
-tarcza
-lampa
-primy
 
 
 
