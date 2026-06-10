@@ -1,29 +1,4 @@
---- inventory poprawić
---- shop poprawić
-
-??czy chcemy zmniejszyć inventory i shop
-
-??przyciski
-spacja zamiast u
-strzałki
-
-
-GUI ANIMACJE PSZENICA
-
-
-
-
-ruszanie się gęsi
-GUI POPRAWIĆ KOMIKSY
-PSZENICA POPRAWIĆ
-
-animacje!! zaimplementować
-GUI
-
-
-zrobić .json
-:komiksy wygenerować
-posprzątać
+ANIMACJE
 
 
 
@@ -33,7 +8,13 @@ Grafiki: grafiki nasion mają tetegi
 
 bg gry ()
 gołąb selected
-zaznaczony watered tile #ok
+rozjaśnić wateredtile
+lis
+deszcz
+tarcza
+lampa
+primy
+
 
 
 

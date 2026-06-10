@@ -66,6 +66,7 @@ public class AssetProvider {
     Texture comix5;
     Texture comix6;
     Texture help;
+    Texture buttonHoverTexture;
 
     private final Texture bridgeTexture;
     private final Texture bridgeTextureSelected;
@@ -119,23 +120,49 @@ public class AssetProvider {
         //npcs
         this.gamblingTextureSelected = new Texture("npcs/pidgeon/selected.png");
         this.animationFrames = new Array<>();
-        this.playerFrontAnim = loadAnimation(0.2f, "player/front/0.png", "player/front/1.png", "player/front/2.png");
-        this.playerBackAnim = loadAnimation(0.2f, "player/back/0.png", "player/back/1.png", "player/back/2.png");
-        this.playerRightAnim = loadAnimation(0.2f, "player/right/0.png", "player/right/1.png", "player/right/2.png");
-        this.playerLeftAnim = loadAnimation(0.2f, "player/left/0.png", "player/left/1.png", "player/left/2.png");
+        float flo = 0.15f;
+        this.playerFrontAnim = loadAnimation(flo, "player/front/0.png", "player/front/1.png", "player/front/2.png", "player/front/1.png");
+        this.playerBackAnim = loadAnimation(flo, "player/back/1.png", "player/back/0.png", "player/back/2.png", "player/back/0.png");
+        this.playerRightAnim = loadAnimation(flo, "player/right/0.png", "player/right/1.png", "player/right/2.png", "player/right/1.png");
+        this.playerLeftAnim = loadAnimation(flo, "player/left/0.png", "player/left/1.png", "player/left/0.png");
 
-        this.chickenAnim = loadAnimation(0.4f, "npcs/chicken/0.png", "npcs/chicken/1.png");
-        this.geeseAnim = loadAnimation(0.4f, "npcs/geese/0.png", "npcs/geese/1.png", "npcs/geese/3.png");
-        this.hedgehogAnim = loadAnimation(0.4f, "npcs/hedgehog/0.png", "npcs/hedgehog/1.png", "npcs/hedgehog/2.png");
-        this.sheepAnim = loadAnimation(0.4f, "npcs/sheep/0.png", "npcs/sheep/1.png", "npcs/sheep/2.png");
-        this.frogAnim = loadAnimation(0.25f, "npcs/frog/0.png", "npcs/frog/1.png", "npcs/frog/2.png", "npcs/frog/3.png", "npcs/frog/4.png", "npcs/frog/5.png", "npcs/frog/6.png", "npcs/frog/7.png", "npcs/frog/8.png");
-        this.pidgeonAnim = loadAnimation(1f, "npcs/pidgeon/0.png", "npcs/pidgeon/1.png");
+        this.chickenAnim = loadAnimation(2f, "npcs/chicken/0.png", "npcs/chicken/1.png");
+        this.geeseAnim = loadAnimation(0.15f, "npcs/geese/0.png", "npcs/geese/3.png", "npcs/geese/1.png", "npcs/geese/3.png");
+        this.hedgehogAnim = loadAnimation(0.1f,
+                "npcs/hedgehog/1.png", "npcs/hedgehog/1.png", "npcs/hedgehog/1.png",
+                "npcs/hedgehog/1.png", "npcs/hedgehog/1.png", "npcs/hedgehog/1.png",
+                "npcs/hedgehog/1.png", "npcs/hedgehog/1.png", "npcs/hedgehog/1.png",
+                "npcs/hedgehog/1.png", "npcs/hedgehog/1.png", "npcs/hedgehog/1.png",
+                "npcs/hedgehog/1.png", "npcs/hedgehog/1.png", "npcs/hedgehog/1.png",
+                "npcs/hedgehog/1.png", "npcs/hedgehog/1.png", "npcs/hedgehog/1.png",
+                "npcs/hedgehog/1.png", "npcs/hedgehog/1.png", "npcs/hedgehog/1.png",
+                "npcs/hedgehog/1.png", "npcs/hedgehog/1.png", "npcs/hedgehog/1.png",
+                "npcs/hedgehog/1.png", "npcs/hedgehog/1.png", "npcs/hedgehog/1.png",
+                "npcs/hedgehog/1.png", "npcs/hedgehog/1.png", "npcs/hedgehog/1.png",
+                "npcs/hedgehog/1.png", "npcs/hedgehog/1.png", "npcs/hedgehog/1.png",
+                "npcs/hedgehog/1.png", "npcs/hedgehog/1.png", "npcs/hedgehog/1.png",
+                "npcs/hedgehog/1.png", "npcs/hedgehog/1.png", "npcs/hedgehog/1.png",
+                "npcs/hedgehog/1.png", "npcs/hedgehog/2.png", "npcs/hedgehog/0.png",
+                "npcs/hedgehog/0.png", "npcs/hedgehog/0.png", "npcs/hedgehog/0.png",
+                "npcs/hedgehog/0.png", "npcs/hedgehog/0.png", "npcs/hedgehog/0.png",
+                "npcs/hedgehog/2.png");
+        this.sheepAnim = loadAnimation(0.6f, "npcs/sheep/1.png", "npcs/sheep/2.png", "npcs/sheep/0.png", "npcs/sheep/2.png");
+        this.frogAnim = loadAnimation(0.45f, "npcs/frog/0.png",
+                "npcs/frog/0.png", "npcs/frog/0.png", "npcs/frog/0.png",
+                "npcs/frog/5.png", "npcs/frog/3.png", "npcs/frog/5.png",
+                "npcs/frog/0.png", "npcs/frog/0.png", "npcs/frog/0.png",
+                "npcs/frog/0.png", "npcs/frog/0.png", "npcs/frog/0.png",
+                "npcs/frog/5.png", "npcs/frog/3.png", "npcs/frog/5.png",
+                "npcs/frog/1.png", "npcs/frog/2.png", "npcs/frog/4.png",
+                "npcs/frog/6.png", "npcs/frog/7.png", "npcs/frog/8.png");
+        this.pidgeonAnim = loadAnimation(6f, "npcs/pidgeon/0.png", "npcs/pidgeon/1.png");
 
         this.chickenTextureSelected = new Texture("npcs/chicken/selected.png");
         this.geeseTextureSelected= new Texture("npcs/geese/selected.png");
         this.hedgehogTextureSelected= new Texture("npcs/hedgehog/selected.png");
         this.sheepTextureSelected= new Texture("npcs/sheep/selected.png");
         this.frogTextureSelected= new Texture("npcs/frog/selected.png");
+        this.buttonHoverTexture = new Texture("S_button.png"); // Twoja nazwa pliku
 
 
         //loose
@@ -333,6 +360,9 @@ public class AssetProvider {
 
     public Texture getNightWithoutLampTexture() {
         return nightWithoutLampTexture;
+    }
+    public Texture getButtonHoverTexture() {
+        return buttonHoverTexture;
     }
 
     public void dispose(){

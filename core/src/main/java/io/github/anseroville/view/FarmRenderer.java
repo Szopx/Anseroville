@@ -98,10 +98,13 @@ public class FarmRenderer {
                         break;
                     case GAMBLING:
                         TextureRegion pidgeonFrame = assetProvider.getPidgeonAnim().getKeyFrame(stateTime, true);
-                        batch.draw(pidgeonFrame, tile.getX() - 15, tile.getY(), 150, 200);
 
                         if (tile.isSelected()) {
                             batch.draw(assetProvider.gamblingTextureSelected, tile.getX() - 15, tile.getY(), 150, 200);
+                        }
+                        else{
+                            batch.draw(pidgeonFrame, tile.getX() - 15, tile.getY(), 150, 200);
+
                         }
                         break;
                     case MAIN_QUEST:

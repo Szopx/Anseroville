@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="cb1bc609-8637-4ce6-aab7-ebe46ea78299" name="Changes" comment="merge?">
+      <change beforePath="$PROJECT_DIR$/.gradle/9.4.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.4.0/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.4.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.4.0/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.4.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.4.0/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.4.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.4.0/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/9.4.0/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/9.4.0/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/assets.txt" beforeDir="false" afterPath="$PROJECT_DIR$/assets/assets.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/npcs/pidgeon/selected.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/AnserovilleGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/AnserovilleGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/enums/CropType.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/enums/CropType.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/enums/MovementSpeed.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/enums/MovementSpeed.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/GameState.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/GameState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/gambling/Machine.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/gambling/Machine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/inventory/Hand.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/inventory/Hand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/inventory/Wallet.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/inventory/Wallet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/levels/Level.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/levels/Level.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/levels/LevelData.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/levels/LevelData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/levels/LevelManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/levels/LevelManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/quest/Quest.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/quest/Quest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/quest/QuestManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/quest/QuestManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/quest/QuestRequirement.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/quest/QuestRequirement.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/shop/ShopData.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/shop/ShopManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/shop/ShopManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/systems/CollisionManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/systems/CollisionManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/systems/CropGrowthSystem.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/systems/CropGrowthSystem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/systems/NightManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/systems/NightManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/tiles/Crop.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/tiles/Crop.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/tiles/GroundTile.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/tiles/GroundTile.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/tiles/InteractableTile.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/tiles/InteractableTile.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/tiles/TileData.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/model/tiles/TileData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/view/AssetProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/view/AssetProvider.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/view/FarmInputController.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/view/FarmInputController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/view/FarmRenderer$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/view/FarmRenderer$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/view/FarmRenderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/view/FarmRenderer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/view/HelpRenderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/view/HelpRenderer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/view/LobbyRenderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/view/LobbyRenderer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/view/NightRenderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/view/NightRenderer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/view/QuestRenderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/view/QuestRenderer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/view/SettingsRenderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/view/SettingsRenderer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/view/StatusBarRenderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/view/StatusBarRenderer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/viewModel/FarmViewModel$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/viewModel/FarmViewModel$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/viewModel/FarmViewModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/viewModel/FarmViewModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/viewModel/QuestViewState.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/viewModel/QuestViewState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/viewModel/TileViewState.class" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/classes/java/main/io/github/anseroville/viewModel/TileViewState.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/libs/core-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/libs/core-1.0.0.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/core/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/github/anseroville/view/AssetProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/github/anseroville/view/AssetProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/github/anseroville/view/FarmRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/github/anseroville/view/FarmRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/main/java/io/github/anseroville/view/LobbyRenderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/main/java/io/github/anseroville/view/LobbyRenderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lwjgl3/build/resources/main/1780944113394.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lwjgl3/build/resources/main/assets.txt" beforeDir="false" afterPath="$PROJECT_DIR$/lwjgl3/build/resources/main/assets.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lwjgl3/build/resources/main/npcs/pidgeon/selected.png" beforeDir="false" afterPath="$PROJECT_DIR$/lwjgl3/build/resources/main/npcs/pidgeon/selected.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lwjgl3/build/resources/main/todo.txt" beforeDir="false" afterPath="$PROJECT_DIR$/lwjgl3/build/resources/main/todo.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lwjgl3/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/lwjgl3/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+      <option value="repository" />
+    </option>
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="198" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Anseroville" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Anseroville" type="f1a62948:ProjectNode" />
+                <item name="lwjgl3" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Anseroville" type="f1a62948:ProjectNode" />
+                <item name="lwjgl3" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Anseroville" type="f1a62948:ProjectNode" />
+                <item name="lwjgl3" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="application" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Szopx&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Szopx/Anseroville&quot;,
+    &quot;accountId&quot;: &quot;1508abae-91de-448a-9181-3e69adb313b6&quot;
+  }
+}</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3E5gjiZJMBZA9n8fLVHZeRus89r" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.Anseroville [:lwjgl3:run].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/zosia/IdeaProjects/Anseroville&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\zosia\IdeaProjects\Anseroville\assets\npcs\pidgeon" />
+      <recent name="C:\Users\zosia\IdeaProjects\Anseroville\assets\tiles\" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Anseroville [:lwjgl3:run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":lwjgl3:run" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <GradleProfilingDisabled>false</GradleProfilingDisabled>
+      <GradleCoverageDisabled>false</GradleCoverageDisabled>
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.Anseroville [:lwjgl3:run]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cb1bc609-8637-4ce6-aab7-ebe46ea78299" name="Changes" comment="" />
+      <created>1779473983054</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1779473983054</updated>
+    </task>
+    <task id="LOCAL-00001" summary="renamed graphics">
+      <option name="closed" value="true" />
+      <created>1779474591453</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1779474591453</updated>
+    </task>
+    <task id="LOCAL-00002" summary="working inventory and biodiversity (diferent types of plants) important! you need to select with space not left mouse click. i couldnt implement it">
+      <option name="closed" value="true" />
+      <created>1779537997342</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1779537997342</updated>
+    </task>
+    <task id="LOCAL-00003" summary="cleaned up interactableTile">
+      <option name="closed" value="true" />
+      <created>1779694986481</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1779694986481</updated>
+    </task>
+    <task id="LOCAL-00004" summary="shop is working and gambling is working (for now i just gave them key 'u' when you have them selected and u is pressed they work. selection will be done)">
+      <option name="closed" value="true" />
+      <created>1780870366739</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1780870366739</updated>
+    </task>
+    <task id="LOCAL-00005" summary="npc graphics, player graphics and water graphics">
+      <option name="closed" value="true" />
+      <created>1780932361895</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1780932361895</updated>
+    </task>
+    <task id="LOCAL-00006" summary="zadziała w koncu?">
+      <option name="closed" value="true" />
+      <created>1780943234329</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1780943234329</updated>
+    </task>
+    <task id="LOCAL-00007" summary="assets cleaned up">
+      <option name="closed" value="true" />
+      <created>1780943342616</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1780943342616</updated>
+    </task>
+    <task id="LOCAL-00008" summary="seasons">
+      <option name="closed" value="true" />
+      <created>1780944448371</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1780944448371</updated>
+    </task>
+    <task id="LOCAL-00009" summary="seasons">
+      <option name="closed" value="true" />
+      <created>1780944710304</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1780944710304</updated>
+    </task>
+    <task id="LOCAL-00010" summary="working graphics">
+      <option name="closed" value="true" />
+      <created>1780948819355</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1780948819355</updated>
+    </task>
+    <task id="LOCAL-00011" summary="working graphics">
+      <option name="closed" value="true" />
+      <created>1780949429973</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1780949429973</updated>
+    </task>
+    <task id="LOCAL-00012" summary="working jeż">
+      <option name="closed" value="true" />
+      <created>1780950561438</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1780950561438</updated>
+    </task>
+    <task id="LOCAL-00013" summary="gui">
+      <option name="closed" value="true" />
+      <created>1781021275026</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1781021275026</updated>
+    </task>
+    <task id="LOCAL-00014" summary="gui">
+      <option name="closed" value="true" />
+      <created>1781021594090</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1781021594090</updated>
+    </task>
+    <task id="LOCAL-00015" summary="final helps">
+      <option name="closed" value="true" />
+      <created>1781033824112</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1781033824112</updated>
+    </task>
+    <task id="LOCAL-00016" summary="final helps">
+      <option name="closed" value="true" />
+      <created>1781033924152</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1781033924152</updated>
+    </task>
+    <task id="LOCAL-00017" summary="final helps">
+      <option name="closed" value="true" />
+      <created>1781033971954</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1781033971954</updated>
+    </task>
+    <task id="LOCAL-00018" summary="merge?">
+      <option name="closed" value="true" />
+      <created>1781066301244</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1781066301244</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="renamed graphics" />
+    <MESSAGE value="working inventory and biodiversity (diferent types of plants) important! you need to select with space not left mouse click. i couldnt implement it" />
+    <MESSAGE value="cleaned up interactableTile" />
+    <MESSAGE value="shop is working and gambling is working (for now i just gave them key 'u' when you have them selected and u is pressed they work. selection will be done)" />
+    <MESSAGE value="npc graphics, player graphics and water graphics" />
+    <MESSAGE value="zadziała w koncu?" />
+    <MESSAGE value="assets cleaned up" />
+    <MESSAGE value="seasons" />
+    <MESSAGE value="working graphics" />
+    <MESSAGE value="working jeż" />
+    <MESSAGE value="gui" />
+    <MESSAGE value="final helps" />
+    <MESSAGE value="merge?" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge?" />
+  </component>
+</project>

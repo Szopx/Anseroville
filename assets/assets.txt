@@ -1,3 +1,11 @@
+1781031348674.png
+1781031405762.png
+1781031449242.png
+1781031597886.png
+1781040449785.png
+1781040591481.png
+1781040678692.png
+1781040798820.png
 S_button.png
 S_close_button.png
 backgrounds/autumnbg.png
@@ -91,6 +99,9 @@ player/right/1.png
 player/right/2.png
 quests.png
 rabus.png
+row-1-column-1 (1).png
+row-1-column-2 (1).png
+row-1-column-3 (4).png
 shield.png
 smallpanel.png
 tiles/bridge.png

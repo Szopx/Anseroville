@@ -7,7 +7,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import io.github.anseroville.viewModel.FarmViewModel;
-
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector3;
 public class LobbyRenderer {
 
     private static final float TITLE_W = 1000f;
@@ -50,8 +51,15 @@ public class LobbyRenderer {
         this.smallFont     = assetProvider.getSmallestFont();
     }
 
+    // dodaj ten import na górze pliku
+
     public void render() {
         if (!viewModel.isLobbyOpen()) return;
+
+        // --- DODANE: Pobranie pozycji myszki i przeliczenie na koordynaty kamery ---
+        Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+        camera.unproject(mousePos);
+        // -------------------------------------------------------------------------
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
@@ -59,12 +67,15 @@ public class LobbyRenderer {
         drawBackground();
         drawTitle();
         drawSidePanel();
-        drawButtons();
+        drawButtons(mousePos); // <-- Przekazujemy pozycję myszki
         drawText();
 
         batch.end();
 
         resetFontColors();
+    }
+    private boolean isHovered(float mouseX, float mouseY, float x, float y, float width, float height) {
+        return mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height;
     }
 
     private void drawBackground() {
@@ -100,15 +111,30 @@ public class LobbyRenderer {
         batch.draw(panel, x, y, PANEL_W, PANEL_H);
     }
 
-    private void drawButtons() {
-        Texture btn = assetProvider.getButtonTexture();   // button.png
+    // Dodajemy parametr mousePos
+    private void drawButtons(Vector3 mousePos) {
+        Texture btn = assetProvider.getButtonTexture();
+        Texture btnHover = assetProvider.getButtonHoverTexture(); // Twoja nowa tekstura
 
         float x = getButtonX(camera.viewportWidth);
 
-        batch.draw(btn, x, getStartButtonY(camera.viewportHeight),    BUTTON_WIDTH, BUTTON_HEIGHT);
-        batch.draw(btn, x, getHelpButtonY(camera.viewportHeight),     BUTTON_WIDTH, BUTTON_HEIGHT);
-        batch.draw(btn, x, getSettingsButtonY(camera.viewportHeight), BUTTON_WIDTH, BUTTON_HEIGHT);
-        batch.draw(btn, x, getExitButtonY(camera.viewportHeight),     BUTTON_WIDTH, BUTTON_HEIGHT);
+        float startY = getStartButtonY(camera.viewportHeight);
+        float helpY = getHelpButtonY(camera.viewportHeight);
+        float settingsY = getSettingsButtonY(camera.viewportHeight);
+        float exitY = getExitButtonY(camera.viewportHeight);
+
+        // Rysujemy odpowiednią teksturę w zależności od tego, czy kursor jest nad przyciskiem
+        batch.draw(isHovered(mousePos.x, mousePos.y, x, startY, BUTTON_WIDTH, BUTTON_HEIGHT) ? btnHover : btn,
+                x, startY, BUTTON_WIDTH, BUTTON_HEIGHT);
+
+        batch.draw(isHovered(mousePos.x, mousePos.y, x, helpY, BUTTON_WIDTH, BUTTON_HEIGHT) ? btnHover : btn,
+                x, helpY, BUTTON_WIDTH, BUTTON_HEIGHT);
+
+        batch.draw(isHovered(mousePos.x, mousePos.y, x, settingsY, BUTTON_WIDTH, BUTTON_HEIGHT) ? btnHover : btn,
+                x, settingsY, BUTTON_WIDTH, BUTTON_HEIGHT);
+
+        batch.draw(isHovered(mousePos.x, mousePos.y, x, exitY, BUTTON_WIDTH, BUTTON_HEIGHT) ? btnHover : btn,
+                x, exitY, BUTTON_WIDTH, BUTTON_HEIGHT);
     }
 
     private void drawText() {
