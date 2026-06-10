@@ -51,15 +51,12 @@ public class LobbyRenderer {
         this.smallFont     = assetProvider.getSmallestFont();
     }
 
-    // dodaj ten import na górze pliku
 
     public void render() {
         if (!viewModel.isLobbyOpen()) return;
 
-        // --- DODANE: Pobranie pozycji myszki i przeliczenie na koordynaty kamery ---
         Vector3 mousePos = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
         camera.unproject(mousePos);
-        // -------------------------------------------------------------------------
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
@@ -67,7 +64,7 @@ public class LobbyRenderer {
         drawBackground();
         drawTitle();
         drawSidePanel();
-        drawButtons(mousePos); // <-- Przekazujemy pozycję myszki
+        drawButtons(mousePos);
         drawText();
 
         batch.end();
@@ -103,7 +100,7 @@ public class LobbyRenderer {
     }
 
     private void drawSidePanel() {
-        Texture panel = assetProvider.getSidePanelTexture();   // side.png
+        Texture panel = assetProvider.getSidePanelTexture();
 
         float x = getPanelX();
         float y = getPanelY();
@@ -111,10 +108,9 @@ public class LobbyRenderer {
         batch.draw(panel, x, y, PANEL_W, PANEL_H);
     }
 
-    // Dodajemy parametr mousePos
     private void drawButtons(Vector3 mousePos) {
         Texture btn = assetProvider.getButtonTexture();
-        Texture btnHover = assetProvider.getButtonHoverTexture(); // Twoja nowa tekstura
+        Texture btnHover = assetProvider.getButtonHoverTexture();
 
         float x = getButtonX(camera.viewportWidth);
 
@@ -123,7 +119,6 @@ public class LobbyRenderer {
         float settingsY = getSettingsButtonY(camera.viewportHeight);
         float exitY = getExitButtonY(camera.viewportHeight);
 
-        // Rysujemy odpowiednią teksturę w zależności od tego, czy kursor jest nad przyciskiem
         batch.draw(isHovered(mousePos.x, mousePos.y, x, startY, BUTTON_WIDTH, BUTTON_HEIGHT) ? btnHover : btn,
                 x, startY, BUTTON_WIDTH, BUTTON_HEIGHT);
 
@@ -157,14 +152,14 @@ public class LobbyRenderer {
 
         smallFont.setColor(TEXT);
         float[] bys    = getBulletYs(py);
-        float offset = - 150f;
+        float offset = - 100f;
         String[] items = { "GROW CROPS", "WATER AND CARE", "HARVEST CROPS", "COMPLETE QUESTS", "UNLOCK NEW AREAS" };
         for (int i = 0; i < items.length; i++) {
-            smallFont.draw(batch, items[i], px + +30, bys[i] + 6f+offset);
+            smallFont.draw(batch, items[i], px + +50, bys[i] + 6f+offset);
         }
 
         smallFont.setColor(TEXT_GOLD);
-        drawCentered(smallFont, "Main quests move you forward.", px, py + 46f, PANEL_W);
+        drawCentered(smallFont, "Main quests move you forward.", px, py + 86f, PANEL_W);
 
         textFont.setColor(TEXT);
         drawCentered(textFont, "START GAME",  bx, getStartButtonY(H)    + BUTTON_HEIGHT / 2f + 9f, BUTTON_WIDTH);

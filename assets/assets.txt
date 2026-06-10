@@ -1,11 +1,3 @@
-1781031348674.png
-1781031405762.png
-1781031449242.png
-1781031597886.png
-1781040449785.png
-1781040591481.png
-1781040678692.png
-1781040798820.png
 S_button.png
 S_close_button.png
 backgrounds/autumnbg.png
@@ -31,7 +23,6 @@ lamp.png
 libgdx.png
 logo.png
 longpanel.png
-npcs/1781040798820.png
 npcs/chicken/0.png
 npcs/chicken/1.png
 npcs/chicken/selected.png
