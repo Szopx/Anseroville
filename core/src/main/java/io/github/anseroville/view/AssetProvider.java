@@ -140,7 +140,7 @@ public class AssetProvider {
         //loose
         this.questBackgroundTexture = new Texture("quests.png");
         this.coinTexture = new Texture("coin.png");
-        this.helpWoodTexture = new Texture("help_wood.png");
+        this.helpWoodTexture = new Texture("help.png");
 
 
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);

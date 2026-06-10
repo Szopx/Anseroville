@@ -52,7 +52,7 @@ public class ShopRenderer {
         index = 0;
 
         for (ItemType itemType : state.getSellPrices().keySet()) {
-            int amount = state.getSellPrices().get(itemType); //todo praktycznie duplikat kodu z inventory
+            int amount = state.getSellPrices().get(itemType); //todo praktycznie duplikat kodu z inventory O: i uj
             renderItem(itemType, amount, startX, startY, index);
             index++;
         }

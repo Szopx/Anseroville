@@ -19,12 +19,11 @@ csheep.png
 end.png
 final.png
 help.png
-help_wood.png
-ivy_corner.png
 lamp.png
 libgdx.png
 logo.png
 longpanel.png
+npcs/1781040798820.png
 npcs/chicken/0.png
 npcs/chicken/1.png
 npcs/chicken/selected.png
@@ -91,6 +90,9 @@ player/right/1.png
 player/right/2.png
 quests.png
 rabus.png
+row-1-column-1 (1).png
+row-1-column-2 (1).png
+row-1-column-3 (4).png
 shield.png
 smallpanel.png
 tiles/bridge.png
