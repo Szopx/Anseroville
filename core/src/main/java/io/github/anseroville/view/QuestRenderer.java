@@ -1,13 +1,19 @@
 package io.github.anseroville.view;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import io.github.anseroville.enums.ActivityTileType;
 import io.github.anseroville.enums.ItemType;
 import io.github.anseroville.viewModel.FarmViewModel;
 import io.github.anseroville.viewModel.InventoryViewState;
 import io.github.anseroville.viewModel.QuestViewState;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import io.github.anseroville.viewModel.TileViewState;
+
 import java.util.Map;
 
 public class QuestRenderer {
@@ -18,6 +24,9 @@ public class QuestRenderer {
     private final AssetProvider assetProvider;
     private final FarmViewModel viewModel;
     private final OrthographicCamera camera;
+    private float animalOffsetX = 0f;
+    private int lastLevelNumber = -1;
+    private float stateTime = 0f;
 
     public QuestRenderer(FarmViewModel viewModel,
                          OrthographicCamera camera,
@@ -33,6 +42,19 @@ public class QuestRenderer {
     }
 
     public void render() {
+        float delta = Gdx.graphics.getDeltaTime();
+        stateTime += delta;
+        if (viewModel.getLevelNumber() != lastLevelNumber) {
+            animalOffsetX = camera.viewportWidth;
+            lastLevelNumber = viewModel.getLevelNumber();
+        }
+
+        if (animalOffsetX > 0) {
+            animalOffsetX -= 200f * delta;
+            if (animalOffsetX < 0) {
+                animalOffsetX = 0f;
+            }
+        }
         batch.setProjectionMatrix(camera.combined);
         QuestViewState state=viewModel.getQuestViewState();
         InventoryViewState invState=viewModel.getInventoryViewState();
@@ -75,6 +97,17 @@ public class QuestRenderer {
         float currentY=textStartY-35;
 
         currentY=renderQuests(startX, currentY, mainQuest, invState, -1);
+        if (animalOffsetX > 0) {
+            for (TileViewState tile : viewModel.getTileViewStates()) {
+                ActivityTileType type = tile.getActivityTileType();
+                if (type == ActivityTileType.QUEST) {
+                    TextureRegion frame = assetProvider.getGeeseAnim().getKeyFrame(stateTime, true);
+                    batch.draw(frame, tile.getX() + animalOffsetX, tile.getY(), frame.getRegionWidth() * 3, frame.getRegionHeight() * 3);
+                }
+            }
+            batch.end();
+            return;
+        }
 
         if (!state.isActiveQuestAvailable()) {
             font.draw(batch, "YOU HAVE FINISHED", textStartX-45, currentY);

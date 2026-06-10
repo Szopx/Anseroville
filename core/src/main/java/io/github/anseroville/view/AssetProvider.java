@@ -1,9 +1,11 @@
 package io.github.anseroville.view;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import io.github.anseroville.enums.GrowingState;
 import io.github.anseroville.enums.ItemType;
@@ -37,23 +39,23 @@ public class AssetProvider {
 
     private final Texture shopTexture;
     private final Texture shopTexture_selected;
-    private final Texture gamblingTexture;
     final Texture lobbyTitleTexture;
 
 
     private final Texture helpWoodTexture;
     final Texture gamblingTextureSelected;
 
-    final Texture chickenTexture;
-    //final Texture chickenTexture_selected;
-    final Texture geeseTexture;
-    //final Texture geeseTexture_selected;
-    final Texture hedgehogTexture;
-    //final Texture hedgehogTexture_selected;
-    final Texture sheepTexture;
-    //final Texture sheepTexture_selected;
-    final Texture frogTexture;
-    //final Texture frogTexture_selected;
+    private final Animation<TextureRegion> playerFrontAnim;
+    private final Animation<TextureRegion> playerBackAnim;
+    private final Animation<TextureRegion> playerRightAnim;
+    private final Animation<TextureRegion> playerLeftAnim;
+    private final Animation<TextureRegion> chickenAnim;
+    private final Animation<TextureRegion> geeseAnim;
+    private final Animation<TextureRegion> hedgehogAnim;
+    private final Animation<TextureRegion> sheepAnim;
+    private final Animation<TextureRegion> frogAnim;
+    private final Animation<TextureRegion> pidgeonAnim;
+    private final Array<Texture> animationFrames;
     Texture titleTexture;
     Texture sidePanelTexture;
     Texture buttonTexture;
@@ -67,19 +69,10 @@ public class AssetProvider {
 
     private final Texture bridgeTexture;
     private final Texture bridgeTextureSelected;
-    private final Texture playerFrontTexture;
-    private final Texture playerBackTexture;
-    private final Texture playerRightTexture;
-    private final Texture playerLeftTexture;
-    //private final Texture chickenTexture;
     private final Texture chickenTextureSelected;
-    //private final Texture geeseTexture;
     private final Texture geeseTextureSelected;
-    //private final Texture hedgehogTexture;
     private final Texture hedgehogTextureSelected;
-    //private final Texture sheepTexture;
     private final Texture sheepTextureSelected;
-    //private final Texture frogTexture;
     private final Texture frogTextureSelected;
     private final Texture nightWithLampTexture;
     private final Texture nightWithoutLampTexture;
@@ -124,17 +117,24 @@ public class AssetProvider {
         this.bridgeTextureSelected= new Texture("tiles/bridge_selected.png");;
 
         //npcs
-        this.gamblingTexture = new Texture("npcs/pidgeon/0.png");
         this.gamblingTextureSelected = new Texture("npcs/pidgeon/selected.png");
-        this.chickenTexture = new Texture("npcs/chicken/0.png");
-        this.chickenTextureSelected = new Texture("npcs/chicken/selected.png");;
-        this.geeseTexture= new Texture("npcs/geese/0.png");
+        this.animationFrames = new Array<>();
+        this.playerFrontAnim = loadAnimation(0.2f, "player/front/0.png", "player/front/1.png", "player/front/2.png");
+        this.playerBackAnim = loadAnimation(0.2f, "player/back/0.png", "player/back/1.png", "player/back/2.png");
+        this.playerRightAnim = loadAnimation(0.2f, "player/right/0.png", "player/right/1.png", "player/right/2.png");
+        this.playerLeftAnim = loadAnimation(0.2f, "player/left/0.png", "player/left/1.png", "player/left/2.png");
+
+        this.chickenAnim = loadAnimation(0.4f, "npcs/chicken/0.png", "npcs/chicken/1.png");
+        this.geeseAnim = loadAnimation(0.4f, "npcs/geese/0.png", "npcs/geese/1.png", "npcs/geese/3.png");
+        this.hedgehogAnim = loadAnimation(0.4f, "npcs/hedgehog/0.png", "npcs/hedgehog/1.png", "npcs/hedgehog/2.png");
+        this.sheepAnim = loadAnimation(0.4f, "npcs/sheep/0.png", "npcs/sheep/1.png", "npcs/sheep/2.png");
+        this.frogAnim = loadAnimation(0.25f, "npcs/frog/0.png", "npcs/frog/1.png", "npcs/frog/2.png", "npcs/frog/3.png", "npcs/frog/4.png", "npcs/frog/5.png", "npcs/frog/6.png", "npcs/frog/7.png", "npcs/frog/8.png");
+        this.pidgeonAnim = loadAnimation(1f, "npcs/pidgeon/0.png", "npcs/pidgeon/1.png");
+
+        this.chickenTextureSelected = new Texture("npcs/chicken/selected.png");
         this.geeseTextureSelected= new Texture("npcs/geese/selected.png");
-        this.hedgehogTexture= new Texture("npcs/hedgehog/0.png");
         this.hedgehogTextureSelected= new Texture("npcs/hedgehog/selected.png");
-        this.sheepTexture= new Texture("npcs/sheep/0.png");
         this.sheepTextureSelected= new Texture("npcs/sheep/selected.png");
-        this.frogTexture= new Texture("npcs/frog/0.png");
         this.frogTextureSelected= new Texture("npcs/frog/selected.png");
 
 
@@ -142,17 +142,6 @@ public class AssetProvider {
         this.questBackgroundTexture = new Texture("quests.png");
         this.coinTexture = new Texture("coin.png");
         this.helpWoodTexture = new Texture("help.png");
-
-
-        //player
-        this.playerFrontTexture = new Texture("player/front/0.png");;
-        this.playerBackTexture= new Texture("player/back/0.png");;
-        this.playerRightTexture = new Texture("player/right/0.png");;
-        this.playerLeftTexture = new Texture("player/left/0.png");;
-
-
-
-
 
 
         Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
@@ -177,6 +166,27 @@ public class AssetProvider {
         loadAllItems();
     }
 
+    private Animation<TextureRegion> loadAnimation(float frameDuration, String... paths) {
+        Array<TextureRegion> frames = new Array<>();
+        for (String path : paths) {
+            Texture tex = new Texture(path);
+            animationFrames.add(tex);
+            frames.add(new TextureRegion(tex));
+        }
+        return new Animation<>(frameDuration, frames);
+    }
+
+    public Animation<TextureRegion> getPlayerFrontAnim() { return playerFrontAnim; }
+    public Animation<TextureRegion> getPlayerBackAnim() { return playerBackAnim; }
+    public Animation<TextureRegion> getPlayerRightAnim() { return playerRightAnim; }
+    public Animation<TextureRegion> getPlayerLeftAnim() { return playerLeftAnim; }
+    public Animation<TextureRegion> getChickenAnim() { return chickenAnim; }
+    public Animation<TextureRegion> getGeeseAnim() { return geeseAnim; }
+    public Animation<TextureRegion> getHedgehogAnim() { return hedgehogAnim; }
+    public Animation<TextureRegion> getSheepAnim() { return sheepAnim; }
+    public Animation<TextureRegion> getFrogAnim() { return frogAnim; }
+    public Animation<TextureRegion> getPidgeonAnim() { return pidgeonAnim; }
+
     public Texture getBridgeTexture() {
         return bridgeTexture;
     }
@@ -185,56 +195,20 @@ public class AssetProvider {
         return bridgeTextureSelected;
     }
 
-    public Texture getPlayerFrontTexture() {
-        return playerFrontTexture;
-    }
-
-    public Texture getPlayerBackTexture() {
-        return playerBackTexture;
-    }
-
-    public Texture getPlayerRightTexture() {
-        return playerRightTexture;
-    }
-
-    public Texture getPlayerLeftTexture() {
-        return playerLeftTexture;
-    }
-
-    public Texture getChickenTexture() {
-        return chickenTexture;
-    }
-
     public Texture getChickenTextureSelected() {
         return chickenTextureSelected;
-    }
-
-    public Texture getGeeseTexture() {
-        return geeseTexture;
     }
 
     public Texture getGeeseTextureSelected() {
         return geeseTextureSelected;
     }
 
-    public Texture getHedgehogTexture() {
-        return hedgehogTexture;
-    }
-
     public Texture getHedgehogTextureSelected() {
         return hedgehogTextureSelected;
     }
 
-    public Texture getSheepTexture() {
-        return sheepTexture;
-    }
-
     public Texture getSheepTextureSelected() {
         return sheepTextureSelected;
-    }
-
-    public Texture getFrogTexture() {
-        return frogTexture;
     }
 
     public Texture getFrogTextureSelected() {
@@ -287,7 +261,6 @@ public class AssetProvider {
         return null;
     }
     public Texture getShopTexture(){return shopTexture;}
-    public Texture getGamblingTexture(){return gamblingTexture;}
 
     public Texture getFieldTexture(){
         return fieldTexture;
@@ -383,6 +356,8 @@ public class AssetProvider {
         for (Texture texture : itemTextures.values()) {
             texture.dispose();
         }
+
+        for (Texture texture : animationFrames) { texture.dispose(); }
 
         bigFont.dispose();
         smallestFont.dispose();
