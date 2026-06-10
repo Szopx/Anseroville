@@ -332,7 +332,7 @@ public class FarmViewModel {
             return new NightViewState(false, true, 0f, false);
 
         return new NightViewState(nightManager.isNight(), nightManager.hasTorch(),
-                nightManager.getRemainingTime(), nightManager.hasShield());
+                nightManager.getNightRemainingTime(), nightManager.hasShield());
     }
 
     public boolean isNightWithoutTorch() {

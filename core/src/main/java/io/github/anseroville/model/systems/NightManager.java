@@ -65,9 +65,6 @@ public class NightManager {
     }
 
     public float getNightRemainingTime() {
-        /*if (!isNight()) {
-            return 0f;
-        }*/
         return dayNightCycle.getRemainingTime();
     }
 
@@ -76,7 +73,6 @@ public class NightManager {
 
         if (inventory.has(ItemType.SHIELD, 1)) {
             shieldThisNight = true;
-            //System.out.println("Masz tarcze - uprawy sa bezpieczne.");
             inventory.remove(ItemType.SHIELD, 1);
             return;
         }
@@ -104,4 +100,5 @@ public class NightManager {
     public boolean hasShield(){
         return shieldThisNight;
     }
+
 }
