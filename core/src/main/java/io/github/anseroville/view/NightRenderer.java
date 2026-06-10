@@ -31,7 +31,7 @@ public class NightRenderer {
             return;
         }
 
-        batch.begin(); // todo: przesunac to wszystko w jedno miejsce
+        batch.begin(); // todo: przesunac to wszystko w jedno miejsce #nochybaty
         batch.setProjectionMatrix(camera.combined);
 
         if (nightViewState.hasTorch()) {

@@ -141,7 +141,7 @@ public class AssetProvider {
         //loose
         this.questBackgroundTexture = new Texture("quests.png");
         this.coinTexture = new Texture("coin.png");
-        this.helpWoodTexture = new Texture("help_wood.png");
+        this.helpWoodTexture = new Texture("help.png");
 
 
         //player
@@ -254,7 +254,6 @@ public class AssetProvider {
         registerPlant(ItemType.CORN, "plants/corn/0.png", "plants/corn/1.png", "plants/corn/3.png");
         registerPlant(ItemType.WHEAT, "plants/wheat/0.png", "plants/wheat/1.png", "plants/wheat/3.png");
         registerPlant(ItemType.POTATO, "plants/potato/0.png", "plants/potato/1.png", "plants/potato/3.png");}
-    //z jakiegoś powodu wheat jest niższy niż powinien, zamknę ten problem później todo wiem jak
 
     private void loadAllItems() {
         itemTextures.put(ItemType.CARROT, new Texture("plants/carrot/item.png"));

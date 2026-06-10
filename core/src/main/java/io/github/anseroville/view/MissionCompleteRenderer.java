@@ -62,7 +62,7 @@ public class MissionCompleteRenderer {
             return;
         }
         batch.begin();
-        System.out.println(viewModel.getCompletedLevelNumber());
+        //System.out.println(viewModel.getCompletedLevelNumber());
         if (viewModel.getCompletedLevelNumber() == -1) {
             batch.draw(assetProvider.comix1, 0, 0, camera.viewportWidth, camera.viewportHeight);
         }
